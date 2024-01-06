@@ -1,0 +1,44 @@
+[
+    {
+        "user_id": 1,
+        "username": "john_doe",
+        "email": "john@example.com",
+        "role": "creator",
+        "content_type": "video",
+        "creation_frequency": "weekly",
+        "monthly_earnings": 500.0,
+        "join_date": "2023-01-15",
+        "membership_level": "gold",
+        "monthly_contribution": 20.0
+    },
+    {
+        "user_id": 2,
+        "username": "linda_wilson",
+        "email": "linda@example.com",
+        "role": "creator",
+        "content_type": "art",
+        "creation_frequency": "monthly",
+        "monthly_earnings": 800.0,
+        "join_date": "2023-04-20",
+        "membership_level": "platinum",
+        "monthly_contribution": 30.0
+    },
+    {
+        "user_id": 3,
+        "username": "sam_carter",
+        "email": "sam@example.com",
+        "role": "subscriber",
+        "membership_level": "gold",
+        "monthly_contribution": 20.0,
+        "join_date": "2023-05-12"
+    },
+    {
+        "user_id": 4,
+        "username": "linda_wilson_subscriber",
+        "email": "linda@example.com",
+        "role": "subscriber",
+        "membership_level": "platinum",
+        "monthly_contribution": 30.0,
+        "join_date": "2023-04-20"
+    }
+]  
