@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MainPageComponent from './components/MainPage/MainPageComponent.vue';
+import MainPageComponent from '@/components/MainPage/MainPageComponent.vue';
 
 export default {
   components: { MainPageComponent },
@@ -24,8 +24,7 @@ export default {
 };
 </script>
 
-<style>
-@import "../public/style.css"; 
+<style lang="scss">
 body {
   font-family: var(--main-font);
   margin: 0;
