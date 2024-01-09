@@ -26,6 +26,10 @@
             <div class="content-container">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vitae dolores totam velit tempora praesentium veniam aliquam nulla eum illo, necessitatibus corrupti esse cupiditate obcaecati molestias! Animi maxime rerum iste.
             </div>
+
+            <h1 class="text-green-700 bg-red-500">
+              Hello world!
+            </h1>
         </div>
     </div>
 </template>
@@ -34,7 +38,11 @@
 import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue';
 export default{
     name:'MainPageComponent',
-    components:{MainPageHeader}
+    components:{MainPageHeader},
+    mounted(){
+      console.log(this.$route)
+      console.log(this.$router);
+    }
 }
 </script>
 

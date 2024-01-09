@@ -1,7 +1,12 @@
 <template>
-  <main-page-component>
+  <div>
+    <main-page-component>
+    </main-page-component>
 
-  </main-page-component>
+    
+  </div>
+
+
 </template>
 
 <script>

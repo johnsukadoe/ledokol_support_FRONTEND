@@ -5,16 +5,26 @@
     </div>
     <nav>
       <ul>
-        <li><a href="#">Войти</a></li>
-        <li><a href="#">Зарегистрироваться</a></li>
+        <li><button @click="showSignInModal=true;">Войти</button></li>
+        <li><button @click="showSignUpModal=true;">Зарегистрироваться</button></li>
       </ul>
     </nav>
+
+    <signModalComponentVue v-if="showSignUpModal"></signModalComponentVue>
   </header>
 </template>
 
 <script>
+import signModalComponentVue from '@/components/MainPage/components/signModalComponent.vue'
 export default {
-  name: 'MainPageHeader'
+  name: 'MainPageHeader',
+  components:{signModalComponentVue},
+  data(){
+    return{
+      showSignInModal:false,
+      showSignUpModal:false,
+    }
+  },
 }
 </script>
 
@@ -53,19 +63,21 @@ export default {
       justify-content: flex-end;
     }
 
-    a {
-      text-decoration: none;
-      margin: 0 15px;
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
       color: inherit;
       font-weight: bold;
       font-size: 16px;
       transition: color 0.3s ease;
+      margin: 0 15px;
+      padding: 0;
     }
 
-    a:hover {
+    button:hover {
       color: #ffcc00;
     }
   }
 }
 </style>
-
