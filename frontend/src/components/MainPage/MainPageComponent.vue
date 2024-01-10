@@ -2,17 +2,17 @@
     <div class="body">
         <div class="full-screen">
             <div class="full-screen__body header">
-                <main-page-header></main-page-header>
+                <main-page-header @handleModal="handleModal"></main-page-header>
             </div>
             <div class="full-screen__body">
                 <div class="full-screen__subtext">
-                    <h3>поддерживай, вдохновляй, создавай будущее!</h3>
+                    <h3 class="font-bold text-lg">поддерживай, вдохновляй, создавай будущее!</h3>
                 </div>
                 <div class="full-screen__title">
-                    <h1>Открой двери творчества</h1>
+                    <h1 class="font-bold text-3xl my-5">Открой двери творчества</h1>
                 </div>
                 <div class="full-screen__text">
-                    <h2>вместе с Patreon</h2>
+                    <h2 class="font-bold text-2xl">вместе с ledokol</h2>
                 </div>
               <div class="full-screen__button">
                 <button>Создать комнату</button>
@@ -23,26 +23,30 @@
             </video>
         </div>
         <div class="contentCSS">
-            <div class="content-container">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis vitae dolores totam velit tempora praesentium veniam aliquam nulla eum illo, necessitatibus corrupti esse cupiditate obcaecati molestias! Animi maxime rerum iste.
-            </div>
-
-            <h1 class="text-green-700 bg-red-500">
-              Hello world!
-            </h1>
+          <signModalComponentVue :showModal="showModal" v-if="showModal" @closeModal="closeModal" ></signModalComponentVue>
         </div>
     </div>
 </template>
 
 <script>
 import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue';
+import signModalComponentVue from "@/components/MainPage/components/signModalComponent.vue";
 export default{
-    name:'MainPageComponent',
-    components:{MainPageHeader},
-    mounted(){
-      console.log(this.$route)
-      console.log(this.$router);
+  name:'MainPageComponent',
+  components:{signModalComponentVue, MainPageHeader},
+  data(){
+    return{
+      showModal:'',
     }
+  },
+  methods:{
+    handleModal(modal){
+      this.showModal = modal;
+    },
+    closeModal(){
+      this.showModal='';
+    }
+  }
 }
 </script>
 
@@ -132,7 +136,7 @@ export default{
 
 .contentCSS {
   position: relative;
-  z-index: 5;
+  z-index: 20000;
   background: #fff;
 }
 

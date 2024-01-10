@@ -1,16 +1,15 @@
 <template>
   <header class="main-page-header">
     <div class="logo">
-      <a href="#"><h1>Ledokol</h1></a>
+      <a href="#"><img src="@/assets/logo.png"></a>
     </div>
     <nav>
       <ul>
-        <li><button @click="showSignInModal=true;">Войти</button></li>
-        <li><button @click="showSignUpModal=true;">Зарегистрироваться</button></li>
+        <li><button @click="$emit('handleModal', 'SignIn')">Войти</button></li>
+        <li><button @click="$emit('handleModal', 'SignUp')">Зарегистрироваться</button></li>
       </ul>
     </nav>
 
-    <signModalComponentVue v-if="showSignUpModal"></signModalComponentVue>
   </header>
 </template>
 
@@ -21,10 +20,9 @@ export default {
   components:{signModalComponentVue},
   data(){
     return{
-      showSignInModal:false,
-      showSignUpModal:false,
     }
   },
+
 }
 </script>
 
@@ -39,6 +37,9 @@ export default {
       font-family: var(--logo-font);
       font-size: 28px;
     }
+    img{
+      width: 160px;
+    }
   }
 }
 
@@ -51,7 +52,7 @@ export default {
 
   .logo {
     img {
-      max-width: 100%;
+      max-width: 50%;
       height: auto;
     }
   }
