@@ -5,8 +5,8 @@
     </div>
     <nav>
       <ul>
-        <li><button @click="$emit('handleModal', 'SignIn')">Войти</button></li>
-        <li><button @click="$emit('handleModal', 'SignUp')">Зарегистрироваться</button></li>
+        <li><button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:false} });">Войти</button></li>
+        <li><button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:true} });">Зарегистрироваться</button></li>
       </ul>
     </nav>
 
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import signModalComponentVue from '@/components/MainPage/components/signModalComponent.vue'
+import signComponent from '@/components/MainPage/SignInUp/signComponent.vue'
 export default {
   name: 'MainPageHeader',
-  components:{signModalComponentVue},
+  components:{signComponent},
   data(){
     return{
     }

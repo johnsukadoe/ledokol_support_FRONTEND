@@ -9,7 +9,8 @@
     "monthly_earnings": 500,
     "join_date": "2023-01-15",
     "membership_level": "gold",
-    "monthly_contribution": 20
+    "monthly_contribution": 20,
+    "password": "something2024"
   },
   {
     "user_id": 2,
@@ -21,37 +22,89 @@
     "monthly_earnings": 800,
     "join_date": "2023-04-20",
     "membership_level": "platinum",
-    "monthly_contribution": 30
+    "monthly_contribution": 30,
+    "password": "something2024"
   },
   {
     "user_id": 3,
     "username": "sam_carter",
     "email": "sam@example.com",
     "role": "subscriber",
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": "2023-05-12",
     "membership_level": "gold",
     "monthly_contribution": 20,
-    "join_date": "2023-05-12"
+    "password": "something2024"
   },
   {
     "user_id": 4,
     "username": "linda_wilson_subscriber",
     "email": "linda@example.com",
     "role": "subscriber",
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": "2023-04-20",
     "membership_level": "platinum",
     "monthly_contribution": 30,
-    "join_date": "2023-04-20"
+    "password": "something2024"
   },
   {
+    "user_id": 5,
     "username": "miras",
     "email": "mirasshynar4234@gmail.com",
-    "_id": "659e4133a39abc3ba43b2b5b",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
+    "password": "something2024"
+  },
+  {
+    "user_id": 6,
+    "username": "mirass",
+    "email": "mirasshynar4234@gmail.com",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
+    "password": "something2024"
+  },
+  {
+    "username": "xnkui",
+    "email": "bking4234@gmail.com",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
+    "password": "qPz8am91",
+    "_id": "659e76f4750139f298f1b121",
+    "user_id": 8,
     "__v": 0
   },
   {
-    "username": "mirass",
-    "email": "mirasshynar4234@gmail.com",
+    "username": "jojojo",
+    "email": "bking4234@gmail.com",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
     "password": "qPz8am91",
-    "_id": "659e4199547e060fa6c0cb7e",
+    "_id": "659f77a5da89c4b112d501a1",
+    "user_id": 9,
     "__v": 0
   }
 ]

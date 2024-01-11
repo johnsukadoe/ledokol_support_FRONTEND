@@ -2,7 +2,7 @@
     <div class="body">
         <div class="full-screen">
             <div class="full-screen__body header">
-                <main-page-header @handleModal="handleModal"></main-page-header>
+                <main-page-header></main-page-header>
             </div>
             <div class="full-screen__body">
                 <div class="full-screen__subtext">
@@ -23,30 +23,19 @@
             </video>
         </div>
         <div class="contentCSS">
-          <signModalComponentVue :showModal="showModal" v-if="showModal" @closeModal="closeModal" ></signModalComponentVue>
         </div>
     </div>
 </template>
 
 <script>
 import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue';
-import signModalComponentVue from "@/components/MainPage/components/signModalComponent.vue";
 export default{
   name:'MainPageComponent',
-  components:{signModalComponentVue, MainPageHeader},
+  components:{MainPageHeader},
   data(){
     return{
-      showModal:'',
     }
   },
-  methods:{
-    handleModal(modal){
-      this.showModal = modal;
-    },
-    closeModal(){
-      this.showModal='';
-    }
-  }
 }
 </script>
 

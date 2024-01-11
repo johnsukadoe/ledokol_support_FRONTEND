@@ -29,16 +29,42 @@ const combinedSchema = new mongoose.Schema({
 
 const Combined = mongoose.model('users', combinedSchema);
 
-// Путь к файлу users.json в папке db/data
 const usersFilePath = path.join(__dirname, '..', 'db', 'data', 'users.json');
 
-// Обработчик POST-запроса для создания нового пользователя и перезаписи users.json
+app.get('/users', async (req, res) => {
+    try {
+        let query = {};
+
+        // Если есть параметры в запросе, формируем объект query для фильтрации
+        if (req.query.username) {
+            query.username = req.query.username;
+        }
+
+        if (req.query.email) {
+            query.email = req.query.email;
+        }
+
+        // Добавьте другие параметры, если необходимо
+
+        const users = await Combined.find(query);
+
+        res.status(200).json(users);
+    } catch (error) {
+        console.error('Error getting users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.post('/users', async (req, res) => {
     try {
         const newUser = new Combined(req.body);
+
+        const lastUser = await Combined.findOne({}, {}, { sort: { 'user_id': -1 } });
+
+        newUser.user_id = lastUser ? lastUser.user_id + 1 : 1;
+
         const savedUser = await newUser.save();
 
-        // Получаем текущее содержимое файла users.json (если он существует)
         let currentData = [];
         try {
             const fileContent = await fs.readFile(usersFilePath, 'utf-8');
@@ -47,7 +73,6 @@ app.post('/users', async (req, res) => {
             console.error('Error reading users.json:', error);
         }
 
-        // Добавляем нового пользователя и перезаписываем файл
         currentData.push(savedUser);
         await fs.writeFile(usersFilePath, JSON.stringify(currentData, null, 2), 'utf-8');
 
@@ -57,7 +82,6 @@ app.post('/users', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

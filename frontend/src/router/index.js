@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+// Import individual route files
+import mainPageRoutes from './main-page-router';
+
 const routes = [
-  {
-    path: '/',
-    component: () => import('../components/MainPage/MainPageComponent.vue'), 
-  },
+  // Other routes can be added here if needed
+  ...mainPageRoutes,
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(), // Use createWebHashHistory() for hash mode
   routes,
 });
 
