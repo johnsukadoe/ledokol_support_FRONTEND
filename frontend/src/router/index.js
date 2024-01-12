@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Import individual route files
-import mainPageRoutes from './main-page-router';
-
+import mainPageRouter from "@/router/main-page-router.js";
+import homepageRouter from "@/router/homepage-router.js";
 const routes = [
-  // Other routes can be added here if needed
-  ...mainPageRoutes,
+  ...mainPageRouter,
+  ...homepageRouter
 ];
 
 const router = createRouter({

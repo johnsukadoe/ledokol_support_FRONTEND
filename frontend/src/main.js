@@ -1,10 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import './style.scss';
-
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+
+import './style.scss';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faArrowLeft, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faArrowLeft, faMagnifyingGlass)
 
 import router from './router';
 import store from './store';
@@ -18,5 +24,6 @@ app.use(VueAxios, axios);
 app.use(ElementPlus);
 app.use(router);
 app.use(store);
+app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.mount('#app');

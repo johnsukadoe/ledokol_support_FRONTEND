@@ -46,14 +46,21 @@ app.get('/users', async (req, res) => {
 
         // Добавьте другие параметры, если необходимо
 
-        const users = await Combined.find(query);
+        // Предположим, у вас есть уникальный идентификатор пользователя user_id
+        if (req.query.user_id) {
+            query.user_id = req.query.user_id;
+        }
 
-        res.status(200).json(users);
+        // Используйте findOne вместо find, чтобы вернуть только одного пользователя
+        const user = await Combined.findOne(query);
+
+        res.status(200).json(user);
     } catch (error) {
-        console.error('Error getting users:', error);
+        console.error('Error getting user:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 app.post('/users', async (req, res) => {
     try {
@@ -64,6 +71,12 @@ app.post('/users', async (req, res) => {
         newUser.user_id = lastUser ? lastUser.user_id + 1 : 1;
 
         const savedUser = await newUser.save();
+
+        // Обновление данных в MongoDB
+        const query = { user_id: savedUser.user_id };  // Задайте соответствующий критерий поиска
+        const updateData = { $set: req.body };  // Используйте новые данные из POST-запроса
+
+        await Combined.updateOne(query, updateData);
 
         let currentData = [];
         try {
@@ -82,6 +95,7 @@ app.post('/users', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

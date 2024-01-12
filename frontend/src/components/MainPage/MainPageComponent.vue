@@ -15,7 +15,7 @@
                     <h2 class="font-bold text-2xl">вместе с ledokol</h2>
                 </div>
               <div class="full-screen__button">
-                <button>Создать комнату</button>
+                <button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:true} });">Создать комнату</button>
               </div>
             </div>
             <video autoplay muted loop preload="auto" class="full-screen__video">
@@ -32,10 +32,6 @@ import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue'
 export default{
   name:'MainPageComponent',
   components:{MainPageHeader},
-  data(){
-    return{
-    }
-  },
 }
 </script>
 

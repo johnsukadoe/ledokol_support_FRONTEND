@@ -4,7 +4,7 @@ const MainPageComponent = () =>
         );
 const signComponent = () =>
     import(
-        /* webpackChunkName: "SurveyExperienceMain" */ "@/components/MainPage/SignInUp/signComponent.vue"
+        /* webpackChunkName: "SurveyExperienceMain" */ "@/components/SignInUp/signComponent.vue"
         );
 
 export default[

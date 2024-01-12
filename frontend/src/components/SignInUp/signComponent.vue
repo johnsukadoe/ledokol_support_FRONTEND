@@ -1,29 +1,36 @@
 <template>
-    <div class="flex flex-col justify-center items-center gap-5 w-full h-full">
-      <img src="@/assets/creatingIMG.png">
-      <h1 class="text-2xl font-bold text-slate-500">{{title}}</h1>
-      <el-form class="flex flex-col justify-center items-center gap-3">
-        <el-input
-            placeholder="Как вас звать?"
-            v-model="user.username"
-        />
-        <el-input
-            v-if="isSignUp"
-            placeholder="Напишите почту"
-            v-model="user.email"
-        />
-        <el-input
-            v-model="user.password"
-            type="password"
-            placeholder="Please input password"
-            show-password
-        />
-        <el-button
-            @click="regUser"
-        >
-          {{btnTitle}}
+    <div class="w-full h-full">
+      <div class="mt-8 ml-8">
+        <el-button round @click="goToBack">
+          <font-awesome-icon icon="fa-solid fa-arrow-left" />
         </el-button>
-      </el-form>
+      </div>
+      <div class="flex flex-col justify-center items-center gap-5 w-full h-full">
+        <img src="../../assets/creatingIMG.png" style="width: 25%">
+        <h1 class="text-2xl font-bold text-slate-500">{{title}}</h1>
+        <el-form class="flex flex-col justify-center items-center gap-3">
+          <el-input
+              placeholder="Как вас звать?"
+              v-model="user.username"
+          />
+          <el-input
+              v-if="isSignUp"
+              placeholder="Напишите почту"
+              v-model="user.email"
+          />
+          <el-input
+              v-model="user.password"
+              type="password"
+              placeholder="Please input password"
+              show-password
+          />
+          <el-button
+              @click="regUser"
+          >
+            {{btnTitle}}
+          </el-button>
+        </el-form>
+      </div>
     </div>
 </template>
 
@@ -68,6 +75,7 @@ export default {
         try {
           const response = await axios.post('http://localhost:3001/users', this.user);
           console.log('User registered:', response.data);
+          this.$router.push({name:'Homepage'})
         } catch (error) {
           console.error('Error registering user:', error);
         }
@@ -79,10 +87,15 @@ export default {
               password: this.user.password,
             },
           });
+          console.log(response, 'something')
+          console.log(response.data)
 
-          if (response.data.length > 0) {
+
+          if (response.data.username.length > 0) {
             console.log('User signed in:', response.data);
             this.$message.success('Success!')
+            let id = response.data.user_id;
+            this.$router.push({name:"Homepage", params:{id}});
             // this.$router.push()
           } else {
             console.log('User not found');
@@ -92,7 +105,9 @@ export default {
           console.error('Error signing in:', error);
         }
       }
-
+    },
+    goToBack(){
+      this.$router.back();
     }
   }
 }

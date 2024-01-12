@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import signComponent from '@/components/MainPage/SignInUp/signComponent.vue'
+import signComponent from '@/components/SignInUp/signComponent.vue'
 export default {
   name: 'MainPageHeader',
   components:{signComponent},
