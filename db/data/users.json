@@ -106,5 +106,35 @@
     "_id": "659f77a5da89c4b112d501a1",
     "user_id": 9,
     "__v": 0
+  },
+  {
+    "username": "johndoevich",
+    "email": "mirasshynar4234@gmail.com",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
+    "password": "cohecycun4234",
+    "_id": "65a2103147e35744deecb43c",
+    "user_id": 10,
+    "__v": 0
+  },
+  {
+    "username": "jnskde",
+    "email": "bking4234@gmail.com",
+    "role": null,
+    "content_type": null,
+    "creation_frequency": null,
+    "monthly_earnings": null,
+    "join_date": null,
+    "membership_level": null,
+    "monthly_contribution": null,
+    "password": "qPz8am91",
+    "_id": "65a210a347e35744deecb440",
+    "user_id": 11,
+    "__v": 0
   }
 ]

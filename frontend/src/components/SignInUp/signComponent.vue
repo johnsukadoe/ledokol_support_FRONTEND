@@ -75,7 +75,7 @@ export default {
         try {
           const response = await axios.post('http://localhost:3001/users', this.user);
           console.log('User registered:', response.data);
-          this.$router.push({name:'Homepage'})
+          this.$router.push({name:'Homepage', params:{id:response.data.user_id}})
         } catch (error) {
           console.error('Error registering user:', error);
         }
@@ -91,10 +91,10 @@ export default {
           console.log(response.data)
 
 
-          if (response.data.username.length > 0) {
+          if (response.data[0].username.length > 0) {
             console.log('User signed in:', response.data);
             this.$message.success('Success!')
-            let id = response.data.user_id;
+            let id = response.data[0].user_id;
             this.$router.push({name:"Homepage", params:{id}});
             // this.$router.push()
           } else {

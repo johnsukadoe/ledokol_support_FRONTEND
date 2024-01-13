@@ -9,3 +9,8 @@ export const getUser = async user_id=> {
     });
     return data;
 };
+
+export const getUsers = async ()  => {
+    const {data} = await axios.get(server);
+    return data;
+};

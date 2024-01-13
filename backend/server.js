@@ -52,7 +52,7 @@ app.get('/users', async (req, res) => {
         }
 
         // Используйте findOne вместо find, чтобы вернуть только одного пользователя
-        const user = await Combined.findOne(query);
+        const user = await Combined.find(query);
 
         res.status(200).json(user);
     } catch (error) {
