@@ -102,7 +102,7 @@ export default {
             this.$message.error('User not found')
           }
         } catch (error) {
-          console.error('Error signing in:', error);
+          this.$message.error('Неверное имя пользователя или пароль.')
         }
       }
     },

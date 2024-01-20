@@ -27,9 +27,101 @@ const combinedSchema = new mongoose.Schema({
     password: String, // Добавлено поле password
 });
 
+const combinedSchemaPosts = new mongoose.Schema({
+    _id:Number,
+    user_id: Number,
+    title:String,
+    description:String,
+    likes:Array
+});
+
 const Combined = mongoose.model('users', combinedSchema);
+const CombinedPosts = mongoose.model('posts', combinedSchemaPosts);
 
 const usersFilePath = path.join(__dirname, '..', 'db', 'data', 'users.json');
+
+app.get('/posts', async (req,res)=>{
+    try {
+        let query = {};
+
+        // Если есть параметры в запросе, формируем объект query для фильтрации
+        // if (req.query.user_id) {
+        //     query.user_id = req.query.user_id;
+        // }
+
+        // Используйте findOne вместо find, чтобы вернуть только одного пользователя
+        const posts = await CombinedPosts.find(query);
+
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error('Error getting user:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+// Маршрут для добавления лайка
+app.post('/posts/:postId/like', async (req, res) => {
+    try {
+      const postId = req.params.postId;
+      const userId = req.body.userId;  // предполагается, что идентификатор пользователя передается в теле запроса
+  
+      const updatedPost = await CombinedPosts.findByIdAndUpdate(
+        postId,
+        { $addToSet: { likes: { user_id: userId, timestamp: Date.now()/1000 } } },
+        { new: true }
+      );
+      
+  
+      res.json(updatedPost);
+    } catch (error) {
+      console.error('Error adding like:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  // Маршрут для удаления лайка
+  app.post('/posts/:postId/unlike', async (req, res) => {
+    try {
+      const postId = req.params.postId;
+      const userId = req.body.userId;  // предполагается, что идентификатор пользователя передается в теле запроса
+  
+      const updatedPost = await CombinedPosts.findByIdAndUpdate(
+        postId,
+        { $pull: { likes: { user_id: userId } } },
+        { new: true }
+      );
+      
+  
+      res.json(updatedPost);
+    } catch (error) {
+      console.error('Error removing like:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+
+app.post('/posts', async (req, res) => {
+    try {
+        const newPost = new CombinedPosts(req.body);
+
+        const lastPost = await CombinedPosts.findOne({}, {}, { sort: { '_id': -1 } });
+
+        newPost._id = lastPost ? lastPost._id + 1 : 1;
+
+        const savedPost = await newPost.save();
+
+        // Обновление данных в MongoDB
+        const query = { _id: savedPost._id };  // Задайте соответствующий критерий поиска
+        const updateData = { $set: req.body };  // Используйте новые данные из POST-запроса
+
+        await CombinedPosts.updateOne(query, updateData);
+
+        res.status(201).json(savedPost);
+    } catch (error) {
+        console.error('Error creating post:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.get('/users', async (req, res) => {
     try {
@@ -51,8 +143,13 @@ app.get('/users', async (req, res) => {
             query.user_id = req.query.user_id;
         }
 
+        if (req.query.password) {
+            query.password = req.query.password;
+        }
+
         // Используйте findOne вместо find, чтобы вернуть только одного пользователя
         const user = await Combined.find(query);
+        console.log(user)
 
         res.status(200).json(user);
     } catch (error) {

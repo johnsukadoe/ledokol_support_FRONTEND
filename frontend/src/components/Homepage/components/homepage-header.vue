@@ -44,12 +44,13 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  background-color: #333;
+  background-color: white;  /* Белый фон */
   padding: 15px;
-  color: white;
+  color: #333;  /* Цвет текста (черный или другой, который вы хотите) */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ddd;  /* Добавляем подчеркивание для отличия от основного контента */
 }
 
 ul {
@@ -62,17 +63,37 @@ ul {
 li {
   margin-right: 20px;
   cursor: pointer;
+  color: #333;  /* Цвет обычных ссылок */
 }
 
 li:hover {
-  color: #ffd700;
+  color: #ffd700;  /* Цвет при наведении на ссылку */
 }
 
 .active {
-  color: #ffe869;
+  color: #ffe869;  /* Цвет активной ссылки */
   cursor: default;
 }
-.active:hover{
-  color: #ffe869;
+
+.active:hover {
+  color: #ffe869;  /* Цвет активной ссылки при наведении */
+}
+
+/* Стили для поиска и кнопки */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  width: 75%;  /* Ширина поисковой строки */
+  margin-top: 15px;
+}
+
+.search-button {
+  margin-top: 15px;
+  margin-left: 10px;
 }
 </style>
