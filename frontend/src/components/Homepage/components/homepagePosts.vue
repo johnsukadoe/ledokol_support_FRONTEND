@@ -11,19 +11,10 @@ export default {
   },
   async mounted(){
     this.posts = await getPosts()
-    this.users = this.getUsers()
-    console.log(this.posts)
+    this.users = await getUsers();
+    console.log(this.users, 'loh')
   },
   methods:{
-    async getUsers(){
-      try {
-        this.users = await getUsers();
-        console.log(this.users)
-
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    },
     secondsToTime(seconds) {
       const date = new Date(seconds * 1000); // Convert seconds to milliseconds
       const options = {
@@ -43,7 +34,6 @@ export default {
     },
     findUserById(id) {
       const user = this.users.find(user => user.user_id === id);
-      console.log(user)
       return user.username
     },
   }
@@ -57,8 +47,8 @@ export default {
       <div class="flex">
         <div>
           <el-avatar size="small" class="mr-1.5 my-0.5"> {{ findUserById(post.user_id) }} </el-avatar>
-          <span>{{ findUserById(post.user_id) }}</span>
-          <h2 class="font-bold my-1">{{post.title}}</h2>
+          <span class="username-link text-gray-600 text-sm">{{ findUserById(post.user_id) }}</span>
+          <h2 class="font-bold my-1 title-link" >{{post.title}}</h2>
           <p class="text-sm my-2">
             {{truncateDescription(post.description)}}
           </p>
@@ -81,5 +71,12 @@ export default {
 </template>
 
 <style scoped lang="scss">
-
+.title-link:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.username-link:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
 </style>

@@ -7,9 +7,19 @@ export default {
   name: "homepage.vue",
   components: {HomepagePosts, HomepageRecentActions, HomepageHeader},
   props: ['id'],
+  data(){
+    return{
+      user_id:null
+    }
+  },
   async mounted() {
-    const data = await getUser(this.id)
-    console.log(data)
+    const data = await getUser(this.user_id)
+    this.user_id = this.userId;
+  },
+  computed:{
+    userId() {
+      return this.$store.getters.getUserId
+    }
   }
 }
 </script>

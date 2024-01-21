@@ -1,4 +1,5 @@
 <script>
+import {getUser} from '@/api/homepageUser';
 export default {
   name: "homepage-header",
   props: {
@@ -6,29 +7,51 @@ export default {
   },
   data(){
     return{
-      search:''
+      search:'',
+      username:''
     }
+  },
+  async mounted(){
+    await this.getUser()
   },
   methods:{
     selectSearchResults(){
       console.log('okay')
+    },
+    async getUser() {
+      try {
+        const data = await getUser(this.user_id, 'something');
+        console.log(this.user_id);
+        console.log(data);
+        console.log(data[0].username);
+        this.username = data[0].username
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        return null; // Вернуть null или другое значение по умолчанию при ошибке
+      }
     }
-  }
+
+  },
+  computed:{
+    user_id() {
+      return this.$store.state.userid;
+    }
+  },
 }
 </script>
 
 <template>
   <div class="header">
     <ul>
-      <li :class="{ 'active': activeLink === 'recommendations' }">Рекомендация</li>
-      <li :class="{ 'active': activeLink === 'feed' }">Моя лента</li>
-      <li :class="{ 'active': activeLink === 'library' }">Моя библиотека</li>
-      <li :class="{ 'active': activeLink === 'create' }">Создать</li>
+      <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'Homepage'})">Рекомендация</li>
+      <li :class="{ 'active': activeLink === 'feed' }" @click="">Моя лента</li>
+      <li :class="{ 'active': activeLink === 'library' }" @click="">Моя библиотека</li>
+      <li :class="{ 'active': activeLink === 'create' }" @click="$router.push({name:'create'})">Создать</li>
     </ul>
 
-    <el-avatar> user </el-avatar>
+    <el-avatar> {{ this.username }} </el-avatar>
   </div>
-  <div class="flex flex-row justify-center items-center align-middle">
+  <div class="flex flex-row justify-center items-center align-middle" v-if="activeLink==='recommendations' || activeLink==='feed' || activeLink==='library' ">
     <el-autocomplete
         v-model="search"
         placeholder="Please input"
@@ -39,6 +62,7 @@ export default {
       <font-awesome-icon icon="fa-solid fa-magnifying-glass" round/>
     </el-button>
   </div>
+
 
 </template>
 

@@ -2,15 +2,14 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
-    // ваше состояние
+    userid:null,
   },
   mutations: {
-    // ваши мутации
-  },
-  actions: {
-    // ваши действия
+    setUserId(state, userid) {
+      state.userid = userid
+    }
   },
   modules: {
-    // ваши модули
+    getUserId: state => state.userid
   },
 });

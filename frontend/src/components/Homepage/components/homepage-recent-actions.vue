@@ -12,7 +12,6 @@ export default {
     async getUsers(){
       const users = await getUsers();
       this.users=users
-      console.log(users)
     },
     userFormattedUsername(username) {
       return username.length > 15

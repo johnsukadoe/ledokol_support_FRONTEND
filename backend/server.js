@@ -32,7 +32,8 @@ const combinedSchemaPosts = new mongoose.Schema({
     user_id: Number,
     title:String,
     description:String,
-    likes:Array
+    timestamp:Number,
+    preview:Array
 });
 
 const Combined = mongoose.model('users', combinedSchema);

@@ -72,13 +72,24 @@ export default {
   methods:{
     async regUser() {
       if (this.isSignUp) {
-        try {
-          const response = await axios.post('http://localhost:3001/users', this.user);
-          console.log('User registered:', response.data);
-          this.$router.push({name:'Homepage', params:{id:response.data.user_id}})
-        } catch (error) {
-          console.error('Error registering user:', error);
+        if(this.user.username.length===0 || this.user.email.length===0 || this.user.password.length === 0){
+          this.$message.error('Заполните данные')
+        }else{
+          try {
+            this.user.role='subscriber';
+            const response = await axios.post('http://localhost:3001/users', this.user);
+
+            const newUserId = response.data.user_id;
+            this.$store.commit('setUserId', newUserId);
+            console.log(this.user_id)
+            this.$message.success('Успешно')
+            this.$router.push({ name: 'Homepage', params: { id: newUserId } });
+
+          } catch (error) {
+            console.error('Error registering user:', error);
+          }
         }
+
       } else {
         try {
           const response = await axios.get('http://localhost:3001/users', {
@@ -87,20 +98,15 @@ export default {
               password: this.user.password,
             },
           });
-          console.log(response, 'something')
-          console.log(response.data)
+          this.$message.success('Success!')
 
+          const newUserId = response.data[0].user_id
+          console.log(newUserId)
 
-          if (response.data[0].username.length > 0) {
-            console.log('User signed in:', response.data);
-            this.$message.success('Success!')
-            let id = response.data[0].user_id;
-            this.$router.push({name:"Homepage", params:{id}});
-            // this.$router.push()
-          } else {
-            console.log('User not found');
-            this.$message.error('User not found')
-          }
+          this.$store.commit('setUserId', newUserId);
+
+          this.$router.push({name:"Homepage", params:{id:this.user_id}});
+          // this.$router.push()
         } catch (error) {
           this.$message.error('Неверное имя пользователя или пароль.')
         }
@@ -109,7 +115,12 @@ export default {
     goToBack(){
       this.$router.back();
     }
-  }
+  },
+  computed:{
+    user_id() {
+      return this.$store.state.userid;
+    }
+  },
 }
 </script>
 
