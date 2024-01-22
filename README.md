@@ -70,3 +70,10 @@ Empower the creative and innovative minds of Kazakhstan by providing a platform 
 
 Now, your project should be up and running with dependencies installed and both backend and frontend servers running. Make sure to adapt the GitHub repository URL and folder names according to your project's specifics.
 
+
+## UML Diagram 
+![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/2c476250-2c0e-4211-8a9c-e6acef088378)
+## ERD Diagram
+![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/4ec35eb0-4f28-4fc4-a90f-1ebcaea93f17)
+
+
