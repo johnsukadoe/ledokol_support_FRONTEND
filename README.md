@@ -75,5 +75,8 @@ Now, your project should be up and running with dependencies installed and both 
 ![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/2c476250-2c0e-4211-8a9c-e6acef088378)
 ## ERD Diagram
 ![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/4ec35eb0-4f28-4fc4-a90f-1ebcaea93f17)
+## CRD Diagram
+![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/69a0f7c1-f830-48b0-b1ca-08d90338bdc4)
+
 
 
