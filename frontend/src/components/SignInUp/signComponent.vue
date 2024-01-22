@@ -48,13 +48,7 @@ export default {
         password:'',
         email:'',
         username:'',
-        role: null,
-        content_type: null,
-        creation_frequency: null,
-        monthly_earnings: null,
-        join_date: null,
-        membership_level: null,
-        monthly_contribution: null
+        user_info_id:null,
       }
     }
   },
@@ -76,7 +70,6 @@ export default {
           this.$message.error('Заполните данные')
         }else{
           try {
-            this.user.role='subscriber';
             const response = await axios.post('http://localhost:3001/users', this.user);
 
             const newUserId = response.data.user_id;
