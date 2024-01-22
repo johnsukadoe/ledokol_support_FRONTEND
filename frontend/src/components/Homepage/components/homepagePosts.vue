@@ -16,7 +16,7 @@ export default {
   },
   methods:{
     secondsToTime(seconds) {
-      const date = new Date(seconds * 1000); // Convert seconds to milliseconds
+      const date = new Date(seconds * 1000);
       const options = {
         year: 'numeric',
         month: 'long',

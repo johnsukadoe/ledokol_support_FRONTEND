@@ -27,7 +27,7 @@ export default {
         this.username = data[0].username
       } catch (error) {
         console.error('Error fetching user data:', error);
-        return null; // Вернуть null или другое значение по умолчанию при ошибке
+        return null;
       }
     }
 
