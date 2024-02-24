@@ -10,8 +10,9 @@ export default {
   },
   methods:{
     async getUsers(){
-      const users = await getUsers();
-      this.users=users
+      const data = await getUsers();
+      console.log(data)
+      this.users=data
     },
     userFormattedUsername(username) {
       return username.length > 15

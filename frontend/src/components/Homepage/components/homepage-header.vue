@@ -20,14 +20,11 @@ export default {
     },
     async getUser() {
       try {
-        const data = await getUser(this.user_id, 'something');
-        console.log(this.user_id);
-        console.log(data);
-        console.log(data[0].username);
-        this.username = data[0].username
+        const data = await getUser(this.user_id);
+        this.username = data.username
       } catch (error) {
         console.error('Error fetching user data:', error);
-        return null;
+        return;
       }
     }
 

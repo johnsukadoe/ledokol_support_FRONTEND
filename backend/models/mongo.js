@@ -20,7 +20,9 @@ const User = mongoose.model('User', {
     username: String,
     email: String,
     password: String,
-    user_info_id:Number,
+    join_date:Number,
+    role:String,
+    subscriptions:Array,
 }, 'users');
 const Post = mongoose.model('Post', {
     _id:Number,
@@ -28,22 +30,10 @@ const Post = mongoose.model('Post', {
     title:String,
     description:String,
     timestamp:Number,
-    preview:Array
+    preview:Object
 }, 'posts');
-const UserInfo = mongoose.model('UserInfo', {
-    role:String,
-    content_type: String,
-    creation_frequency:String,
-    monthly_earnings:Number,
-    join_date:String,
-    membership_level:String,
-    monthly_contribution:Number,
-    user_id:Number,
-    _id:Number
-}, 'users_infos');
 
 module.exports = {
     User,
     Post,
-    UserInfo
 };

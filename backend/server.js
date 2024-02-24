@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
-const {login, signup} = require('./controllers/userController')
+const {login, signup} = require('./controllers/signController')
 const {getPosts, createPost} = require('./controllers/postController')
+const {getUsers} = require('./controllers/userController')
+
 
 const app = express();
 const port = 3001;
@@ -12,27 +14,7 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-// mongoose.connect('mongodb+srv://johnsukadoe:qPz8am91@ledokol.iv6xhsg.mongodb.net/?retryWrites=true&w=majority&appName=ledokol', { useUnifiedTopology: true });
-//
-//
-// const uri = "mongodb+srv://johnsukadoe:qPz8am91@ledokol.iv6xhsg.mongodb.net/?retryWrites=true&w=majority&appName=ledokol";
-// const client = new MongoClient(uri);
-//
-// async function main() {
-//     await client.connect();
-//
-//     // Выбор коллекции
-//     const db = client.db("ledokol");
-//     const collection = db.collection("users");
-//
-//     // Получение данных
-//     const data = await collection.find().toArray();
-//
-//     // Вывод данных
-//     console.log(data);
-// }
-//
-// main().catch(console.error);
+
 
 // const combinedSchema = new mongoose.Schema({
 //     user_id: Number,
@@ -87,6 +69,7 @@ app.use(express.json());
 //     }
 // })
 app.get('/posts', getPosts)
+app.get('/users', getUsers)
 
 app.post('/posts/:postId/like', async (req, res) => {
     try {
@@ -181,7 +164,7 @@ app.post('/posts', createPost);
 //         res.status(500).json({ error: 'Internal Server Error' });
 //     }
 // });
-app.get('/users', login);
+app.get('/login', login);
 
 //check
 // app.post('/users', async (req, res) => {
@@ -223,7 +206,7 @@ app.get('/users', login);
 //         res.status(500).json({ error: 'Internal Server Error' });
 //     }
 // });
-app.post('/users', signup);
+app.post('/signup', signup);
 
 
 app.listen(port, () => {

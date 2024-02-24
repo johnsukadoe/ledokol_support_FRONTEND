@@ -70,7 +70,7 @@ export default {
           this.$message.error('Заполните данные')
         }else{
           try {
-            const response = await axios.post('http://localhost:3001/users', this.user);
+            const response = await axios.post('http://localhost:3001/signup', this.user);
 
             const newUserId = response.data.user_id;
             this.$store.commit('setUserId', newUserId);
@@ -85,7 +85,7 @@ export default {
 
       } else {
         try {
-          const response = await axios.get('http://localhost:3001/users', {
+          const response = await axios.get('http://localhost:3001/login', {
             params: {
               username: this.user.username,
               password: this.user.password,
@@ -93,7 +93,8 @@ export default {
           });
           this.$message.success('Success!')
 
-          const newUserId = response.data[0].user_id
+          console.log(response)
+          const newUserId = response.data.user_id
           console.log(newUserId)
 
           this.$store.commit('setUserId', newUserId);

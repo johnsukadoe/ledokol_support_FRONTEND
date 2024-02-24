@@ -1,16 +1,17 @@
 import axios from "axios";
-const server = 'http://localhost:3001/users';
+const server = 'http://localhost:3001/';
 
 export const getUser = async user_id=> {
-    const {data} = await axios.get(server, {
+    const {data} = await axios.get(`${server}users`, {
         params: {
-            user_id:user_id
+            user_id:user_id,
+            limit:1,
         },
     });
-    return data;
+    return data[0];
 };
 
 export const getUsers = async ()  => {
-    const {data} = await axios.get(server);
+    const {data} = await axios.get(`${server}users`);
     return data;
 };
