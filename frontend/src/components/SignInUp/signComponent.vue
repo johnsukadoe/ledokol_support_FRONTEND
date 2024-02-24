@@ -91,16 +91,14 @@ export default {
               password: this.user.password,
             },
           });
-          this.$message.success('Success!')
 
-          console.log(response)
           const newUserId = response.data.user_id
-          console.log(newUserId)
 
           this.$store.commit('setUserId', newUserId);
 
-          this.$router.push({name:"Homepage", params:{id:this.user_id}});
-          // this.$router.push()
+          this.$message.success('Success!')
+
+          this.$router.push({name:"homepage", params:{id:this.user_id}});
         } catch (error) {
           this.$message.error('Неверное имя пользователя или пароль.')
         }

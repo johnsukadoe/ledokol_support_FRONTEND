@@ -6,18 +6,28 @@ const createPost = () =>
     import(
         /* webpackChunkName: "SurveyExperienceMain" */ "@/components/createPost/createPost.vue"
         );
+const subscriptionsPage = () =>
+    import(
+        /* webpackChunkName: "SurveyExperienceMain" */ "@/components/Subscriptions/subscriptionsPage.vue"
+        );
 
 export default[
     {
-        path: '/home/',
-        name: 'Homepage',
+        path: '/home',
+        name: 'homepage',
         component: homepage,
         props:true,
     },
     {
-        path:'/create/',
+        path:'/create',
         name:"create",
         component: createPost,
         props:true,
-    }
+    },
+    {
+        path: '/subscriptions',
+        name: 'subscriptions',
+        component: subscriptionsPage,
+        props:true,
+    },
 ];

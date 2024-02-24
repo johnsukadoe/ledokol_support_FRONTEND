@@ -33,7 +33,17 @@ const Post = mongoose.model('Post', {
     preview:Object
 }, 'posts');
 
+const Creator = mongoose.model('Creator', {
+    _id:Number,
+    user_id: Number,
+    subscribers:Number,
+    channel_description:String,
+    total_posts:Number,
+    username:String,
+}, 'creators');
+
 module.exports = {
     User,
     Post,
+    Creator
 };

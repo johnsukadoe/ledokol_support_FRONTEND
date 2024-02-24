@@ -6,6 +6,7 @@ const { MongoClient } = require('mongodb');
 const {login, signup} = require('./controllers/signController')
 const {getPosts, createPost} = require('./controllers/postController')
 const {getUsers} = require('./controllers/userController')
+const {getSubscriptions, unsubcribeCreator} = require("./controllers/subscriptionsController");
 
 
 const app = express();
@@ -70,6 +71,8 @@ app.use(express.json());
 // })
 app.get('/posts', getPosts)
 app.get('/users', getUsers)
+app.get('/subscriptions', getSubscriptions)
+app.post('/subscriptions/unsubscribe', unsubcribeCreator)
 
 app.post('/posts/:postId/like', async (req, res) => {
     try {

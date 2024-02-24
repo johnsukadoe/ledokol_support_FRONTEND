@@ -1,4 +1,4 @@
-const {User, UserInfo} = require("../models/mongo");
+const {User} = require("../models/mongo");
 
 const getUsers = async (req, res) => {
     let query = {};
