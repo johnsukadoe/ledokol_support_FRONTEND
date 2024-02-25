@@ -65,6 +65,8 @@ export default {
   },
   methods:{
     async regUser() {
+      const localServer= 'http://localhost:3001/';
+
       if (this.isSignUp) {
         if(this.user.username.length===0 || this.user.email.length===0 || this.user.password.length === 0){
           this.$message.error('Заполните данные')

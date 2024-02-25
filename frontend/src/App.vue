@@ -17,6 +17,8 @@ export default {
     };
   },
   mounted() {
+    const localServer= 'http://localhost:3001/'
+
     fetch('https://ems-app.kz/ledokol-api/users')
         .then(response => response.json())
         .then(data => (this.users = data))

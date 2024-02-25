@@ -40,9 +40,6 @@ export default {
       const user = this.users.find(user => user.user_id === id);
       return user.username
     },
-    getSource(source){
-      return source;
-    }
   }
 }
 </script>

@@ -1,19 +1,16 @@
 <script>
-import {getUser} from '@/api/homepageUser';
 import HomepageHeader from "@/components/Homepage/components/homepage-header.vue";
 import HomepageRecentActions from "@/components/Homepage/components/homepage-recent-actions.vue";
-import HomepagePosts from "@/components/Homepage/components/homepagePosts.vue";
+import MainPosts from "@/components/main-posts.vue";
 export default {
   name: "homepage.vue",
-  components: {HomepagePosts, HomepageRecentActions, HomepageHeader},
-  props: ['id'],
+  components: {MainPosts, HomepageRecentActions, HomepageHeader},
   data(){
     return{
-      user_id:null
+      user_id:null,
     }
   },
   async mounted() {
-    const data = await getUser(this.user_id)
     this.user_id = this.userId;
   },
   computed:{
@@ -26,9 +23,9 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header :activeLink="'recommendations'" style="position: fixed"></homepage-header>
+    <homepage-header :activeLink="'recommendations'"></homepage-header>
     <div class="flex flex-row justify-around mt-5">
-      <homepage-posts></homepage-posts>
+      <main-posts></main-posts>
       <homepage-recent-actions></homepage-recent-actions>
     </div>
   </div>

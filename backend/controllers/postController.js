@@ -1,17 +1,23 @@
-const {Post} = require("../models/mongo");
+const {Post, Creator} = require("../models/mongo");
 
 const getPosts = async (req, res) => {
-    let query = {};
+    try {
+        const { creators } = req.query;
 
-    // if (req.query.user_id) {
-    //     query.user_id = req.query.user_id;
-    // }
+        let posts;
+        if (creators) {
+            posts = await Post.find({ user_id: { $in: creators } });
+        } else {
+            posts = await Post.find();
+        }
 
-    const posts = await Post.find(query);
+        res.status(200).json(posts);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
 
-    console.log(posts)
-    res.status(200).json(posts);
-}
 
 const createPost = async (req, res) => {
     try {

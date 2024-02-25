@@ -54,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div style="max-width: 1280px; margin: 0 auto">
     <homepage-header :activeLink="'subscriptions'"></homepage-header>
     <div class="my-5 mx-8">
       <div v-for="creater in subscriptions" >

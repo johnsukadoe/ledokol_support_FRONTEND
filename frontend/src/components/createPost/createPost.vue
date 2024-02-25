@@ -45,7 +45,7 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header :activeLink="'create'" style="position: fixed"></homepage-header>
+    <homepage-header :activeLink="'create'"></homepage-header>
     <div class="my-4">
       <h1 class="text-3xl font-medium mx-4">Создание поста</h1>
       <div class="flex justify-around">

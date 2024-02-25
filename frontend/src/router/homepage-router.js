@@ -10,6 +10,10 @@ const subscriptionsPage = () =>
     import(
         /* webpackChunkName: "SurveyExperienceMain" */ "@/components/Subscriptions/subscriptionsPage.vue"
         );
+const myfeedPage = () =>
+    import(
+        /* webpackChunkName: "SurveyExperienceMain" */ "@/components/MyFeed/myFeed.vue"
+        );
 
 export default[
     {
@@ -28,6 +32,12 @@ export default[
         path: '/subscriptions',
         name: 'subscriptions',
         component: subscriptionsPage,
+        props:true,
+    },
+    {
+        path: '/myfeed',
+        name: 'myfeed',
+        component: myfeedPage,
         props:true,
     },
 ];
