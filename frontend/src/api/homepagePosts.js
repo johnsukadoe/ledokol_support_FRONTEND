@@ -1,5 +1,5 @@
 import axios from "axios";
-const server = 'http://localhost:3001/';
+const server = 'https://ems-app.kz/ledokol-api/';
 
 export const getPosts = async ()=> {
     const {data} = await axios.get(server+'posts');

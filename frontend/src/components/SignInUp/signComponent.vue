@@ -70,7 +70,7 @@ export default {
           this.$message.error('Заполните данные')
         }else{
           try {
-            const response = await axios.post('http://localhost:3001/signup', this.user);
+            const response = await axios.post('https://ems-app.kz/ledokol-api/signup', this.user);
 
             const newUserId = response.data.user_id;
             this.$store.commit('setUserId', newUserId);
@@ -85,7 +85,7 @@ export default {
 
       } else {
         try {
-          const response = await axios.get('http://localhost:3001/login', {
+          const response = await axios.get('https://ems-app.kz/ledokol-api/login', {
             params: {
               username: this.user.username,
               password: this.user.password,

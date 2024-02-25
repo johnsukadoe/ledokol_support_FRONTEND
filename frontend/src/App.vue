@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    fetch('http://localhost:3001/users')
+    fetch('https://ems-app.kz/ledokol-api/users')
         .then(response => response.json())
         .then(data => (this.users = data))
         .catch(error => console.error('Error fetching creators:', error));
