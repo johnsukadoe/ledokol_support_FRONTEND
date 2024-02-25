@@ -26,22 +26,7 @@ export default {
   methods:{
     // $emit('unsubscribe', user.user_id)"
     unsub(){
-      this.$confirm(
-          'Вы собираетесь отписаться от аккаунта. Вы уверены?',
-          'Warning',
-          {
-            confirmButtonText: 'Да',
-            cancelButtonText: 'Отмена',
-            type: 'warning',
-          }
-      ).then(() => {
-        this.$message.success('Вы отменили подписку.')
-        this.$emit('unsubscribe', this.user.user_id)
-      })
-      .catch(() => {
-        this.$message.error('Вы отказались отписаться.')
-      })
-
+      this.$emit('unsubscribe', this.user.user_id)
     }
   }
 }

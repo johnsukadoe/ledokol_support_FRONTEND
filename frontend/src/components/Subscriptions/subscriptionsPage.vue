@@ -23,13 +23,31 @@ export default {
   },
   methods:{
     async unsubscribe(creator_id){
-      console.log(creator_id)
-      let params = {
-        creator_id,
-        user_id: this.user_id
-      }
-      console.log(params)
-      const res = await unsubscribeCreator(params)
+      this.$confirm(
+          'Вы собираетесь отписаться от аккаунта. Вы уверены?',
+          'Warning',
+          {
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Отмена',
+            type: 'warning',
+          }
+      ).then(async () => {
+        let params = {
+          creator_id,
+          user_id: this.user_id
+        }
+        console.log(params)
+        const res = await unsubscribeCreator(params)
+        if(res){
+          this.$message.success('Вы отменили подписку.')
+        }
+        this.subscriptions = await getSubscriptions(this.user_id);
+      })
+      .catch(() => {
+        this.$message.error('Вы отказались отписаться.')
+      })
+
+
     }
   }
 }

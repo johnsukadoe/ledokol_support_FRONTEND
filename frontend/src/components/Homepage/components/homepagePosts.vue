@@ -7,11 +7,16 @@ export default {
     return{
       posts:[],
       users:[],
+      youtube:"https://www.youtube.com/embed/Mhu6mfRkXpk?si=XnanshaDwKkBRUGo"
     }
   },
   async mounted(){
     this.posts = await getPosts()
     this.users = await getUsers();
+    console.log(this.posts)
+  },
+  computed:{
+
   },
   methods:{
     secondsToTime(seconds) {
@@ -35,6 +40,9 @@ export default {
       const user = this.users.find(user => user.user_id === id);
       return user.username
     },
+    getSource(source){
+      return source;
+    }
   }
 }
 </script>
@@ -56,7 +64,6 @@ export default {
       <div v-if="post.preview">
         <div v-if="post.preview.type==='video'">
           <iframe style="border-radius: 10px" class="m-0 p-0" width="700" height="300" :src="post.preview.source" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; gyroscope; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-          <iframe width="560" height="315" :src="post.preview.source" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div v-else-if="post.preview.type==='image'">
           <img :src="post.preview.source" alt="" style="max-width:700px; max-height: 300px; width: auto; height: auto; border-radius: 5px">
