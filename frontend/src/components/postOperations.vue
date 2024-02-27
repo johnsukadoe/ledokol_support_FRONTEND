@@ -51,6 +51,7 @@ export default {
         const data = await createPost(this.post);
         console.log(data)
         this.$message.success('Успешно');
+        this.$router.push({name:'profile', params:{userId:this.user_id()}})
       }
     },
     async editPost(id){
