@@ -7,6 +7,8 @@ const getSubscriptions = async (req, res) => {
     console.log(req.query)
     user = await User.findOne({ user_id: req.query.user_id })
     users_ids = [...user.subscriptions]
+    console.log(user, '=======')
+    console.log(users_ids, 'someh')
 
     subscriptions = await Creator.find({ user_id: { $in: users_ids } }).limit(req.query.limit);
     if(subscriptions){
@@ -16,16 +18,11 @@ const getSubscriptions = async (req, res) => {
     }
 }
 
-const unsubcribeCreator = async (req, res) => {
+const unsubscribeCreator = async (req, res) => {
     const { user_id, creator_id } = req.body.params;
     try {
-        // Находим создателя по его идентификатору
-        const creator = await Creator.findOne({ user_id: creator_id });
+        await Creator.findOneAndUpdate({ user_id: creator_id }, { $inc: { subscribers: -1 }});
 
-        if (!creator) {
-            return res.status(404).json({ error: 'Creator not found' });
-        }
-        creator.subscribers -= 1;
         console.log(user_id)
         const user = await User.findOneAndUpdate(
             { user_id },
@@ -36,7 +33,6 @@ const unsubcribeCreator = async (req, res) => {
 
         res.status(200).json({ message: 'Successfully unsubscribed.' });
 
-        await creator.save();
 
 
     } catch (error) {
@@ -48,12 +44,7 @@ const subscribeCreator = async (req, res) => {
     const { user_id, creator_id } = req.body.params;
     try {
         // Находим создателя по его идентификатору
-        const creator = await Creator.findOne({ user_id: creator_id });
-
-        if (!creator) {
-            return res.status(404).json({ error: 'Creator not found' });
-        }
-        creator.subscribers += 1;
+        await Creator.updateOne({ user_id: creator_id }, { $inc: { subscribers: 1 } });
 
         const user = await User.findOneAndUpdate(
             { user_id },
@@ -63,7 +54,6 @@ const subscribeCreator = async (req, res) => {
 
         res.status(200).json({ message: 'Successfully subscribed.' });
 
-        await creator.save();
 
 
     } catch (error) {
@@ -74,6 +64,6 @@ const subscribeCreator = async (req, res) => {
 
 module.exports = {
     getSubscriptions,
-    unsubcribeCreator,
+    unsubscribeCreator,
     subscribeCreator
 }

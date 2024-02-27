@@ -11,15 +11,37 @@ export default {
       username:'',
 
       isAdmin:false,
+
+      lang:'',
+
+      langs: [
+        {
+          key:'ru',
+          value:"Русский"
+        },
+        {
+          key:'en',
+          value:"English"
+        }
+      ]
     }
   },
   async mounted(){
+    let value = localStorage.getItem('lang')
+    if(value){
+      this.lang = value;
+    }
+    if(!this.user_id()){
+      this.$router.push({name:'MainPage'})
+    }
+
     await this.getUser()
   },
   methods:{
     async getUser() {
       try {
-        const data = await getUser(this.user_id);
+        console.log(this.user_id())
+        const data = await getUser(this.user_id());
         this.username = data.username
         if(data.role === 'admin'){
           this.isAdmin = true;
@@ -30,15 +52,25 @@ export default {
       }
     },
     logout(){
-      this.$store.commit('setUserId', 0);
+      localStorage.removeItem('user_id');
       this.$router.push({ name: 'MainPage'});
+    },
+    user_id(){
+      let value = localStorage.getItem('user_id');
+      return value
+    },
+    postLocaleItem(){
+      localStorage.setItem('lang', this.lang);
+    },
+    emitLang(){
+      this.$emit('editLang', this.lang)
     }
   },
-  computed:{
-    user_id() {
-      return this.$store.state.userid;
+  watch:{
+    lang(){
+      this.postLocaleItem()
     }
-  },
+  }
 }
 </script>
 
@@ -46,27 +78,65 @@ export default {
   <div>
     <div class="header">
       <ul>
-        <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'homepage'})">Рекомендация</li>
-        <li :class="{ 'active': activeLink === 'news' }" @click="$router.push({name:'news'})">Новости</li>
-        <li :class="{ 'active': activeLink === 'myfeed' }" @click="$router.push({name:'myfeed'})">Моя лента</li>
-        <li :class="{ 'active': activeLink === 'subscriptions' }" @click="$router.push({name:'subscriptions'})">Подписки</li>
-        <li :class="{ 'active': activeLink === 'create' }" @click="$router.push({name:'create'})">Создать</li>
+        <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'homepage', lang:lang})">
+          {{ lang === 'en' ? 'Recommendations' : 'Рекомендация' }}
+        </li>
+        <li :class="{ 'active': activeLink === 'news' }" @click="$router.push({name:'news', lang:lang})">
+          {{ lang === 'en' ? 'News' : 'Новости' }}
+        </li>
+        <li :class="{ 'active': activeLink === 'myfeed' }" @click="$router.push({name:'myfeed', lang:lang})">
+          {{ lang === 'en' ? 'My Feed' : 'Моя лента' }}
+        </li>
+        <li :class="{ 'active': activeLink === 'subscriptions' }" @click="$router.push({name:'subscriptions', lang:lang})">
+          {{ lang === 'en' ? 'Subscriptions' : 'Подписки' }}
+        </li>
+        <li :class="{ 'active': activeLink === 'create' }" @click="$router.push({name:'create', lang:lang})">
+          {{ lang === 'en' ? 'Create' : 'Создать' }}
+        </li>
+
       </ul>
 
+      <div>
+        <el-select
+            v-model="lang"
+            class="m-2"
+            placeholder="Select"
+            size="small"
+            style="width: 50px"
+            @change="emitLang"
+        >
+          <el-option
+              v-for="item in langs"
+              :key="item.key"
+              :label="item.key"
+              :value="item.key"
+          />
+        </el-select>
+        <el-dropdown trigger="click" size="large">
 
-      <el-dropdown trigger="click" size="large">
-        <el-avatar> {{ this.username }} </el-avatar>
+          <el-avatar> {{ this.username }} </el-avatar>
 
-        <template #dropdown>
-          <el-dropdown-menu class="flex flex-col">
-            <el-dropdown-item @click="$router.push({name:'profile', params:{userId:user_id}})">Профиль</el-dropdown-item>
-<!--            <el-dropdown-item>Статистика</el-dropdown-item>-->
-            <el-dropdown-item @click="$router.push({name:'settings', params:{userId:user_id}})">Настройки</el-dropdown-item>
-            <el-dropdown-item @click="logout">Выйти</el-dropdown-item>
-            <el-dropdown-item @click="$router.push({name:'admin'})" v-if="isAdmin">Админ</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+          <template #dropdown>
+            <el-dropdown-menu class="flex flex-col">
+              <el-dropdown-item @click="$router.push({name:'profile', params:{userId:user_id()}})">
+                {{ lang === 'en' ? 'Profile' : 'Профиль' }}
+              </el-dropdown-item>
+              <!-- <el-dropdown-item>{{ lang === 'en' ? 'Statistics' : 'Статистика' }}</el-dropdown-item> -->
+              <el-dropdown-item @click="$router.push({name:'settings', params:{userId:user_id()}})">
+                {{ lang === 'en' ? 'Settings' : 'Настройки' }}
+              </el-dropdown-item>
+              <el-dropdown-item @click="logout">
+                {{ lang === 'en' ? 'Logout' : 'Выйти' }}
+              </el-dropdown-item>
+              <el-dropdown-item @click="$router.push({name:'admin'})" v-if="isAdmin">
+                {{ lang === 'en' ? 'Admin' : 'Админ' }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+
+          </template>
+        </el-dropdown>
+      </div>
+
     </div>
 <!--    <div class="flex flex-row justify-center items-center align-middle" v-if="activeLink==='recommendations' || activeLink==='myfeed' || activeLink==='subscriptions' ">-->
 <!--      <el-autocomplete-->

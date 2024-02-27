@@ -54,8 +54,9 @@ export default {
     }
   },
   mounted(){
-    if(this.$store.state.user_id){
+    if(this.user_id()){
       this.$router.push({name:'homepage'});
+      return;
     }
     let isSign = this.$route.query.isSignUp;
     this.isSignUp=(isSign.toLowerCase() === "true");
@@ -68,6 +69,10 @@ export default {
     }
   },
   methods:{
+    user_id(){
+      let value = localStorage.getItem('user_id')
+      return value
+    },
     async regUser() {
       const localServer= 'http://localhost:3001/';
       const onlineServer='https://ems-app.kz/ledokol-api/signup'
@@ -80,8 +85,8 @@ export default {
             const response = await axios.post(`${localServer}signup`, this.user);
 
             const newUserId = response.data.user_id;
-            this.$store.commit('setUserId', newUserId);
-            console.log(this.user_id)
+            localStorage.setItem('user_id', newUserId);
+
             this.$message.success('Успешно')
             this.$router.push({ name: 'homepage', params: { id: newUserId } });
 
@@ -101,12 +106,13 @@ export default {
           });
           console.log(response)
           const newUserId = response.data.user_id
+          localStorage.setItem('user_id', newUserId);
 
           this.$store.commit('setUserId', newUserId);
 
           this.$message.success('Success!')
 
-          this.$router.push({name:"homepage", params:{id:this.user_id}});
+          this.$router.push({name:"homepage", params:{id:this.user_id()}});
         } catch (error) {
           this.$message.error('Неверное имя пользователя или пароль.')
         }
@@ -114,11 +120,6 @@ export default {
     },
     goToBack(){
       this.$router.back();
-    }
-  },
-  computed:{
-    user_id() {
-      return this.$store.state.userid;
     }
   },
 }

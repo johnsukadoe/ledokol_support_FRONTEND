@@ -33,9 +33,15 @@ export default{
   name:'MainPageComponent',
   components:{MainPageHeader},
   mounted() {
-    if(this.$store.state.user_id){
+    if(this.user_id()){
       this.$router.push({name:'homepage'})
     }
+  },
+  methods:{
+    user_id(){
+      let value = localStorage.getItem('user_id');
+      return value
+    },
   }
 }
 </script>

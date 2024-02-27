@@ -5,7 +5,8 @@ import {getUsers, getUser} from "@/api/homepageUser.js";
 export default {
   name: "main-posts",
   props:{
-    filters:Object
+    filters:Object,
+    lang:String
   },
   data(){
     return{
@@ -14,7 +15,7 @@ export default {
 
       isMyProfilePosts:false,
 
-      title:''
+      title:'',
     }
   },
   async mounted() {
@@ -60,6 +61,7 @@ export default {
       }
     },
     findUserById(id) {
+      console.log(this.users)
       const user = this.users.find(user => user.user_id === id);
       console.log(user.username)
       return user.username
@@ -100,9 +102,11 @@ export default {
             <div>
               <el-avatar size="small" class="mr-1.5 my-0.5"> {{ findUserById(post.user_id) }} </el-avatar>
               <span class="username-link text-gray-600 text-sm" @click="$router.push({name:'profile', params:{userId:post.user_id}})">{{ findUserById(post.user_id) }}</span>
-              <h2 class="font-bold my-1 title-link" >{{post.title}}</h2>
+              <h2 class="font-bold my-1 title-link" >
+                {{ lang === 'en' ? post.titleEN : post.titleRU }}
+              </h2>
               <p class="text-sm my-2" style="width: 700px">
-                {{truncateDescription(post.description)}}
+                {{ lang === 'en' ? truncateDescription(post.descriptionEN) : truncateDescription(post.descriptionRU) }}
               </p>
             </div>
           </div>

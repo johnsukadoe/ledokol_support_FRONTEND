@@ -14,7 +14,9 @@
 
       </div>
 
-      <el-button type="danger" plain class="ml-5" @click="unsub">Отписаться</el-button>
+      <el-button type="danger" plain class="ml-5" @click="unsub">
+        {{ lang === 'en' ? 'Unsubscribe' : 'Отписаться' }}
+      </el-button>
     </div>
   </div>
 </template>
@@ -22,7 +24,7 @@
 <script>
 export default {
   name: "createrCard",
-  props:['user'],
+  props:['user', 'lang'],
   methods:{
     // $emit('unsubscribe', user.user_id)"
     unsub(){

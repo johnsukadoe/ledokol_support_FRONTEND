@@ -17,11 +17,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.state)
-    if(this.$store.state.user_id){
-      this.$router.push({name:'homepage'})
-    }
-
     const localServer= 'http://localhost:3001/'
 
     fetch(`${localServer}`)
@@ -29,6 +24,12 @@ export default {
         .then(data => (this.users = data))
         .catch(error => console.error('Error fetching creators:', error));
   },
+  methods:{
+    user_id(){
+      let value = localStorage.getItem('user_id');
+      return value
+    },
+  }
 
 };
 </script>

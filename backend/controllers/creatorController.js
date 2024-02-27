@@ -19,7 +19,7 @@ const getCreator = async (req, res) => {
 const updateCreator = async (req, res) => {
     try {
         console.log(req.body)
-        const { username, channel_description, user_id, password } = req.body.params.creator;
+        const { username, channel_description, user_id } = req.body.params.creator;
 
         const query = { user_id };
 
@@ -38,7 +38,6 @@ const updateCreator = async (req, res) => {
         const userUpdate = {
             $set: {
                 username,
-                password
             }
         };
         const userOptions = { new: true };
@@ -52,7 +51,18 @@ const updateCreator = async (req, res) => {
     }
 };
 
+const getCreators = async (req, res) => {
+    try {
+        let creator = await Creator.find();
+        res.status(200).json(creator);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
 module.exports = {
     getCreator,
-    updateCreator
+    updateCreator,
+    getCreators
 }

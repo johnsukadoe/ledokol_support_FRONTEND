@@ -6,8 +6,8 @@ const { MongoClient } = require('mongodb');
 const {login, signup} = require('./controllers/signController')
 const {getPosts, createPost, removePost, editPost} = require('./controllers/postController')
 const {getUsers, deleteUserById} = require('./controllers/userController')
-const {getSubscriptions, unsubcribeCreator, subscribeCreator} = require("./controllers/subscriptionsController");
-const {getCreator, updateCreator} = require("./controllers/creatorController");
+const {getSubscriptions, unsubscribeCreator, subscribeCreator} = require("./controllers/subscriptionsController");
+const {getCreator, updateCreator, getCreators} = require("./controllers/creatorController");
 
 
 const app = express();
@@ -23,6 +23,7 @@ app.get('/users', getUsers)
 app.get('/subscriptions', getSubscriptions)
 app.get('/login', login);
 app.get('/creator', getCreator);
+app.get('/creators', getCreators)
 
 app.put('/post', editPost)
 app.put('/creator', updateCreator)
@@ -31,7 +32,7 @@ app.delete('/users', deleteUserById)
 
 
 
-app.post('/subscriptions/unsubscribe', unsubcribeCreator)
+app.post('/subscriptions/unsubscribe', unsubscribeCreator)
 app.post('/subscriptions/subscribe', subscribeCreator)
 app.post('/posts', createPost);
 app.post('/signup', signup);

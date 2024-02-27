@@ -11,6 +11,10 @@ export const getCreator = async user_id => {
     });
     return data;
 };
+export const getCreators = async () => {
+    const {data} = await axios.get(`${localServer}creators`);
+    return data;
+};
 
 export const updateCreator = async creator => {
     const data = await axios.put(`${localServer}creator`, {

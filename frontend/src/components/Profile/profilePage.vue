@@ -20,10 +20,13 @@ export default {
       },
 
       user:{},
+
+      lang:'',
+
     }
   },
   async mounted(){
-    if(Number(this.$route.params.userId) === Number(this.user_id) ) {
+    if(Number(this.$route.params.userId) === Number(this.user_id()) ) {
       this.isMyProfile = true;
       this.filters.isMyProfile = true;
     }
@@ -35,7 +38,7 @@ export default {
     this.user = data;
 
     if(!this.isMyProfile){
-      let checkSubscriptions = await getSubscriptions(this.user_id);
+      let checkSubscriptions = await getSubscriptions(this.user_id());
       console.log(checkSubscriptions)
       checkSubscriptions.forEach(sub =>{
         if(Number(sub.user_id) === Number(this.$route.params.userId)){
@@ -44,11 +47,8 @@ export default {
       })
     }
     console.log(this.isISubToHim)
-  },
-  computed:{
-    user_id() {
-      return this.$store.state.userid;
-    }
+
+    this.lang = localStorage.getItem('lang')
   },
   methods:{
     async unsubscribe(creator_id){
@@ -63,7 +63,7 @@ export default {
       ).then(async () => {
         let params = {
           creator_id,
-          user_id: this.user_id
+          user_id: this.user_id()
         }
         console.log(params)
         const res = await unsubscribeCreator(params)
@@ -79,7 +79,7 @@ export default {
     async subscribe(creator_id){
       let params = {
         creator_id,
-        user_id: this.user_id
+        user_id: this.user_id()
       }
       const data = await subscribeCreator(params)
       console.log(data)
@@ -87,6 +87,14 @@ export default {
         this.$message.success('Успешно')
         this.isISubToHim = true;
       }
+    },
+    user_id(){
+      let value = localStorage.getItem('user_id')
+      return value
+    },
+    editLang(lang){
+      console.log(lang)
+      this.lang = lang;
     }
   }
 
@@ -95,31 +103,45 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header></homepage-header>
+    <homepage-header  @editLang="editLang"></homepage-header>
     <div class="flex flex-row justify-between items-center mt-5" v-if="user" style="border-bottom:1px solid #ccc; padding-bottom: 25px">
       <div class="flex items-center gap-4">
         <el-avatar size="large">{{user.username}}</el-avatar>
         <div>
           <h1>{{user.username}}</h1>
           <div v-if="user.role='creator'" class="flex text-slate-500 gap-2">
-            <p>{{user.subscribers}} подписчиков</p>
-            <p>{{user.total_posts}} постов</p>
+            <p>
+              {{user.subscribers}}
+              {{ lang === 'en' ? 'subscribers' : 'подписчиков' }}
+            </p>
+            <p>
+              {{user.total_posts}}
+              {{ lang === 'en' ? 'posts' : 'постов' }}
+            </p>
           </div>
         </div>
 
         <div>
-          <el-button type="primary" plain round v-if="isMyProfile" @click="$router.push({name:'settings', params:{userId:user_id}})">Настройки профиля</el-button>
-          <el-button type="success" round plain v-if="!isISubToHim && !isMyProfile" @click="subscribe(user.user_id)">Подписаться</el-button>
-          <el-button type="danger" round plain v-if="isISubToHim" @click="unsubscribe(user.user_id)">Отписаться</el-button>
+          <el-button type="primary" plain round v-if="isMyProfile" @click="$router.push({name:'settings', params:{userId:user_id()}})">
+            {{ lang === 'en' ? 'Profile settings' : 'Настройка профиля' }}
+          </el-button>
+          <el-button type="success" round plain v-if="!isISubToHim && !isMyProfile" @click="subscribe(user.user_id)">
+            {{ lang === 'en' ? 'Subscribe' : 'Подписаться' }}
+          </el-button>
+          <el-button type="danger" round plain v-if="isISubToHim" @click="unsubscribe(user.user_id)">
+            {{ lang === 'en' ? 'Unsubscribe' : 'Отписаться' }}
+          </el-button>
         </div>
       </div>
       <div class="text-slate-500" style="font-size: 15px; max-width: 500px">
-        Описание: {{user.channel_description}}
+        {{ lang === 'en' ? 'Description' : 'Описание' }}:
+
+        {{user.channel_description}}
       </div>
     </div>
 
     <div>
-      <main-posts :filters="filters"></main-posts>
+      <main-posts :filters="filters" :lang="lang"></main-posts>
     </div>
 
   </div>

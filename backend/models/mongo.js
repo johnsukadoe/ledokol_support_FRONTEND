@@ -27,8 +27,10 @@ const User = mongoose.model('User', {
 const Post = mongoose.model('Post', {
     _id:Number,
     user_id: Number,
-    title:String,
-    description:String,
+    titleRU:String,
+    titleEN:String,
+    descriptionRU:String,
+    descriptionEN:String,
     timestamp:Number,
     preview:Object
 }, 'posts');

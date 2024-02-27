@@ -86,7 +86,7 @@ const removePost = async (req, res) => {
 
 const editPost = async (req, res) => {
     try {
-        const { _id, title, description, timestamp, preview } = req.body;
+        const { _id, titleRU, titleEN, descriptionRU, descriptionEN, timestamp, preview } = req.body;
         console.log(_id)
         console.log(req.body)
         // Проверяем, существует ли пост с таким postId
@@ -96,8 +96,10 @@ const editPost = async (req, res) => {
         }
 
         // Обновляем данные поста
-        post.title = title;
-        post.description = description;
+        post.titleRU = titleRU;
+        post.titleEN = titleEN
+        post.descriptionRU = descriptionRU;
+        post.descriptionEN = descriptionEN;
         post.timestamp = timestamp;
         post.preview = preview;
 

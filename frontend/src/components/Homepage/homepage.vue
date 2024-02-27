@@ -8,10 +8,19 @@ export default {
   data(){
     return{
       user_id:null,
+
+      lang:'',
     }
   },
   async mounted() {
     this.user_id = this.userId;
+
+    this.lang = localStorage.getItem('lang')
+  },
+  methods:{
+    editLang(lang){
+      this.lang = lang;
+    }
   },
   computed:{
     userId() {
@@ -23,10 +32,10 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header :activeLink="'recommendations'"></homepage-header>
+    <homepage-header :activeLink="'recommendations'" @editLang="editLang"></homepage-header>
     <div class="flex flex-row justify-around mt-5">
-      <main-posts></main-posts>
-      <homepage-recent-actions></homepage-recent-actions>
+      <main-posts :lang="lang"></main-posts>
+      <homepage-recent-actions :lang="lang"></homepage-recent-actions>
     </div>
   </div>
 </template>

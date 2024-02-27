@@ -10,9 +10,23 @@ export default {
     }
   },
   async mounted(){
-    const {data} = await axios.get('https://newsapi.org/v2/everything?q=games&from=2024-01-26&sortBy=publishedAt&apiKey=f9dc9bdaa7464fffb63737e02b2798a8')
+    const currentDate = new Date();
+
+    const fifteenDaysAgo = new Date(currentDate);
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 10);
+//
+    const {data} = await axios.get(`https://newsapi.org/v2/everything?q=games&from=${this.formatDate(fifteenDaysAgo)}&sortBy=publishedAt&apiKey=f9dc9bdaa7464fffb63737e02b2798a8`)
     this.news = [...data.articles];
     console.log(this.news)
+  },
+  methods:{
+    formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
   }
 }
 </script>
