@@ -15,9 +15,6 @@ const login = async (req, res) => {
     if (req.query.user_id) {
         query.user_id = req.query.user_id;
     }
-    if (req.query.password) {
-        query.password = req.query.password;
-    }
 
     const user = await User.findOne(query);
     console.log(user)
