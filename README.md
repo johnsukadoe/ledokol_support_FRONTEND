@@ -69,8 +69,8 @@ Empower the creative and innovative minds of Kazakhstan by providing a platform 
     ```
 
 ### APIs Used
-1.News api [https://newsapi.org/docs]
-2.Random fact api [https://api-ninjas.com/api/facts]
+1. News api [https://newsapi.org/docs]
+2. Random fact api [https://api-ninjas.com/api/facts]
 
 #### My APIs
 ##### get
@@ -98,20 +98,20 @@ Empower the creative and innovative minds of Kazakhstan by providing a platform 
 Vue.js
 
 ### Dev Dependencies
-1.Vite
-2.autoprefixer
-3.postcss
-4.sass
-5.tailwindcss
-6.axios
-7.element-plus
-8.vue(vuex, vuerouter)
-9.fortawesome
-10.bcrypt
-11.cors
-12.express
-13.mongodb
-14.mongoose
+1. Vite
+2. autoprefixer
+3. postcss
+4. sass
+5. tailwindcss
+6. axios
+7. element-plus
+8. vue(vuex, vuerouter)
+9. fortawesome
+10. bcrypt
+11. cors
+12. express
+13. mongodb
+14. mongoose
 
 ### Deploy
 
@@ -159,7 +159,7 @@ Vue.js
 10. Logout
 ![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/fc12114b-e0d3-478a-8857-b9710cb02bec)
 
-11. Admin page(available for only users that role is admin) where you see all posts and you can edit or delete these posts(ref to REST api, about create, with link to create page anyone can create post, but if you delete or edit any post then your role need to be admin)
+11. Admin page(available for only users that role is admin) there you see all posts and you can edit or delete these posts(ref to REST api, about create, with link to create page anyone can create post, but if you delete or edit any post then your role need to be admin)
 ![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/8ffcd522-d0bd-4ffe-b581-6ed12eb52bd0)
 ![image](https://github.com/johnsukadoe/ledokol__support/assets/116514476/ec135dbf-8d63-4c2c-ba20-c3799d119621)
 
