@@ -4,27 +4,39 @@ const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
 const {login, signup} = require('./controllers/signController')
-const {getPosts, createPost} = require('./controllers/postController')
-const {getUsers} = require('./controllers/userController')
-const {getSubscriptions, unsubcribeCreator} = require("./controllers/subscriptionsController");
+const {getPosts, createPost, removePost, editPost} = require('./controllers/postController')
+const {getUsers, deleteUserById} = require('./controllers/userController')
+const {getSubscriptions, unsubcribeCreator, subscribeCreator} = require("./controllers/subscriptionsController");
+const {getCreator, updateCreator} = require("./controllers/creatorController");
 
 
 const app = express();
-const port = 3025;
+const port = 3001;
 
 app.use(cors());
 app.use(express.json());
 
+const server = 'ledokol-api';
+``
+app.get('/posts', getPosts)
+app.get('/users', getUsers)
+app.get('/subscriptions', getSubscriptions)
+app.get('/login', login);
+app.get('/creator', getCreator);
+
+app.put('/post', editPost)
+app.put('/creator', updateCreator)
+
+app.delete('/users', deleteUserById)
 
 
-app.get('ledokol-api/posts', getPosts)
-app.get('ledokol-api/users', getUsers)
-app.get('ledokol-api/subscriptions', getSubscriptions)
-app.get('ledokol-api/login', login);
 
-app.post('ledokol-api/subscriptions/unsubscribe', unsubcribeCreator)
-app.post('ledokol-api/posts', createPost);
-app.post('ledokol-api/signup', signup);
+app.post('/subscriptions/unsubscribe', unsubcribeCreator)
+app.post('/subscriptions/subscribe', subscribeCreator)
+app.post('/posts', createPost);
+app.post('/signup', signup);
+app.post('/post/remove', removePost)
+
 
 // app.post('ledokol-api/posts/:postId/like', async (req, res) => {
 //   try {

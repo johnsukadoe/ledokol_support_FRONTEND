@@ -8,9 +8,9 @@ import './style.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faArrowLeft, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faMagnifyingGlass, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faArrowLeft, faMagnifyingGlass)
+library.add(faArrowLeft, faMagnifyingGlass, faPencil, faTrash)
 
 import router from './router';
 import store from './store';

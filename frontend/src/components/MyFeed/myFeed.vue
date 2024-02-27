@@ -9,6 +9,7 @@ export default {
     return {
       filters:{
         user_id: this.user_id,
+        isProfile: false,
       },
     }
   },

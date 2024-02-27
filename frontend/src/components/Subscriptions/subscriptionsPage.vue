@@ -46,8 +46,6 @@ export default {
       .catch(() => {
         this.$message.error('Вы отказались отписаться.')
       })
-
-
     }
   }
 }

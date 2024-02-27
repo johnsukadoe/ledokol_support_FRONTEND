@@ -8,20 +8,22 @@ export default {
   data(){
     return{
       search:'',
-      username:''
+      username:'',
+
+      isAdmin:false,
     }
   },
   async mounted(){
     await this.getUser()
   },
   methods:{
-    selectSearchResults(){
-      console.log('okay')
-    },
     async getUser() {
       try {
         const data = await getUser(this.user_id);
         this.username = data.username
+        if(data.role === 'admin'){
+          this.isAdmin = true;
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
         return;
@@ -45,6 +47,7 @@ export default {
     <div class="header">
       <ul>
         <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'homepage'})">Рекомендация</li>
+        <li :class="{ 'active': activeLink === 'news' }" @click="$router.push({name:'news'})">Новости</li>
         <li :class="{ 'active': activeLink === 'myfeed' }" @click="$router.push({name:'myfeed'})">Моя лента</li>
         <li :class="{ 'active': activeLink === 'subscriptions' }" @click="$router.push({name:'subscriptions'})">Подписки</li>
         <li :class="{ 'active': activeLink === 'create' }" @click="$router.push({name:'create'})">Создать</li>
@@ -56,25 +59,26 @@ export default {
 
         <template #dropdown>
           <el-dropdown-menu class="flex flex-col">
-            <el-dropdown-item>Профиль</el-dropdown-item>
-            <el-dropdown-item>Статистика</el-dropdown-item>
-            <el-dropdown-item>Настройки</el-dropdown-item>
+            <el-dropdown-item @click="$router.push({name:'profile', params:{userId:user_id}})">Профиль</el-dropdown-item>
+<!--            <el-dropdown-item>Статистика</el-dropdown-item>-->
+            <el-dropdown-item @click="$router.push({name:'settings', params:{userId:user_id}})">Настройки</el-dropdown-item>
             <el-dropdown-item @click="logout">Выйти</el-dropdown-item>
+            <el-dropdown-item @click="$router.push({name:'admin'})" v-if="isAdmin">Админ</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
-    <div class="flex flex-row justify-center items-center align-middle" v-if="activeLink==='recommendations' || activeLink==='myfeed' || activeLink==='subscriptions' ">
-      <el-autocomplete
-          v-model="search"
-          placeholder="Please input"
-          @select="selectSearchResults"
-          class="w-3/4 mt-5"
-      />
-      <el-button class="mt-5 ml-3">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass" round/>
-      </el-button>
-    </div>
+<!--    <div class="flex flex-row justify-center items-center align-middle" v-if="activeLink==='recommendations' || activeLink==='myfeed' || activeLink==='subscriptions' ">-->
+<!--      <el-autocomplete-->
+<!--          v-model="search"-->
+<!--          placeholder="Please input"-->
+<!--          @select="selectSearchResults"-->
+<!--          class="w-3/4 mt-5"-->
+<!--      />-->
+<!--      <el-button class="mt-5 ml-3">-->
+<!--        <font-awesome-icon icon="fa-solid fa-magnifying-glass" round/>-->
+<!--      </el-button>-->
+<!--    </div>-->
   </div>
 
 

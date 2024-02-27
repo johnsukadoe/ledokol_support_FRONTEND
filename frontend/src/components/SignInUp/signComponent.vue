@@ -49,10 +49,14 @@ export default {
         email:'',
         username:'',
         user_info_id:null,
+        limit:1,
       }
     }
   },
   mounted(){
+    if(this.$store.state.user_id){
+      this.$router.push({name:'homepage'});
+    }
     let isSign = this.$route.query.isSignUp;
     this.isSignUp=(isSign.toLowerCase() === "true");
     if(this.isSignUp){
@@ -66,19 +70,20 @@ export default {
   methods:{
     async regUser() {
       const localServer= 'http://localhost:3001/';
+      const onlineServer='https://ems-app.kz/ledokol-api/signup'
 
       if (this.isSignUp) {
         if(this.user.username.length===0 || this.user.email.length===0 || this.user.password.length === 0){
           this.$message.error('Заполните данные')
         }else{
           try {
-            const response = await axios.post('https://ems-app.kz/ledokol-api/signup', this.user);
+            const response = await axios.post(`${localServer}signup`, this.user);
 
             const newUserId = response.data.user_id;
             this.$store.commit('setUserId', newUserId);
             console.log(this.user_id)
             this.$message.success('Успешно')
-            this.$router.push({ name: 'Homepage', params: { id: newUserId } });
+            this.$router.push({ name: 'homepage', params: { id: newUserId } });
 
           } catch (error) {
             console.error('Error registering user:', error);
@@ -87,13 +92,14 @@ export default {
 
       } else {
         try {
-          const response = await axios.get('https://ems-app.kz/ledokol-api/login', {
+          const response = await axios.get(`${localServer}login`, {
             params: {
               username: this.user.username,
               password: this.user.password,
+              limit:this.user.limit
             },
           });
-
+          console.log(response)
           const newUserId = response.data.user_id
 
           this.$store.commit('setUserId', newUserId);

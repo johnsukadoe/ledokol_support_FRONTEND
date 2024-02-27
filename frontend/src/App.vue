@@ -17,9 +17,14 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$store.state)
+    if(this.$store.state.user_id){
+      this.$router.push({name:'homepage'})
+    }
+
     const localServer= 'http://localhost:3001/'
 
-    fetch('https://ems-app.kz/ledokol-api/users')
+    fetch(`${localServer}`)
         .then(response => response.json())
         .then(data => (this.users = data))
         .catch(error => console.error('Error fetching creators:', error));

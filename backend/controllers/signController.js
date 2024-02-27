@@ -1,4 +1,4 @@
-const {User} = require("../models/mongo");
+const {User, Creator} = require("../models/mongo");
 
 const login = async (req, res) => {
     let query = {};
@@ -32,12 +32,28 @@ const signup = async (req, res) => {
 
     const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
 
-    const newUser = new User({ ...req.body, user_id: newUserId, role:'watcher', join_date: currentTimeInSeconds });
+    // Создание нового документа User
+    const newUser = new User({ ...req.body, user_id: newUserId, role:'creator', join_date: currentTimeInSeconds });
 
+    // Сохранение нового документа User
     const savedUser = await newUser.save();
+
+    // Создание объекта Creator с тем же user_id
+    const newCreator = new Creator({
+        _id:newUserId,
+        user_id: newUserId,
+        subscribers: 0,
+        channel_description: `${req.body.username}'s channel.`,
+        total_posts: 0,
+        username: req.body.username
+    });
+
+    // Сохранение нового документа Creator
+    await newCreator.save();
 
     res.status(201).json(savedUser);
 }
+
 
 
 module.exports = {

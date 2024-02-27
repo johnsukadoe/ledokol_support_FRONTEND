@@ -4,7 +4,7 @@
       <div>
         <div class="flex items-center gap-2">
           <el-avatar size="default">{{ user.username }}</el-avatar>
-          <h2>{{ user.username }}</h2>
+          <h2 @click="$router.push({name:'profile', params:{userId:user.user_id}})">{{ user.username }}</h2>
         </div>
         <div class="flex mt-3 gap-2">
           <p>{{ user.subscribers }} subscribers </p>

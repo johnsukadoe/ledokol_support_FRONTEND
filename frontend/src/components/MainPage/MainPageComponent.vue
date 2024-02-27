@@ -32,6 +32,11 @@ import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue'
 export default{
   name:'MainPageComponent',
   components:{MainPageHeader},
+  mounted() {
+    if(this.$store.state.user_id){
+      this.$router.push({name:'homepage'})
+    }
+  }
 }
 </script>
 
