@@ -114,7 +114,7 @@ Vue.js
 14. mongoose
 
 ### Deploy
-
+https://ledokol.ems-app.kz/
 
 ### Admin info
 #### Username: Mirai
