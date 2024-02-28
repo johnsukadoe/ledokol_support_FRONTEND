@@ -17,12 +17,7 @@ export default {
     };
   },
   mounted() {
-    const localServer= 'http://localhost:3001/'
 
-    fetch(`${localServer}`)
-        .then(response => response.json())
-        .then(data => (this.users = data))
-        .catch(error => console.error('Error fetching creators:', error));
   },
   methods:{
     user_id(){
