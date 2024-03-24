@@ -5,7 +5,7 @@ const localServer= 'http://localhost:3001/'
 
 export const createPost = async (post) => {
     try {
-        const response = await axios.post(`${server}posts`, {
+        const response = await axios.post(`${localServer}posts`, {
             ...post,
         });
 

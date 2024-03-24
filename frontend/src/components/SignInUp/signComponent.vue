@@ -82,7 +82,7 @@ export default {
           this.$message.error('Заполните данные')
         }else{
           try {
-            const response = await axios.post(`${onlineServer}signup`, this.user);
+            const response = await axios.post(`${localServer}signup`, this.user);
 
             const newUserId = response.data.user_id;
             localStorage.setItem('user_id', newUserId);
@@ -97,7 +97,7 @@ export default {
 
       } else {
         try {
-          const response = await axios.get(`${onlineServer}login`, {
+          const response = await axios.get(`${localServer}login`, {
             params: {
               username: this.user.username,
               password: this.user.password,

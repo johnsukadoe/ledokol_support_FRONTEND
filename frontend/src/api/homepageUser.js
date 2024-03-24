@@ -4,7 +4,7 @@ const server = 'https://ems-app.kz/ledokol-api/';
 const localServer = 'http://localhost:3001/';
 
 export const getUser = async user_id=> {
-    const {data} = await axios.get(`${server}users`, {
+    const {data} = await axios.get(`${localServer}users`, {
         params: {
             user_id:user_id,
             limit:1,
@@ -14,12 +14,12 @@ export const getUser = async user_id=> {
 };
 
 export const getUsers = async ()  => {
-    const {data} = await axios.get(`${server}users`);
+    const {data} = await axios.get(`${localServer}users`);
     return data;
 };
 
 export const removeUser = async user_id  => {
-    const data = await axios.delete(`${server}users`, {
+    const data = await axios.delete(`${localServer}users`, {
         params:{
             user_id
         }

@@ -5,12 +5,12 @@ const localServer= 'http://localhost:3001/';
 
 export const getPosts = async filters=> {
     let params= filters
-    const {data} = await axios.get(server+'posts', {params});
+    const {data} = await axios.get(localServer+'posts', {params});
     return data;
 };
 
 export const removePost = async post_id=> {
-    const data = await axios.post(server+'post/remove', {
+    const data = await axios.post(localServer+'post/remove', {
         query:{
             post_id
         }
@@ -19,7 +19,7 @@ export const removePost = async post_id=> {
 };
 
 export const editPost = async (post)=> {
-    const data = await axios.put(server+'post', {
+    const data = await axios.put(localServer+'post', {
         ...post
     });
     return data;

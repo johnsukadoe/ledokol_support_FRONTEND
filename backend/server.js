@@ -11,32 +11,31 @@ const {getCreator, updateCreator, getCreators} = require("./controllers/creatorC
 
 
 const app = express();
-const port = 3025;
+const port = 3001;
 
 app.use(cors());
 app.use(express.json());
 
-const server = 'ledokol-api';
 ``
-app.get('ledokol-api/posts', getPosts)
-app.get('ledokol-api/users', getUsers)
-app.get('ledokol-api/subscriptions', getSubscriptions)
-app.get('ledokol-api/login', login);
-app.get('ledokol-api/creator', getCreator);
-app.get('ledokol-api/creators', getCreators)
+app.get('/posts', getPosts)
+app.get('/users', getUsers)
+app.get('/subscriptions', getSubscriptions)
+app.get('/login', login);
+app.get('/creator', getCreator);
+app.get('/creators', getCreators)
 
-app.put('ledokol-api/post', editPost)
-app.put('ledokol-api/creator', updateCreator)
+app.put('/post', editPost)
+app.put('/creator', updateCreator)
 
-app.delete('ledokol-api/users', deleteUserById)
+app.delete('/users', deleteUserById)
 
 
 
-app.post('ledokol-api/subscriptions/unsubscribe', unsubscribeCreator)
-app.post('ledokol-api/subscriptions/subscribe', subscribeCreator)
-app.post('ledokol-api/posts', createPost);
-app.post('ledokol-api/signup', signup);
-app.post('ledokol-api/post/remove', removePost)
+app.post('/subscriptions/unsubscribe', unsubscribeCreator)
+app.post('/subscriptions/subscribe', subscribeCreator)
+app.post('/posts', createPost);
+app.post('/signup', signup);
+app.post('/post/remove', removePost)
 
 
 // app.post('ledokol-api/posts/:postId/like', async (req, res) => {
