@@ -81,9 +81,6 @@ export default {
         <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'homepage', lang:lang})">
           {{ lang === 'en' ? 'Recommendations' : 'Рекомендация' }}
         </li>
-        <li :class="{ 'active': activeLink === 'news' }" @click="$router.push({name:'news', lang:lang})">
-          {{ lang === 'en' ? 'News' : 'Новости' }}
-        </li>
         <li :class="{ 'active': activeLink === 'myfeed' }" @click="$router.push({name:'myfeed', lang:lang})">
           {{ lang === 'en' ? 'My Feed' : 'Моя лента' }}
         </li>
