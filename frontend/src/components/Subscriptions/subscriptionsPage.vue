@@ -1,11 +1,10 @@
 <script>
-import HomepageHeader from "@/components/Homepage/components/homepage-header.vue";
-import {getSubscriptions, unsubscribeCreator} from "@/api/subscriptions.js";
-import CreaterCard from "@/components/Subscriptions/components/createrCard.vue";
+import { getSubscriptions, unsubscribeCreator } from '@/api/subscriptions.js'
+import CreaterCard from '@/components/Subscriptions/components/createrCard.vue'
 
 export default {
   name: "subscriptionsPage",
-  components: {CreaterCard, HomepageHeader},
+  components: {CreaterCard, },
   data(){
     return{
       subscriptions: {},
@@ -61,15 +60,14 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header :activeLink="'subscriptions'" @editLang="editLang"></homepage-header>
     <div class="my-5 mx-8">
       <div v-for="creater in subscriptions" >
-        <creater-card :user="creater" @unsubscribe="unsubscribe" :lang="lang"></creater-card>
+        <creater-card :lang="lang" :user="creater" @unsubscribe="unsubscribe"></creater-card>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

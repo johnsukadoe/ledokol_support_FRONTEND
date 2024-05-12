@@ -1,13 +1,13 @@
 const recommendationsPage = () =>
 	import(
-		/* webpackChunkName: "recommendations" */ "@/components/Homepage/homepage.vue"
+		/* webpackChunkName: "recommendationsPage" */ "@/components/Homepage/homepage.vue"
 		);
 
 
 export default [
 	{
 		path: '/recommendations',
-		name: 'homepage',
+		name: 'recommendations',
 		component: recommendationsPage,
 		props:true,
 	},

@@ -1,10 +1,9 @@
 <script>
-import HomepageHeader from "@/components/Homepage/components/homepage-header.vue";
-import MainPosts from "@/components/main-posts.vue";
+import MainPosts from '@/components/main-posts.vue'
 
 export default {
   name: "myFeed",
-  components: {MainPosts, HomepageHeader},
+  components: {MainPosts,},
   data(){
     return {
       filters:{
@@ -39,12 +38,11 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header :activeLink="'myfeed'" @editLang="editLang"></homepage-header>
 
     <main-posts :filters="filters" :lang="lang"></main-posts>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

@@ -1,13 +1,12 @@
 <script>
-import HomepageHeader from "@/components/Homepage/components/homepage-header.vue";
-import {getUser} from "@/api/homepageUser.js";
-import {getCreator} from "@/api/creators.js";
-import MainPosts from "@/components/main-posts.vue";
-import {getSubscriptions, subscribeCreator, unsubscribeCreator} from "@/api/subscriptions.js";
+import { getCreator } from '@/api/creators.js'
+import { getUser } from '@/api/homepageUser.js'
+import { getSubscriptions, subscribeCreator, unsubscribeCreator } from '@/api/subscriptions.js'
+import MainPosts from '@/components/main-posts.vue'
 
 export default {
   name: "profilePage",
-  components: {MainPosts, HomepageHeader},
+  components: {MainPosts, },
   data(){
     return{
       isMyProfile:false,
@@ -103,8 +102,7 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header  @editLang="editLang"></homepage-header>
-    <div class="flex flex-row justify-between items-center mt-5" v-if="user" style="border-bottom:1px solid #ccc; padding-bottom: 25px">
+    <div v-if="user" class="flex flex-row justify-between items-center mt-5" style="border-bottom:1px solid #ccc; padding-bottom: 25px">
       <div class="flex items-center gap-4">
         <el-avatar size="large">{{user.username}}</el-avatar>
         <div>
@@ -122,13 +120,13 @@ export default {
         </div>
 
         <div>
-          <el-button type="primary" plain round v-if="isMyProfile" @click="$router.push({name:'settings', params:{userId:user_id()}})">
+          <el-button v-if="isMyProfile" plain round type="primary" @click="$router.push({name:'settings', params:{userId:user_id()}})">
             {{ lang === 'en' ? 'Profile settings' : 'Настройка профиля' }}
           </el-button>
-          <el-button type="success" round plain v-if="!isISubToHim && !isMyProfile" @click="subscribe(user.user_id)">
+          <el-button v-if="!isISubToHim && !isMyProfile" plain round type="success" @click="subscribe(user.user_id)">
             {{ lang === 'en' ? 'Subscribe' : 'Подписаться' }}
           </el-button>
-          <el-button type="danger" round plain v-if="isISubToHim" @click="unsubscribe(user.user_id)">
+          <el-button v-if="isISubToHim" plain round type="danger" @click="unsubscribe(user.user_id)">
             {{ lang === 'en' ? 'Unsubscribe' : 'Отписаться' }}
           </el-button>
         </div>
@@ -147,7 +145,7 @@ export default {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   h1{
     font-size: 24px;
     font-weight: 600;

@@ -1,10 +1,8 @@
 <script>
-import {getUser} from '@/api/homepageUser';
+import { getUser } from '@/api/homepageUser'
+
 export default {
   name: "homepage-header",
-  props: {
-    activeLink:String,
-  },
   data(){
     return{
       search:'',
@@ -23,10 +21,12 @@ export default {
           key:'en',
           value:"English"
         }
-      ]
-    }
+      ],
+	    activeLink:''
+		}
   },
   async mounted(){
+		this.activeLink = this.$route.name
     let value = localStorage.getItem('lang')
     if(value){
       this.lang = value;
@@ -64,7 +64,11 @@ export default {
     },
     emitLang(){
       this.$emit('editLang', this.lang)
-    }
+    },
+	  goTo(routeName){
+			this.$router.push({name:routeName, lang:this.lang, params:{userId:this.user_id()}})
+		  this.activeLink=routeName;
+	  }
   },
   watch:{
     lang(){
@@ -78,16 +82,16 @@ export default {
   <div>
     <div class="header">
       <ul>
-        <li :class="{ 'active': activeLink === 'recommendations' }" @click="$router.push({name:'homepage', lang:lang})">
+        <li :class="{ 'active': activeLink === 'recommendations' }" @click="goTo('recommendations')">
           {{ lang === 'en' ? 'Recommendations' : 'Рекомендация' }}
         </li>
-        <li :class="{ 'active': activeLink === 'myfeed' }" @click="$router.push({name:'myfeed', lang:lang})">
+        <li :class="{ 'active': activeLink === 'myfeed' }" @click="goTo('myfeed')">
           {{ lang === 'en' ? 'My Feed' : 'Моя лента' }}
         </li>
-        <li :class="{ 'active': activeLink === 'subscriptions' }" @click="$router.push({name:'subscriptions', lang:lang})">
+        <li :class="{ 'active': activeLink === 'subscriptions' }" @click="goTo('subscriptions')">
           {{ lang === 'en' ? 'Subscriptions' : 'Подписки' }}
         </li>
-        <li :class="{ 'active': activeLink === 'create' }" @click="$router.push({name:'create', lang:lang})">
+        <li :class="{ 'active': activeLink === 'create' }" @click="goTo('create')">
           {{ lang === 'en' ? 'Create' : 'Создать' }}
         </li>
 
@@ -109,23 +113,22 @@ export default {
               :value="item.key"
           />
         </el-select>
-        <el-dropdown trigger="click" size="large">
+        <el-dropdown size="large" trigger="click">
 
           <el-avatar> {{ this.username }} </el-avatar>
 
           <template #dropdown>
             <el-dropdown-menu class="flex flex-col">
-              <el-dropdown-item @click="$router.push({name:'profile', params:{userId:user_id()}})">
+              <el-dropdown-item @click="goTo('profile')">
                 {{ lang === 'en' ? 'Profile' : 'Профиль' }}
               </el-dropdown-item>
-              <!-- <el-dropdown-item>{{ lang === 'en' ? 'Statistics' : 'Статистика' }}</el-dropdown-item> -->
-              <el-dropdown-item @click="$router.push({name:'settings', params:{userId:user_id()}})">
+              <el-dropdown-item @click="goTo('settings')">
                 {{ lang === 'en' ? 'Settings' : 'Настройки' }}
               </el-dropdown-item>
               <el-dropdown-item @click="logout">
                 {{ lang === 'en' ? 'Logout' : 'Выйти' }}
               </el-dropdown-item>
-              <el-dropdown-item @click="$router.push({name:'admin'})" v-if="isAdmin">
+              <el-dropdown-item v-if="isAdmin" @click="goTo('admin')">
                 {{ lang === 'en' ? 'Admin' : 'Админ' }}
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -146,13 +149,12 @@ export default {
 <!--        <font-awesome-icon icon="fa-solid fa-magnifying-glass" round/>-->
 <!--      </el-button>-->
 <!--    </div>-->
+	  
+	  <router-view></router-view>
   </div>
-
-
-
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .header {
   background-color: white;  /* Белый фон */
   padding: 15px;

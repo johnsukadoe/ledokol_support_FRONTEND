@@ -6,14 +6,37 @@ import recommendationsRouter from '@/router/routes/recommendations-router.js'
 import settingsRouter from '@/router/routes/settings-router.js'
 import subscriptionsRouter from '@/router/routes/subscriptions-router.js'
 
+const nullPage = () =>
+  import(
+    /* webpackChunkName: "nullPage" */ "@/components/nullPage.vue"
+    );
+const headerPage = () =>
+  import(
+    /* webpackChunkName: "headerPage" */ "@/components/Homepage/components/homepage-header.vue"
+    );
 export default[
-    ...recommendationsRouter,
-    ...myFeedRouter,
-    ...subscriptionsRouter,
-    ...createRouter,
-    ...profileRouter,
-    ...settingsRouter,
-    ...adminRouter
+    {
+        path: '',
+        name: 'nullpage',
+        component: nullPage,
+        children:[
+            {
+                path: '/',
+                name: 'header',
+                component: headerPage,
+                children:[
+                    ...recommendationsRouter,
+                    ...myFeedRouter,
+                    ...subscriptionsRouter,
+                    ...createRouter,
+                    ...profileRouter,
+                    ...settingsRouter,
+                    ...adminRouter
+                ]
+            },
+        ]
+    },
+    
 ];
 
 

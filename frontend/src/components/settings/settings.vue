@@ -1,12 +1,11 @@
 <script>
-import HomepageHeader from "@/components/Homepage/components/homepage-header.vue";
-import {getCreator, updateCreator} from "@/api/creators.js";
-import {getUser} from "@/api/homepageUser.js";
-import axios from "axios";
+import { getCreator, updateCreator } from '@/api/creators.js'
+import { getUser } from '@/api/homepageUser.js'
+import axios from 'axios'
 
 export default {
   name: "settings",
-  components: {HomepageHeader},
+  components: {},
   data(){
     return{
       user:{
@@ -70,7 +69,6 @@ export default {
 
 <template>
   <div style="max-width: 1280px; margin: 0 auto">
-    <homepage-header @editLang="editLang"></homepage-header>
     <div class="mt-4">
       <h1>
         {{ lang === 'en' ? 'Settings' : 'Настройки' }}
@@ -90,10 +88,10 @@ export default {
         </div>
       </div>
       <div class="mt-6">
-        <el-button type="danger" plain round @click="$router.push({name:'profile', params:{userId:user_id}})">
+        <el-button plain round type="danger" @click="$router.push({name:'profile', params:{userId:user_id}})">
           {{ lang === 'en' ? 'Cancel' : 'Отмена' }}
         </el-button>
-        <el-button type="primary" plain round @click="save">
+        <el-button plain round type="primary" @click="save">
           {{ lang === 'en' ? 'Save' : 'Сохранить' }}
         </el-button>
       </div>
@@ -101,7 +99,7 @@ export default {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 h1{
   font-size: 32px;
   font-weight: 600;
