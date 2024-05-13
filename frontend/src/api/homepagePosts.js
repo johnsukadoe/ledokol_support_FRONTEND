@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
+
 const server = 'https://ems-app.kz/ledokol-api/';
 
 const localServer= 'http://localhost:3001/';
@@ -25,3 +26,21 @@ export const editPost = async (post)=> {
     return data;
 };
 
+
+export const likePost  = async (postId, likerId) =>{
+    const data = await axios.post(localServer+'post/like', {
+        params:{
+            postId, likerId
+        }
+    })
+    return data
+}
+
+export const unlikePost  = async (postId, likerId) =>{
+    const data = await axios.post(localServer+'post/unlike', {
+        params:{
+            postId, likerId
+        }
+    })
+    return data
+}

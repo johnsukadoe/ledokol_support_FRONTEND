@@ -1,6 +1,6 @@
 <script>
-import {getPosts, removePost} from "@/api/homepagePosts.js";
-import {getUsers, getUser} from "@/api/homepageUser.js";
+import { getPosts, likePost, removePost, unlikePost } from '@/api/homepagePosts.js'
+import { getUser, getUsers } from '@/api/homepageUser.js'
 
 export default {
   name: "main-posts",
@@ -26,6 +26,33 @@ export default {
     }
   },
   methods:{
+		async unlike(post_id){
+			const { data } = await unlikePost(post_id, this.user_id())
+			if (data.modifiedCount > 0) {
+				// Находим пост в this.posts по post_id
+				const post = this.posts.find(post => post._id === post_id);
+				
+				// Удаляем лайк из массива likes поста
+				post.likes = post.likes.filter(like => like.liker_id !== this.user_id());
+				
+				console.log("Post unliked successfully.");
+			}
+		},
+		async like(post_id){
+			const { data } = await likePost(post_id, this.user_id())
+			if (data.modifiedCount > 0) {
+				// Находим пост в this.posts по post_id
+				const post = this.posts.find(post => post._id === post_id);
+				
+				// Добавляем лайк в массив likes поста
+				post.likes.push({
+					liker_id: this.user_id(),
+					timestamp: Math.floor(new Date().getTime() / 1000)
+				});
+				
+				console.log("Post liked successfully.");
+			}
+		},
     async getPosts(){
       let filters = {};
       if(this.filters && !this.filters.isProfile){
@@ -87,7 +114,15 @@ export default {
           this.$message.error('Ошибка')
         }
       })
-    }
+    },
+	  isULiked(likes) {
+		  const liked = likes.some(like => like.liker_id === this.user_id());
+		  return liked
+	  },
+	  user_id(){
+		  let value = localStorage.getItem('user_id');
+		  return Number(value)
+	  },
   },
 }
 </script>
@@ -95,12 +130,12 @@ export default {
 <template>
   <div>
     <div class="flex flex-col gap-6 my-6">
-      <div v-if="posts.length" v-for="post in posts" class="flex justify-between">
+      <div v-for="post in posts" v-if="posts.length" class="flex justify-between">
         <div>
           <p class="text-gray-400 text-sm my-1 p-0">{{ secondsToTime(post.timestamp) }}</p>
           <div class="flex">
             <div>
-              <el-avatar size="small" class="mr-1.5 my-0.5"> {{ findUserById(post.user_id) }} </el-avatar>
+              <el-avatar class="mr-1.5 my-0.5" size="small"> {{ findUserById(post.user_id) }} </el-avatar>
               <span class="username-link text-gray-600 text-sm" @click="$router.push({name:'profile', params:{userId:post.user_id}})">{{ findUserById(post.user_id) }}</span>
               <h2 class="font-bold my-1 title-link" >
                 {{ lang === 'en' ? post.titleEN : post.titleRU }}
@@ -112,7 +147,7 @@ export default {
           </div>
           <div v-if="post.preview">
             <div v-if="post.preview.type==='video'">
-              <iframe style="border-radius: 10px" class="m-0 p-0" width="700" height="300" :src="post.preview.source" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; gyroscope; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe :src="post.preview.source" allow="accelerometer; autoplay; clipboard-write; gyroscope; encrypted-media; picture-in-picture; web-share" allowfullscreen class="m-0 p-0" frameborder="0" height="300" style="border-radius: 10px" title="YouTube video player" width="700"></iframe>
             </div>
             <div v-else-if="post.preview.type==='image'">
               <img :src="post.preview.source" alt="" style="max-width:700px; max-height: 300px; width: auto; height: auto; border-radius: 5px">
@@ -120,10 +155,21 @@ export default {
             <div v-else v-html="post.preview.source">
             </div>
           </div>
+	        
+	        <div>
+		        <div class='mt-2'>
+			        <el-button v-if='isULiked(post.likes)' circle @click='unlike(post._id)'>
+				        <font-awesome-icon icon="fa-solid fa-heart" />
+			        </el-button>
+			        <el-button v-else circle @click='like(post._id)'>
+				        <font-awesome-icon icon="fa-regular fa-heart"/>
+			        </el-button>
+		        </div>
+	        </div>
         </div>
         <div v-if="isMyProfilePosts" class="pt-2">
-          <el-button type="primary" plain round size="small" @click="edit(post._id)">Редактировать</el-button>
-          <el-button type="danger" plain round size="small" @click="remove(post._id)">Удалить</el-button>
+          <el-button plain round size="small" type="primary" @click="edit(post._id)">Редактировать</el-button>
+          <el-button plain round size="small" type="danger" @click="remove(post._id)">Удалить</el-button>
         </div>
       </div>
       <div v-else>
@@ -133,7 +179,7 @@ export default {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .title-link:hover{
   cursor: pointer;
   text-decoration: underline;
