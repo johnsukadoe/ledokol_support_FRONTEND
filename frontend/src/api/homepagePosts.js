@@ -44,3 +44,30 @@ export const unlikePost  = async (postId, likerId) =>{
     })
     return data
 }
+
+export const commentPost  = async (comment, postId, userId, parentId) =>{
+    const data = await axios.post(localServer+'post/comment', {
+        params:{
+            postId, comment, userId, parentId
+        }
+    })
+    return data
+}
+
+export const editComment  = async (commentId, newText, parentId) =>{
+    const data = await axios.put(localServer+'post/comment/edit', {
+        params:{
+            commentId, newText, parentId
+        }
+    })
+    return data
+}
+
+export const removeComment  = async (commentId, parentId) =>{
+    const data = await axios.delete(localServer+'post/comment', {
+        params:{
+            commentId, parentId
+        }
+    })
+    return data
+}

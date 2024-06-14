@@ -21,7 +21,7 @@ export default[
         component: nullPage,
         children:[
             {
-                path: '/',
+                path: '',
                 name: 'header',
                 component: headerPage,
                 children:[

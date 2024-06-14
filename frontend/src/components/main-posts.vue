@@ -1,5 +1,5 @@
 <script>
-import { getPosts, likePost, removePost, unlikePost } from '@/api/homepagePosts.js'
+import { commentPost, getPosts, likePost, removePost, unlikePost } from '@/api/homepagePosts.js'
 import { getUser, getUsers } from '@/api/homepageUser.js'
 
 export default {
@@ -16,6 +16,9 @@ export default {
       isMyProfilePosts:false,
 
       title:'',
+	    
+	    comment:'',
+	    
     }
   },
   async mounted() {
@@ -26,6 +29,29 @@ export default {
     }
   },
   methods:{
+		async commentPost(post_id){
+			const {data } = await commentPost(this.comment, post_id, this.user_id() )
+			console.log(data)
+			if(data.success){
+				const data = await getPosts({ post_id })
+				console.log(data[0], 'wtf')
+				const newPost = data[0];
+				const postIndex = this.posts.findIndex(post => post._id === newPost._id);
+				
+				if (postIndex !== -1) {
+					// Обновите массив likes в посте
+					const updatedPost = {
+						...this.posts[postIndex],
+						likes: newPost.likes // Предположим, что newPost содержит обновленный массив likes
+					};
+					
+					// Обновите пост в массиве
+					this.posts[postIndex] = updatedPost
+				}
+				
+				this.$message.success('Успешно')
+			}
+		},
 		async unlike(post_id){
 			const { data } = await unlikePost(post_id, this.user_id())
 			if (data.modifiedCount > 0) {
@@ -137,7 +163,7 @@ export default {
             <div>
               <el-avatar class="mr-1.5 my-0.5" size="small"> {{ findUserById(post.user_id) }} </el-avatar>
               <span class="username-link text-gray-600 text-sm" @click="$router.push({name:'profile', params:{userId:post.user_id}})">{{ findUserById(post.user_id) }}</span>
-              <h2 class="font-bold my-1 title-link" >
+              <h2 class="font-bold my-1 title-link"  @click='isOpen = true' >
                 {{ lang === 'en' ? post.titleEN : post.titleRU }}
               </h2>
               <p class="text-sm my-2" style="width: 700px">
@@ -158,13 +184,44 @@ export default {
 	        
 	        <div>
 		        <div class='mt-2'>
-			        <el-button v-if='isULiked(post.likes)' circle @click='unlike(post._id)'>
+			        <el-button v-if='isULiked(post.likes)' circle class='flex items-center justify-center' @click='unlike(post._id)'>
 				        <font-awesome-icon icon="fa-solid fa-heart" />
 			        </el-button>
-			        <el-button v-else circle @click='like(post._id)'>
+			        <el-button v-else circle class='flex items-center justify-center' @click='like(post._id)'>
 				        <font-awesome-icon icon="fa-regular fa-heart"/>
 			        </el-button>
 		        </div>
+	        </div>
+	        <div>
+		        <el-input v-model='comment'>
+			        <template #append>
+				        <el-button @click='commentPost(post._id)'>
+					        <el-icon><Position /></el-icon>
+				        </el-button>
+			        </template>
+		        </el-input>
+		        <div v-if="post.comments" class="space-y-4">
+			        <div v-for="comment in post.comments" :key="comment.comment_id" class="comment p-4">
+				        <div class="comment-header flex items-center mb-2">
+					        <el-avatar> {{comment.user.username}}</el-avatar>
+					        <div class="user-info ml-2">
+						        <span class="username font-semibold">{{ comment.user.username }}</span>
+						        <span class="timestamp ml-3 text-sm text-gray-500">{{ new Date(comment.timestamp * 1000).toLocaleString() }}</span>
+					        </div>
+				        </div>
+				        <div class="comment-body">
+					        <div class="comment-text text-gray-800">
+						        {{ comment.text }}
+					        </div>
+					        <div class="comment-actions mt-2">
+						        <button class="action-btn text-blue-500" @click="replyToComment(comment.comment_id)">Reply</button>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        
+	        
+	        
 	        </div>
         </div>
         <div v-if="isMyProfilePosts" class="pt-2">
