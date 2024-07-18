@@ -1,12 +1,20 @@
 import { createStore } from 'vuex';
 
+const someinfo = import.meta.env.SOMETHING;
+
 export default createStore({
   state: {
-    userid:null,
+    userInfo:{
+      token:'',
+      email:'',
+      user_id:"",
+      refreshToken:'',
+      expiresIn:'',
+    }
   },
   mutations: {
-    setUserId(state, userid) {
-      state.userid = userid
+    setUserId(state, payload) {
+      state.userInfo = payload
     }
   },
   modules: {

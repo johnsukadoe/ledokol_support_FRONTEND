@@ -7,6 +7,7 @@ import { faHeart as faUnliked } from '@fortawesome/free-regular-svg-icons'
 import { faArrowLeft, faHeart, faMagnifyingGlass, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import './api/api.js';
 import axios from 'axios'
 
 import ElementPlus from 'element-plus'
