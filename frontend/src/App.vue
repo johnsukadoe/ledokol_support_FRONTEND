@@ -1,31 +1,26 @@
 <template>
   <div>
-    <router-view>
-
-    </router-view>
+    <router-view> </router-view>
   </div>
 </template>
 
 <script>
-import MainPageComponent from '@/components/MainPage/MainPageComponent.vue';
+import MainPageComponent from "@/components/MainPage/MainPageComponent.vue";
 
 export default {
   components: { MainPageComponent },
   data() {
     return {
-      users:[],
+      users: [],
     };
   },
-  mounted() {
-
-  },
-  methods:{
-    user_id(){
-      let value = localStorage.getItem('user_id');
-      return value
+  mounted() {},
+  methods: {
+    user_id() {
+      let value = localStorage.getItem("user_id");
+      return value;
     },
-  }
-
+  },
 };
 </script>
 
@@ -36,7 +31,12 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading-font);
 }
 </style>

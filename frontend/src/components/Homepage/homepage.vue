@@ -1,32 +1,32 @@
 <script>
-import HomepageRecentActions from '@/components/Homepage/components/homepage-recent-actions.vue'
-import MainPosts from '@/components/main-posts.vue'
+import HomepageRecentActions from "@/components/Homepage/components/homepage-recent-actions.vue";
+import MainPosts from "@/components/main-posts.vue";
 
 export default {
   name: "homepage.vue",
-  components: {MainPosts, HomepageRecentActions},
-  data(){
-    return{
-      user_id:null,
+  components: { MainPosts, HomepageRecentActions },
+  data() {
+    return {
+      user_id: null,
 
-      lang:'',
-    }
+      lang: "",
+    };
   },
   async mounted() {
     this.user_id = this.userId;
-    this.lang = localStorage.getItem('lang')
+    this.lang = localStorage.getItem("lang");
   },
-  methods:{
-    editLang(lang){
+  methods: {
+    editLang(lang) {
       this.lang = lang;
-    }
+    },
   },
-  computed:{
+  computed: {
     userId() {
-      return this.$store.getters.getUserId
-    }
-  }
-}
+      return this.$store.getters.getUserId;
+    },
+  },
+};
 </script>
 
 <template>
@@ -38,6 +38,4 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

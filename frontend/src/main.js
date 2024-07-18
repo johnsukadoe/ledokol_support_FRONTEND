@@ -1,25 +1,37 @@
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
-import './style.scss'
+import "./style.scss";
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHeart as faUnliked } from '@fortawesome/free-regular-svg-icons'
-import { faArrowLeft, faHeart, faMagnifyingGlass, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart as faUnliked } from "@fortawesome/free-regular-svg-icons";
+import {
+  faArrowLeft,
+  faHeart,
+  faMagnifyingGlass,
+  faPencil,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import './api/api.js';
-import axios from 'axios'
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import "./api/api.js";
+import axios from "axios";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+import { createApp } from "vue";
 
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import { createApp } from 'vue'
+import VueAxios from "vue-axios";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
-import VueAxios from 'vue-axios'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-
-library.add(faArrowLeft, faMagnifyingGlass, faPencil, faTrash, faHeart, faUnliked)
+library.add(
+  faArrowLeft,
+  faMagnifyingGlass,
+  faPencil,
+  faTrash,
+  faHeart,
+  faUnliked,
+);
 
 const app = createApp(App);
 
@@ -28,8 +40,8 @@ app.use(ElementPlus);
 app.use(router);
 app.use(store);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-	app.component(key, component)
+  app.component(key, component);
 }
-app.component('font-awesome-icon', FontAwesomeIcon);
+app.component("font-awesome-icon", FontAwesomeIcon);
 
-app.mount('#app');
+app.mount("#app");

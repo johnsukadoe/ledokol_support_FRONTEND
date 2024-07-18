@@ -1,24 +1,24 @@
 <script>
-import PostOperations from '@/components/postOperations.vue'
+import PostOperations from "@/components/postOperations.vue";
 
 export default {
   name: "createPost",
-  components: {PostOperations, },
-  data(){
-    return{
-      lang:'',
-    }
+  components: { PostOperations },
+  data() {
+    return {
+      lang: "",
+    };
   },
-  mounted(){
-    this.lang = localStorage.getItem('lang')
+  mounted() {
+    this.lang = localStorage.getItem("lang");
   },
-  methods:{
-    editLang(lang){
-      console.log(lang)
+  methods: {
+    editLang(lang) {
+      console.log(lang);
       this.lang = lang;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>
@@ -27,6 +27,4 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

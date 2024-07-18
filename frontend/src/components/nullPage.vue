@@ -1,13 +1,11 @@
 <script>
 export default {
-	name: 'nullPage'
-}
+  name: "nullPage",
+};
 </script>
 
 <template>
-	<router-view class='w-full h-full'></router-view>
+  <router-view class="w-full h-full"></router-view>
 </template>
 
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

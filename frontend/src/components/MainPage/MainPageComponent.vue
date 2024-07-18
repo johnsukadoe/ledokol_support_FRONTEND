@@ -1,49 +1,56 @@
 <template>
-    <div class="body">
-        <div class="full-screen">
-            <div class="full-screen__body header">
-                <main-page-header></main-page-header>
-            </div>
-            <div class="full-screen__body">
-                <div class="full-screen__subtext">
-                    <h3 class="font-bold text-lg">поддерживай, вдохновляй, создавай будущее!</h3>
-                </div>
-                <div class="full-screen__title">
-                    <h1 class="font-bold text-3xl my-5">Открой двери творчества</h1>
-                </div>
-                <div class="full-screen__text">
-                    <h2 class="font-bold text-2xl">вместе с ledokol</h2>
-                </div>
-              <div class="full-screen__button">
-                <button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:true} });">Создать комнату</button>
-              </div>
-            </div>
-            <video autoplay muted loop preload="auto" class="full-screen__video">
-                <source type="video/mp4" src="../../assets/bg4for.mp4">
-            </video>
+  <div class="body">
+    <div class="full-screen">
+      <div class="full-screen__body header">
+        <main-page-header></main-page-header>
+      </div>
+      <div class="full-screen__body">
+        <div class="full-screen__subtext">
+          <h3 class="font-bold text-lg">
+            поддерживай, вдохновляй, создавай будущее!
+          </h3>
         </div>
-        <div class="contentCSS">
+        <div class="full-screen__title">
+          <h1 class="font-bold text-3xl my-5">Открой двери творчества</h1>
         </div>
+        <div class="full-screen__text">
+          <h2 class="font-bold text-2xl">вместе с ledokol</h2>
+        </div>
+        <div class="full-screen__button">
+          <button
+            @click="
+              $router.push({ name: 'RegisterPage', query: { isSignUp: true } })
+            "
+          >
+            Создать комнату
+          </button>
+        </div>
+      </div>
+      <video autoplay muted loop preload="auto" class="full-screen__video">
+        <source type="video/mp4" src="../../assets/bg4for.mp4" />
+      </video>
     </div>
+    <div class="contentCSS"></div>
+  </div>
 </template>
 
 <script>
-import MainPageHeader from '@/components/MainPage/components/MainPageHeader.vue';
-export default{
-  name:'MainPageComponent',
-  components:{MainPageHeader},
+import MainPageHeader from "@/components/MainPage/components/MainPageHeader.vue";
+export default {
+  name: "MainPageComponent",
+  components: { MainPageHeader },
   mounted() {
-    if(this.user_id()){
-      this.$router.push({name:'homepage'})
+    if (this.user_id()) {
+      this.$router.push({ name: "homepage" });
     }
   },
-  methods:{
-    user_id(){
-      let value = localStorage.getItem('user_id');
-      return value
+  methods: {
+    user_id() {
+      let value = localStorage.getItem("user_id");
+      return value;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -115,7 +122,7 @@ export default{
 }
 
 .full-screen__button button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

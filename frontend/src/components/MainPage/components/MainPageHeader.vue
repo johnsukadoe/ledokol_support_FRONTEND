@@ -1,29 +1,42 @@
 <template>
   <header class="main-page-header">
     <div class="logo">
-      <a href="#"><img src="@/assets/logo.png"></a>
+      <a href="#"><img src="@/assets/logo.png" /></a>
     </div>
     <nav>
       <ul>
-        <li><button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:false} });">Войти</button></li>
-        <li><button @click="$router.push({ name: 'RegisterPage', query:{isSignUp:true} });">Зарегистрироваться</button></li>
+        <li>
+          <button
+            @click="
+              $router.push({ name: 'RegisterPage', query: { isSignUp: false } })
+            "
+          >
+            Войти
+          </button>
+        </li>
+        <li>
+          <button
+            @click="
+              $router.push({ name: 'RegisterPage', query: { isSignUp: true } })
+            "
+          >
+            Зарегистрироваться
+          </button>
+        </li>
       </ul>
     </nav>
-
   </header>
 </template>
 
 <script>
-import signComponent from '@/components/SignInUp/signComponent.vue'
+import signComponent from "@/components/SignInUp/signComponent.vue";
 export default {
-  name: 'MainPageHeader',
-  components:{signComponent},
-  data(){
-    return{
-    }
+  name: "MainPageHeader",
+  components: { signComponent },
+  data() {
+    return {};
   },
-
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -33,11 +46,11 @@ export default {
     text-decoration: none;
 
     h1 {
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.8); 
+      text-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
       font-family: var(--logo-font);
       font-size: 28px;
     }
-    img{
+    img {
       width: 160px;
     }
   }
