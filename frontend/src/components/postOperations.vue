@@ -1,9 +1,9 @@
-<script>
-import { createPost } from "@/api/createPost.js";
-import { editPost, getPosts } from "@/api/homepagePosts.js";
-import axios from "axios";
+<script lang="ts">
+import { createPost } from "@/api/createPost";
+import { editPost, getPosts } from "@/api/homepagePosts";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "postOperations",
   props: {
     isEdit: {
@@ -62,7 +62,7 @@ export default {
         });
       }
     },
-    async editPost(id) {
+    async editPost(id: number) {
       this.post.user_id = this.user_id();
       this.post._id = id;
       console.log(this.post);
@@ -100,7 +100,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

@@ -1,9 +1,9 @@
-<script>
-import { getUsers } from "@/api/homepageUser";
-import { getCreators } from "@/api/creators.js";
+<script lang="ts">
+import { getCreators } from "@/api/creators";
 import axios from "axios";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "homepage-recent-actions",
   props: {
     lang: String,
@@ -27,11 +27,11 @@ export default {
     },
   },
   async mounted() {
-    this.getUsers();
+    await this.getUsers();
     const data = await axios.get("https://sublimeads.com/api/random");
     console.log(data);
   },
-};
+});
 </script>
 
 <template>

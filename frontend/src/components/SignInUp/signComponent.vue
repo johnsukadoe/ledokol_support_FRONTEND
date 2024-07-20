@@ -29,10 +29,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from "axios";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "signComponent",
   data() {
     return {
@@ -84,7 +85,7 @@ export default {
           try {
             const response = await axios.post(
               `${localServer}signup`,
-              this.user,
+              this.user
             );
 
             const newUserId = response.data.user_id;
@@ -126,7 +127,7 @@ export default {
       this.$router.back();
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss"></style>

@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 import MainPosts from "@/components/main-posts.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "myFeed",
   components: { MainPosts },
   data() {
@@ -31,7 +32,7 @@ export default {
       this.lang = lang;
     },
   },
-};
+});
 </script>
 
 <template>

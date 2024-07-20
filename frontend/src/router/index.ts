@@ -1,7 +1,8 @@
+import homepageRouter from "@/router/homepage-router.ts";
+
+import mainPageRouter from "@/router/main-page-router.ts";
 import { createRouter, createWebHistory } from "vue-router";
 
-import mainPageRouter from "@/router/main-page-router.js";
-import homepageRouter from "@/router/homepage-router.js";
 const routes = [...mainPageRouter, ...homepageRouter];
 
 const router = createRouter({

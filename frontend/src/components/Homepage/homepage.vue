@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
 import HomepageRecentActions from "@/components/Homepage/components/homepage-recent-actions.vue";
 import MainPosts from "@/components/main-posts.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "homepage.vue",
   components: { MainPosts, HomepageRecentActions },
   data() {
@@ -26,7 +27,7 @@ export default {
       return this.$store.getters.getUserId;
     },
   },
-};
+});
 </script>
 
 <template>

@@ -1,21 +1,23 @@
-<script>
-import { getPosts, removePost } from "@/api/homepagePosts.js";
-import { getUsers } from "@/api/homepageUser.js";
+<script lang="ts">
+import { getPosts, removePost } from "@/api/homepagePosts";
+import { getUsers } from "@/api/homepageUser";
 import MainPosts from "@/components/main-posts.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "adminPage",
   components: { MainPosts },
+  // as Post[]
   data() {
     return {
       posts: [],
       users: [],
 
-      lang: "",
+      lang: "ru",
     };
   },
   methods: {
-    secondsToTime(seconds) {
+    secondsToTime(seconds: number) {
       const date = new Date(seconds * 1000);
       const options = {
         year: "numeric",
@@ -24,7 +26,7 @@ export default {
       };
       return date.toLocaleDateString("ru-RU", options);
     },
-    truncateDescription(text, max_length = 120) {
+    truncateDescription(text: string, max_length = 120) {
       if (text.length <= max_length) {
         return text;
       } else {
@@ -32,45 +34,53 @@ export default {
         return `${truncatedText}...`;
       }
     },
-    findUserById(id) {
+    findUserById(id: number): string | undefined {
       const user = this.users.find((user) => user.user_id === id);
-      console.log(user.username);
-      return user.username;
+
+      if (user) {
+        console.log(user.username);
+        return user.username;
+      } else {
+        console.log(`User with ID ${id} not found`);
+        return undefined;
+      }
     },
-    async edit(post_id) {
+
+    async edit(post_id: number) {
       this.$router.push({ name: "post-edit", params: { postId: post_id } });
     },
-    async remove(post_id) {
+    async remove(post_id: number) {
       this.$confirm("Вы собираетесь удалить пост. Вы уверены?", "Warning", {
         confirmButtonText: "Да",
         cancelButtonText: "Отмена",
         type: "warning",
       }).then(async () => {
+        let filters = {};
         const data = await removePost(post_id);
         if (data.status === 200) {
           this.$message.success("Успешно");
-          const data = await getPosts();
+          const data = await getPosts(filters);
           this.posts = [...data];
         } else {
           this.$message.error("Ошибка");
         }
       });
     },
-    editLang(lang) {
+    editLang(lang: string) {
       console.log(lang);
       this.lang = lang;
     },
   },
   async mounted() {
-    const data = await getPosts();
+    let filters = {};
+    const data = await getPosts(filters);
     this.posts = [...data];
-
     const user = await getUsers();
     this.users = [...user];
 
-    this.lang = localStorage.getItem("lang");
+    this.lang = localStorage.getItem("lang") ?? "ru";
   },
-};
+});
 </script>
 
 <template>

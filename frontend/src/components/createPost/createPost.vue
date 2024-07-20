@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 import PostOperations from "@/components/postOperations.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "createPost",
   components: { PostOperations },
   data() {
@@ -18,7 +19,7 @@ export default {
       this.lang = lang;
     },
   },
-};
+});
 </script>
 
 <template>

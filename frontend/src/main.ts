@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import "./api/api.js";
+import "./api/api.ts";
 import axios from "axios";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
@@ -21,8 +21,8 @@ import { createApp } from "vue";
 
 import VueAxios from "vue-axios";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import router from "./router/index.js";
+import store from "./store/index.js";
 
 library.add(
   faArrowLeft,

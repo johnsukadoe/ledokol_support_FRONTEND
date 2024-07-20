@@ -28,15 +28,17 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
 import signComponent from "@/components/SignInUp/signComponent.vue";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "MainPageHeader",
   components: { signComponent },
   data() {
     return {};
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

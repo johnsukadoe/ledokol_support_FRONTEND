@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 import { getUser } from "@/api/homepageUser";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "homepage-header",
   data() {
     return {
@@ -79,7 +80,7 @@ export default {
       this.postLocaleItem();
     },
   },
-};
+});
 </script>
 
 <template>

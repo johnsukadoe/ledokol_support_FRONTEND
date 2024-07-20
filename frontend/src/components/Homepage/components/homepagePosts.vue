@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 import { getPosts } from "@/api/homepagePosts";
 import { getUsers } from "@/api/homepageUser";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "homepagePosts",
   data() {
     return {
@@ -17,7 +19,7 @@ export default {
   },
   computed: {},
   methods: {
-    secondsToTime(seconds) {
+    secondsToTime(seconds: number) {
       const date = new Date(seconds * 1000);
       const options = {
         year: "numeric",
@@ -26,7 +28,7 @@ export default {
       };
       return date.toLocaleDateString("ru-RU", options);
     },
-    truncateDescription(text, max_length = 120) {
+    truncateDescription(text: string, max_length = 120) {
       if (text.length <= max_length) {
         return text;
       } else {
@@ -34,12 +36,12 @@ export default {
         return `${truncatedText}...`;
       }
     },
-    findUserById(id) {
+    findUserById(id: number) {
       const user = this.users.find((user) => user.user_id === id);
       return user.username;
     },
   },
-};
+});
 </script>
 
 <template>

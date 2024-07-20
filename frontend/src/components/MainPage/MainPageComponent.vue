@@ -34,9 +34,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import MainPageHeader from "@/components/MainPage/components/MainPageHeader.vue";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "MainPageComponent",
   components: { MainPageHeader },
   mounted() {
@@ -50,7 +52,7 @@ export default {
       return value;
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

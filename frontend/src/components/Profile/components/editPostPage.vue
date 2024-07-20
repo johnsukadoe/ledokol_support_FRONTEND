@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
 import MainPosts from "@/components/main-posts.vue";
 import PostOperations from "@/components/postOperations.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "editPostPage",
   components: { PostOperations, MainPosts },
-};
+});
 </script>
 
 <template>

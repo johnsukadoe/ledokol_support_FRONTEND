@@ -4,34 +4,44 @@
       <div>
         <div class="flex items-center gap-2">
           <el-avatar size="default">{{ user.username }}</el-avatar>
-          <h2 @click="$router.push({name:'profile', params:{userId:user.user_id}})">{{ user.username }}</h2>
+          <h2
+            @click="
+              $router.push({
+                name: 'profile',
+                params: { userId: user.user_id },
+              })
+            "
+          >
+            {{ user.username }}
+          </h2>
         </div>
         <div class="flex mt-3 gap-2">
-          <p>{{ user.subscribers }} subscribers </p>
+          <p>{{ user.subscribers }} subscribers</p>
           <p>{{ user.total_posts }} posts</p>
         </div>
         <p>{{ user.channel_description }}</p>
-
       </div>
 
       <el-button type="danger" plain class="ml-5" @click="unsub">
-        {{ lang === 'en' ? 'Unsubscribe' : 'Отписаться' }}
+        {{ lang === "en" ? "Unsubscribe" : "Отписаться" }}
       </el-button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "createrCard",
-  props:['user', 'lang'],
-  methods:{
+  props: ["user", "lang"],
+  methods: {
     // $emit('unsubscribe', user.user_id)"
-    unsub(){
-      this.$emit('unsubscribe', this.user.user_id)
-    }
-  }
-}
+    unsub() {
+      this.$emit("unsubscribe", this.user.user_id);
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">

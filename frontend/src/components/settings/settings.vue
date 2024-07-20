@@ -1,9 +1,10 @@
-<script>
-import { getCreator, updateCreator } from "@/api/creators.js";
-import { getUser } from "@/api/homepageUser.js";
+<script lang="ts">
+import { getCreator, updateCreator } from "@/api/creators";
+import { getUser } from "@/api/homepageUser";
 import axios from "axios";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "settings",
   components: {},
   data() {
@@ -63,13 +64,13 @@ export default {
             params: {
               limit: 1,
             },
-          },
+          }
         );
         this.$message.info(`Random fact: ${data[0].fact}`);
       }, 10000);
     },
   },
-};
+});
 </script>
 
 <template>

@@ -1,14 +1,15 @@
-<script>
-import { getCreator } from "@/api/creators.js";
-import { getUser } from "@/api/homepageUser.js";
+<script lang="ts">
+import { getCreator } from "@/api/creators";
+import { getUser } from "@/api/homepageUser";
 import {
   getSubscriptions,
   subscribeCreator,
   unsubscribeCreator,
-} from "@/api/subscriptions.js";
+} from "@/api/subscriptions";
 import MainPosts from "@/components/main-posts.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "profilePage",
   components: { MainPosts },
   data() {
@@ -61,7 +62,7 @@ export default {
           confirmButtonText: "Да",
           cancelButtonText: "Отмена",
           type: "warning",
-        },
+        }
       )
         .then(async () => {
           let params = {
@@ -100,7 +101,7 @@ export default {
       this.lang = lang;
     },
   },
-};
+});
 </script>
 
 <template>

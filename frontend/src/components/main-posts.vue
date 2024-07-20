@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
 import {
   commentPost,
   getPosts,
   likePost,
   removePost,
   unlikePost,
-} from "@/api/homepagePosts.js";
-import { getUser, getUsers } from "@/api/homepageUser.js";
+} from "@/api/homepagePosts";
+import { getUser, getUsers } from "@/api/homepageUser";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "main-posts",
   props: {
     filters: Object,
@@ -34,7 +35,7 @@ export default {
     }
   },
   methods: {
-    async commentPost(post_id) {
+    async commentPost(post_id: number) {
       const { data } = await commentPost(this.comment, post_id, this.user_id());
       console.log(data);
       if (data.success) {
@@ -42,7 +43,7 @@ export default {
         console.log(data[0], "wtf");
         const newPost = data[0];
         const postIndex = this.posts.findIndex(
-          (post) => post._id === newPost._id,
+          (post) => post._id === newPost._id
         );
 
         if (postIndex !== -1) {
@@ -59,7 +60,7 @@ export default {
         this.$message.success("Успешно");
       }
     },
-    async unlike(post_id) {
+    async unlike(post_id: number) {
       const { data } = await unlikePost(post_id, this.user_id());
       if (data.modifiedCount > 0) {
         // Находим пост в this.posts по post_id
@@ -67,13 +68,13 @@ export default {
 
         // Удаляем лайк из массива likes поста
         post.likes = post.likes.filter(
-          (like) => like.liker_id !== this.user_id(),
+          (like) => like.liker_id !== this.user_id()
         );
 
         console.log("Post unliked successfully.");
       }
     },
-    async like(post_id) {
+    async like(post_id: number) {
       const { data } = await likePost(post_id, this.user_id());
       if (data.modifiedCount > 0) {
         // Находим пост в this.posts по post_id
@@ -103,7 +104,7 @@ export default {
       }
       this.posts = await getPosts(filters);
     },
-    secondsToTime(seconds) {
+    secondsToTime(seconds: number) {
       const date = new Date(seconds * 1000);
       const options = {
         year: "numeric",
@@ -112,7 +113,7 @@ export default {
       };
       return date.toLocaleDateString("ru-RU", options);
     },
-    truncateDescription(text, max_length = 120) {
+    truncateDescription(text: string, max_length = 120) {
       if (text.length <= max_length) {
         return text;
       } else {
@@ -120,16 +121,16 @@ export default {
         return `${truncatedText}...`;
       }
     },
-    findUserById(id) {
+    findUserById(id: number) {
       console.log(this.users);
       const user = this.users.find((user) => user.user_id === id);
       console.log(user.username);
       return user.username;
     },
-    async edit(post_id) {
+    async edit(post_id: number) {
       this.$router.push({ name: "post-edit", params: { postId: post_id } });
     },
-    async remove(post_id) {
+    async remove(post_id: number) {
       this.$confirm("Вы собираетесь удалить пост. Вы уверены?", "Warning", {
         confirmButtonText: "Да",
         cancelButtonText: "Отмена",
@@ -144,7 +145,7 @@ export default {
         }
       });
     },
-    isULiked(likes) {
+    isULiked(likes: []) {
       const liked = likes.some((like) => like.liker_id === this.user_id());
       return liked;
     },
@@ -153,7 +154,7 @@ export default {
       return Number(value);
     },
   },
-};
+});
 </script>
 
 <template>

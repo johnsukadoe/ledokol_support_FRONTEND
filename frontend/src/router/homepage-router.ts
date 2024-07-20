@@ -1,10 +1,10 @@
-import adminRouter from "@/router/routes/admin-router.js";
-import createRouter from "@/router/routes/createPost-router.js";
-import myFeedRouter from "@/router/routes/myFeed-router.js";
-import profileRouter from "@/router/routes/profile-router.js";
-import recommendationsRouter from "@/router/routes/recommendations-router.js";
-import settingsRouter from "@/router/routes/settings-router.js";
-import subscriptionsRouter from "@/router/routes/subscriptions-router.js";
+import adminRouter from "@/router/routes/admin-router.ts";
+import createRouter from "@/router/routes/createPost-router.ts";
+import myFeedRouter from "@/router/routes/myFeed-router.ts";
+import profileRouter from "@/router/routes/profile-router.ts";
+import recommendationsRouter from "@/router/routes/recommendations-router.ts";
+import settingsRouter from "@/router/routes/settings-router.ts";
+import subscriptionsRouter from "@/router/routes/subscriptions-router.ts";
 
 const nullPage = () =>
   import(/* webpackChunkName: "nullPage" */ "@/components/nullPage.vue");
