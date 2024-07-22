@@ -7,10 +7,10 @@ import settingsRouter from "@/router/routes/settings-router.ts";
 import subscriptionsRouter from "@/router/routes/subscriptions-router.ts";
 
 const nullPage = () =>
-  import(/* webpackChunkName: "nullPage" */ "@/components/nullPage.vue");
+  import(/* webpackChunkName: "nullPage" */ "@/components/RouterPage.vue");
 const headerPage = () =>
   import(
-    /* webpackChunkName: "headerPage" */ "@/components/Homepage/components/homepage-header.vue"
+    /* webpackChunkName: "headerPage" */ "@/pages/homepage/components/HomePageNav.vue"
   );
 export default [
   {

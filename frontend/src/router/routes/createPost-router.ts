@@ -1,10 +1,10 @@
 const createPostPage = () =>
   import(
-    /* webpackChunkName: "createPostPage" */ "@/components/createPost/createPost.vue"
+    /* webpackChunkName: "createPostPage" */ "@/pages/createPost/CreatePostPage.vue"
   );
 const postEditPage = () =>
   import(
-    /* webpackChunkName: "postEditPage" */ "@/components/Profile/components/editPostPage.vue"
+    /* webpackChunkName: "postEditPage" */ "@/pages/profile/components/EditPostPage.vue"
   );
 
 export default [

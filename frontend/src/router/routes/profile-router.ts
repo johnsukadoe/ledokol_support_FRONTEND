@@ -1,6 +1,6 @@
 const profilePage = () =>
   import(
-    /* webpackChunkName: "profilePage" */ "@/components/Profile/profilePage.vue"
+    /* webpackChunkName: "profilePage" */ "@/pages/profile/ProfilePage.vue"
   );
 
 export default [

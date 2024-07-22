@@ -1,5 +1,5 @@
 const admin = () =>
-  import(/* webpackChunkName: "admin" */ "@/components/admin/adminPage.vue");
+  import(/* webpackChunkName: "admin" */ "@/pages/admin/AdminPage.vue");
 
 export default [
   {

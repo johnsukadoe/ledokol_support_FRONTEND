@@ -1,6 +1,6 @@
 const settingsPage = () =>
   import(
-    /* webpackChunkName: "settings" */ "@/components/settings/settings.vue"
+    /* webpackChunkName: "settings" */ "@/pages/settings/SettingsPage.vue"
   );
 
 export default [

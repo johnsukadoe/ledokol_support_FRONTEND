@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MainPageComponent from "@/components/MainPage/MainPageComponent.vue";
+import MainPageComponent from "@/public/PublicPage.vue";
 
 export default {
   components: { MainPageComponent },

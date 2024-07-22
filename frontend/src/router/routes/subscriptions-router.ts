@@ -1,6 +1,6 @@
 const subscriptionsPage = () =>
   import(
-    /* webpackChunkName: "subscriptionsPage" */ "@/components/Subscriptions/subscriptionsPage.vue"
+    /* webpackChunkName: "subscriptionsPage" */ "@/pages/subscriptions/SubscriptionsPage.vue"
   );
 
 export default [

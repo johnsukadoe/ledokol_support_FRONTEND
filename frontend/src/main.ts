@@ -30,7 +30,7 @@ library.add(
   faPencil,
   faTrash,
   faHeart,
-  faUnliked,
+  faUnliked
 );
 
 const app = createApp(App);

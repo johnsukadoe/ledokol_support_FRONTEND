@@ -1,10 +1,10 @@
 const MainPageComponent = () =>
   import(
-    /* webpackChunkName: "SurveyExperienceMain" */ "@/components/MainPage/MainPageComponent.vue"
+    /* webpackChunkName: "SurveyExperienceMain" */ "@/public/PublicPage.vue"
   );
 const signComponent = () =>
   import(
-    /* webpackChunkName: "SurveyExperienceMain" */ "@/components/SignInUp/signComponent.vue"
+    /* webpackChunkName: "SurveyExperienceMain" */ "@/public/AuthPage.vue"
   );
 
 export default [

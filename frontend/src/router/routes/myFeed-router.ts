@@ -1,5 +1,5 @@
 const MyFeedPage = () =>
-  import(/* webpackChunkName: "MyFeedPage" */ "@/components/MyFeed/myFeed.vue");
+  import(/* webpackChunkName: "MyFeedPage" */ "@/pages/myFeed/MyFeedPage.vue");
 
 export default [
   {

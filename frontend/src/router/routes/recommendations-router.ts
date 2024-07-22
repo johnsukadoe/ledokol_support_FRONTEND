@@ -1,6 +1,6 @@
 const recommendationsPage = () =>
   import(
-    /* webpackChunkName: "recommendationsPage" */ "@/components/Homepage/homepage.vue"
+    /* webpackChunkName: "recommendationsPage" */ "@/pages/homepage/HomePage.vue"
   );
 
 export default [
