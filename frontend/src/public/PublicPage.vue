@@ -30,7 +30,16 @@
         <source type="video/mp4" src="../assets/bg4for.mp4" />
       </video>
     </div>
-    <div class="contentCSS"></div>
+    <div class="contentCSS">
+      <div>
+        <div class="pt-5">
+          <img
+            src="../assets/multibook.png"
+            style="width: 700px; height: 400px"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

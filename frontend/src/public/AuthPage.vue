@@ -48,6 +48,8 @@ export default defineComponent({
         user_info_id: null,
         limit: 1,
       },
+
+      value: "",
     };
   },
   mounted() {
