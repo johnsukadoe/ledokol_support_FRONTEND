@@ -17,6 +17,8 @@
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "axios": "^1.6.5",
     "element-plus": "^2.4.4",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.0.1",
     "vue": "^3.3.11",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.2.5",

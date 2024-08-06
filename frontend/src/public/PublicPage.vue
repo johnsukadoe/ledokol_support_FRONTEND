@@ -1,61 +1,208 @@
 <template>
-  <div class="body">
-    <div class="full-screen">
-      <div class="full-screen__body header">
-        <main-page-header></main-page-header>
-      </div>
-      <div class="full-screen__body">
-        <div class="full-screen__subtext">
-          <h3 class="font-bold text-lg">
-            поддерживай, вдохновляй, создавай будущее!
-          </h3>
-        </div>
-        <div class="full-screen__title">
-          <h1 class="font-bold text-3xl my-5">Открой двери творчества</h1>
-        </div>
-        <div class="full-screen__text">
-          <h2 class="font-bold text-2xl">вместе с ledokol</h2>
-        </div>
-        <div class="full-screen__button">
-          <button
-            @click="
-              $router.push({ name: 'RegisterPage', query: { isSignUp: true } })
-            "
+  <div style="overflow: hidden">
+    <div class="card p-5">
+      <!--	    :model="items"-->
+      <Menubar style="max-width: 1200px; margin: 0 auto">
+        <template #start>
+          <router-link to="">
+            <div class="flex items-center">
+              <img src="../assets/ledokol.png" class="logo" />
+            </div>
+          </router-link>
+          <Select
+            v-model="lang"
+            :options="langs"
+            optionLabel="name"
+            class="ml-3 flex items-center"
+            style="height: 35px"
           >
-            Создать комнату
-          </button>
+            <template #value="slotProps">
+              <span>
+                <i class="pi pi-globe"></i>
+                {{ slotProps.value.name }}
+              </span>
+            </template>
+            <template #option="slotProps">
+              <img
+                :alt="slotProps.option.name"
+                :src="`https://flagcdn.com/16x12/${slotProps.option.code.toLowerCase()}.png`"
+                :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`"
+                style="width: 18px"
+              />
+              <span>{{ slotProps.option.name }}</span>
+            </template>
+          </Select>
+        </template>
+        <template #end>
+          <div class="flex gap-2.5">
+            <Button
+              label="Регистрация"
+              severity="info"
+              size="small"
+              @click="
+                showAuth = true;
+                typeAuth = 'signup';
+              "
+            />
+            <Button
+              label="Войти"
+              size="small"
+              severity="success"
+              @click="
+                showAuth = true;
+                typeAuth = 'signin';
+              "
+            />
+          </div>
+        </template>
+      </Menubar>
+    </div>
+    <main class="flex flex-col gap-y-6 items-center justify-center mt-10">
+      <div class="title" style="width: 70%">
+        <div class="not-rainbow">
+          Поддержите таланты,
+          <span class="rainbow">развивайтесь</span>
+          вместе
         </div>
       </div>
-      <video autoplay muted loop preload="auto" class="full-screen__video">
-        <source type="video/mp4" src="../assets/bg4for.mp4" />
-      </video>
-    </div>
-    <div class="contentCSS">
-      <div>
-        <div class="pt-5">
-          <img
-            src="../assets/multibook.png"
-            style="width: 700px; height: 400px"
-          />
-        </div>
+
+      <div class="text-gray-500 text-2xl">
+        Станьте частью успешных историй: Поддержка талантов через краудфандинг.
       </div>
-    </div>
+
+      <div class="flex gap-4">
+        <Button
+          label="Создать страницу"
+          severity="info"
+          icon="pi pi-sparkles"
+          @click="
+            showAuth = true;
+            typeAuth = 'signup';
+          "
+        />
+        <Button label="О Ledokol" severity="info" outlined />
+      </div>
+
+      <div class="sponsors w-full mt-14">
+        <Divider />
+        <div
+          style="height: 80px"
+          class="flex flex-col items-center justify-center"
+        >
+          <p class="text-xl font-semibold mb-2" style="color: rgb(33, 53, 71)">
+            Спонсоры
+          </p>
+          <div class="sponsors mb-2">
+            <a href="#">
+              <img
+                src="../assets/appwrite.svg"
+                style="width: 200px"
+                alt="appwrite"
+              />
+            </a>
+          </div>
+        </div>
+        <Divider />
+      </div>
+
+      <AboutProject
+        @changeType="changeType"
+        @openModal="showAuth = true"
+      ></AboutProject>
+    </main>
+
+    <AuthWindow
+      :showAuth="showAuth"
+      :type="typeAuth"
+      @hideAuth="showAuth = false"
+      @changeType="changeType"
+    ></AuthWindow>
   </div>
 </template>
 
 <script lang="ts">
+import authPage from "@/public/AuthPage.vue";
+import AboutProject from "@/public/components/AboutProject.vue";
+import AuthWindow from "@/public/components/AuthWindow.vue";
 import MainPageHeader from "@/public/components/PublicPageNav.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "PublicPage",
-  components: { MainPageHeader },
+  computed: {
+    authPage() {
+      return authPage;
+    },
+  },
+  components: { AuthWindow, MainPageHeader, AboutProject },
+  data() {
+    return {
+      lang: { name: "Русский", code: "ru" },
+      langs: [
+        { name: "Русский", code: "ru" },
+        { name: "Казахский", code: "kz" },
+        { name: "Английский", code: "us" },
+      ],
+      showAuth: false,
+      typeAuth: "signin",
+
+      // items: [
+      //   {
+      //     label: "Home",
+      //     icon: "pi pi-home",
+      //   },
+      //   {
+      //     label: "Features",
+      //     icon: "pi pi-star",
+      //   },
+      //   {
+      //     label: "Projects",
+      //     icon: "pi pi-search",
+      //     items: [
+      //       {
+      //         label: "Components",
+      //         icon: "pi pi-bolt",
+      //       },
+      //       {
+      //         label: "Blocks",
+      //         icon: "pi pi-server",
+      //       },
+      //       {
+      //         label: "UI Kit",
+      //         icon: "pi pi-pencil",
+      //       },
+      //       {
+      //         label: "Templates",
+      //         icon: "pi pi-palette",
+      //         items: [
+      //           {
+      //             label: "Apollo",
+      //             icon: "pi pi-palette",
+      //           },
+      //           {
+      //             label: "Ultima",
+      //             icon: "pi pi-palette",
+      //           },
+      //         ],
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     label: "Contact",
+      //     icon: "pi pi-envelope",
+      //   },
+      // ],
+    };
+  },
   mounted() {
-    if (this.user_id()) {
-      this.$router.push({ name: "homepage" });
-    }
+    // if (this.user_id()) {
+    //   this.$router.push({ name: "homepage" });
+    // }
   },
   methods: {
+    changeType(val: string) {
+      this.typeAuth = val;
+    },
     user_id() {
       let value = localStorage.getItem("user_id");
       return value;
@@ -65,108 +212,39 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.full-screen {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  color: white;
+.logo {
+  width: 35px;
+  display: inline;
 }
-
-.full-screen__body {
-  padding: 50px 15px;
-  background-color: #0000006e;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-transform: uppercase;
-}
-
-.full-screen__video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.full-screen__title {
-  font-size: 25px;
-  letter-spacing: 10px;
+.title {
+  font-family: sans-serif;
+  font-size: 4em;
   font-weight: 700;
-  margin: 0 0 20px 0;
+  line-height: 1.2;
+
+  text-align: center;
+
+  color: rgb(33, 53, 71);
+  div {
+    display: inline;
+  }
 }
 
-.full-screen__text {
-  font-size: 18px;
-  letter-spacing: 15px;
+.rainbow {
+  background: linear-gradient(90deg, #55aa7f, #55aaff, #55aa7f, #55aaff);
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbow 4s linear infinite;
 }
 
-.full-screen__subtext {
-  font-size: 15px;
-  letter-spacing: 8px;
-}
-
-.full-screen__button {
-  margin-top: 20px;
-}
-
-.full-screen__button button {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease;
-}
-
-.full-screen__button button:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.full-screen__button button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 5px;
-  box-shadow: 0 0 0 rgba(255, 255, 255, 0.8);
-  transition: box-shadow 0.5s ease;
-}
-
-.full-screen__button button:hover::before {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-.contentCSS {
-  position: relative;
-  z-index: 20000;
-  background: #fff;
-}
-
-.content-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
-.header {
-  backdrop-filter: blur(12.4px);
-  -webkit-backdrop-filter: blur(12.4px);
-  padding: 0;
-  z-index: 1000;
-  position: fixed;
-  width: 100%;
-  align-items: stretch;
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 </style>

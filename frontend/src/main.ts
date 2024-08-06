@@ -18,9 +18,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
 import axios from "axios";
-import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
+// import ElementPlus from "element-plus";
+// import "element-plus/dist/index.css";
 import PrimeVue from "primevue/config";
+import "primeicons/primeicons.css";
 import { createApp } from "vue";
 import VueAxios from "vue-axios";
 import App from "./App.vue";
@@ -85,7 +86,7 @@ const Noir = definePreset(Aura, {
 const app = createApp(App);
 
 app.use(VueAxios, axios);
-app.use(ElementPlus);
+// app.use(ElementPlus);
 app.use(PrimeVue, {
   theme: {
     preset: Noir,

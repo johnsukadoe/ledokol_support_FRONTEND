@@ -50,7 +50,7 @@ Empower the creative and innovative minds of Kazakhstan by providing a platform 
     ```
 3. Start the backend server using nodemon:
     ```bash
-    nodemon server.js
+    nodemon server.ts
     ```
 
 ### Frontend Setup

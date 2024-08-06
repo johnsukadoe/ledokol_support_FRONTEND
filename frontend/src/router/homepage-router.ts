@@ -14,12 +14,12 @@ const headerPage = () =>
   );
 export default [
   {
-    path: "",
+    path: "/",
     name: "nullpage",
     component: nullPage,
     children: [
       {
-        path: "",
+        path: "/",
         name: "header",
         component: headerPage,
         children: [
