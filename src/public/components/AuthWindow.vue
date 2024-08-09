@@ -13,13 +13,29 @@ export default defineComponent({
   },
   data() {
     return {
-      username: "",
-      password: "",
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        phone: "",
+      },
     };
   },
   methods: {
-    handleHide() {
-      this.$router.push({ name: "PublicPage" });
+    async authUser() {
+      console.log(this.type);
+      if (this.type === "signup") {
+        const user = await createUser(this.user);
+        // const newUser = await users.create(
+        //   ID.unique(),
+        //   this.user.email,
+        //   this.user.phone,
+        //   undefined,
+        //   this.user.name,
+        // );
+        // console.log(newUser);
+        console.log(user);
+      }
     },
   },
 });
@@ -45,9 +61,9 @@ export default defineComponent({
             id="username"
             type="text"
             size="small"
-            :username="username"
             class="w-full"
             placeholder="Бека"
+            v-model="user.name"
           />
         </div>
         <div class="flex flex-col w-full" v-if="type === 'signup'">
@@ -58,11 +74,35 @@ export default defineComponent({
             size="small"
             class="w-full"
             placeholder="beka667@gmail.com"
+            v-model="user.email"
           />
         </div>
+        <div class="flex flex-col w-full" v-if="type === 'signup'">
+          <div class="flex-auto">
+            <label for="phone">Телефон</label>
+            <InputMask
+              id="phone"
+              v-model="user.phone"
+              mask="(999) 999-9999"
+              placeholder="(777) 777-7777"
+              fluid
+              style="height: 33px"
+            />
+          </div>
+        </div>
+
         <div class="card flex flex-col w-full">
           <label for="password">Пароль</label>
-          <InputText id="password" type="password" size="small" />
+          <Password
+            v-model="user.password"
+            toggleMask
+            fluid
+            promptLabel="Выберите пароль"
+            weakLabel="Слишком простой"
+            mediumLabel="Средняя сложность"
+            strongLabel="Сложный пароль"
+            style="height: 33px"
+          />
         </div>
         <div class="flex gap-x-4 justify-center items-center mt-4">
           <Button
@@ -70,6 +110,7 @@ export default defineComponent({
             :severity="type === 'signin' ? 'success' : 'info'"
             icon="pi pi-user"
             size="small"
+            @click="authUser"
           ></Button>
           <Button
             v-if="type === 'signin'"
@@ -101,8 +142,7 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-.input .p-password-input {
-  width: 100%;
-  background-color: red;
+.p-inputmask {
+  height: 33px;
 }
 </style>

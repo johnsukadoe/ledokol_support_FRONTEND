@@ -52,21 +52,21 @@ export default defineComponent({
       value: "",
     };
   },
-  mounted() {
-    if (this.user_id()) {
-      this.$router.push({ name: "homepage" });
-      return;
-    }
-    let isSign = this.$route.query.isSignUp;
-    this.isSignUp = isSign.toLowerCase() === "true";
-    if (this.isSignUp) {
-      this.title = "Давайте создадим вашу комнату";
-      this.btnTitle = "Создать комнату";
-    } else {
-      this.title = "Находим ключ вашей комнаты";
-      this.btnTitle = "Войти в свою комнату";
-    }
-  },
+  // mounted() {
+  //   if (this.user_id()) {
+  //     this.$router.push({ name: "homepage" });
+  //     return;
+  //   }
+  //   let isSign = this.$route.query.isSignUp;
+  //   this.isSignUp = isSign.toLowerCase() === "true";
+  //   if (this.isSignUp) {
+  //     this.title = "Давайте создадим вашу комнату";
+  //     this.btnTitle = "Создать комнату";
+  //   } else {
+  //     this.title = "Находим ключ вашей комнаты";
+  //     this.btnTitle = "Войти в свою комнату";
+  //   }
+  // },
   methods: {
     user_id() {
       let value = localStorage.getItem("user_id");
@@ -87,7 +87,7 @@ export default defineComponent({
           try {
             const response = await axios.post(
               `${localServer}signup`,
-              this.user
+              this.user,
             );
 
             const newUserId = response.data.user_id;

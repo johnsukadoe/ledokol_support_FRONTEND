@@ -16,6 +16,7 @@ declare module 'vue' {
     Floatlabel: typeof import('primevue/floatlabel')['default']
     FloatLabel: typeof import('primevue/floatlabel')['default']
     Image: typeof import('primevue/image')['default']
+    InputMask: typeof import('primevue/inputmask')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Menubar: typeof import('primevue/menubar')['default']
     Panel: typeof import('primevue/panel')['default']

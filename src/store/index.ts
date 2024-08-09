@@ -17,7 +17,7 @@ export default createStore({
       state.userInfo = payload;
     },
   },
-  modules: {
-    getUserId: (state) => state.userid,
-  },
+  // modules: {
+  //   getUserId: (state: object) => state.userInfo.user_id,
+  // },
 });

@@ -1,7 +1,8 @@
+import App from "@/App.vue";
 import router from "@/router/index.js";
 import store from "@/store/index.js";
-import "./api/api.ts";
-import "./style.scss";
+import "@/api/api.ts";
+import "@/style.scss";
 
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
@@ -24,7 +25,6 @@ import PrimeVue from "primevue/config";
 import "primeicons/primeicons.css";
 import { createApp } from "vue";
 import VueAxios from "vue-axios";
-import App from "./App.vue";
 
 library.add(
   faArrowLeft,
@@ -32,7 +32,7 @@ library.add(
   faPencil,
   faTrash,
   faHeart,
-  faUnliked
+  faUnliked,
 );
 
 const Noir = definePreset(Aura, {
