@@ -1,23 +1,21 @@
-import { createStore } from "vuex";
+import { defineStore } from "pinia";
 
-const someinfo = import.meta.env.SOMETHING;
-
-export default createStore({
-  state: {
-    userInfo: {
-      token: "something",
-      email: "",
-      user_id: "",
-      refreshToken: "",
-      expiresIn: "",
+const useMainStore = defineStore("main", {
+  state: () => {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  actions: {
+    hydrate() {
+      // Получите состояние из локального хранилища или API
+      const savedState = localStorage.getItem("isLoggedIn");
+      this.isLoggedIn = !!savedState;
+    },
+    changeLogin(status: boolean) {
+      this.isLoggedIn = status;
+      localStorage.setItem("isLoggedIn", JSON.stringify(status));
     },
   },
-  mutations: {
-    setUserId(state, payload) {
-      state.userInfo = payload;
-    },
-  },
-  // modules: {
-  //   getUserId: (state: object) => state.userInfo.user_id,
-  // },
 });
+export default useMainStore;

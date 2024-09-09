@@ -121,7 +121,6 @@
 </template>
 
 <script lang="ts">
-import authPage from "@/public/AuthPage.vue";
 import AboutProject from "@/public/components/AboutProject.vue";
 import AuthWindow from "@/public/components/AuthWindow.vue";
 import MainPageHeader from "@/public/components/PublicPageNav.vue";
@@ -129,11 +128,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "PublicPage",
-  computed: {
-    authPage() {
-      return authPage;
-    },
-  },
+  computed: {},
   components: { AuthWindow, MainPageHeader, AboutProject },
   data() {
     return {

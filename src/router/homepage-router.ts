@@ -17,6 +17,8 @@ export default [
     path: "/",
     name: "nullpage",
     component: nullPage,
+    meta: { requiresAuth: true },
+    redirect: { name: "recommendations" },
     children: [
       {
         path: "/",

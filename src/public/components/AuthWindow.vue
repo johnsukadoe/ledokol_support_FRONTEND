@@ -1,8 +1,20 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { login, register } from "@/api/apiAuth.ts";
+import useMainStore from "@/store";
+import useUserStore from "@/store/user.ts";
+import { defineComponent, nextTick } from "vue";
 
 export default defineComponent({
   name: "AuthWindow",
+  setup() {
+    const store = useMainStore();
+    const userStore = useUserStore();
+
+    return {
+      userStore,
+      store,
+    };
+  },
   props: {
     showAuth: {
       default: Boolean,
@@ -13,28 +25,35 @@ export default defineComponent({
   },
   data() {
     return {
-      user: {
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-      },
+      email: "",
+      password: "",
+      username: "",
     };
   },
   methods: {
     async authUser() {
-      console.log(this.type);
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
       if (this.type === "signup") {
-        const user = await createUser(this.user);
-        // const newUser = await users.create(
-        //   ID.unique(),
-        //   this.user.email,
-        //   this.user.phone,
-        //   undefined,
-        //   this.user.name,
-        // );
-        // console.log(newUser);
-        console.log(user);
+        const user = await register({ ...payload, username: this.username });
+      }
+      const user = await login(payload);
+      if (user.id) {
+        this.$toast.add({
+          severity: "success",
+          summary: "Успешно",
+          detail: "Вы успешно зашли",
+          life: 2000,
+        });
+
+        this.userStore.updateUser(user);
+        this.store.changeLogin(true);
+        await nextTick();
+        setTimeout(() => {
+          this.$router.push({ name: "recommendations" });
+        }, 100); // Add a small delay to test if the router push is being skipped due to timing
       }
     },
   },
@@ -55,7 +74,7 @@ export default defineComponent({
       <div
         class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3"
       >
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full" v-if="type === 'signup'">
           <label for="username">Имя пользователя</label>
           <InputText
             id="username"
@@ -63,10 +82,10 @@ export default defineComponent({
             size="small"
             class="w-full"
             placeholder="Бека"
-            v-model="user.name"
+            v-model="username"
           />
         </div>
-        <div class="flex flex-col w-full" v-if="type === 'signup'">
+        <div class="flex flex-col w-full">
           <label for="email">Почта</label>
           <InputText
             id="email"
@@ -74,27 +93,28 @@ export default defineComponent({
             size="small"
             class="w-full"
             placeholder="beka667@gmail.com"
-            v-model="user.email"
+            v-model="email"
           />
         </div>
-        <div class="flex flex-col w-full" v-if="type === 'signup'">
-          <div class="flex-auto">
-            <label for="phone">Телефон</label>
-            <InputMask
-              id="phone"
-              v-model="user.phone"
-              mask="(999) 999-9999"
-              placeholder="(777) 777-7777"
-              fluid
-              style="height: 33px"
-            />
-          </div>
-        </div>
+        <!--        <div class="flex flex-col w-full" v-if="type === 'signup'">-->
+        <!--          <div class="flex-auto">-->
+        <!--            <label for="phone">Телефон</label>-->
+        <!--            <InputMask-->
+        <!--              id="phone"-->
+        <!--              v-model="user.phone"-->
+        <!--              mask="(999) 999-9999"-->
+        <!--              placeholder="(777) 777-7777"-->
+        <!--              fluid-->
+        <!--              style="height: 33px"-->
+        <!--            />-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div class="card flex flex-col w-full">
           <label for="password">Пароль</label>
           <Password
-            v-model="user.password"
+            v-if="type === 'signup'"
+            v-model="password"
             toggleMask
             fluid
             promptLabel="Выберите пароль"
@@ -102,6 +122,14 @@ export default defineComponent({
             mediumLabel="Средняя сложность"
             strongLabel="Сложный пароль"
             style="height: 33px"
+          />
+          <Password
+            v-if="type === 'signin'"
+            v-model="password"
+            toggleMask
+            fluid
+            style="height: 33px"
+            :feedback="false"
           />
         </div>
         <div class="flex gap-x-4 justify-center items-center mt-4">
@@ -138,6 +166,8 @@ export default defineComponent({
         ></Button>
       </div>
     </div>
+
+    <Toast />
   </Dialog>
 </template>
 

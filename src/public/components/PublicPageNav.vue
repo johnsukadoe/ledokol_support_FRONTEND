@@ -29,12 +29,11 @@
 </template>
 
 <script lang="ts">
-import signComponent from "@/public/AuthPage.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "PublicPageNav",
-  components: { signComponent },
+  components: {},
   data() {
     return {};
   },

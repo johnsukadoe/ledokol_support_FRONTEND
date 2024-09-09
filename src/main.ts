@@ -1,10 +1,8 @@
-import App from "@/App.vue";
 import router from "@/router/index.js";
-import store from "@/store/index.js";
+import apiClientPlugin from "@/services/apiClientPlugin.ts";
 import "@/api/api.ts";
 import "@/style.scss";
-
-import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+import useUserStore from "@/store";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart as faUnliked } from "@fortawesome/free-regular-svg-icons";
@@ -18,13 +16,15 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
+
 import axios from "axios";
-// import ElementPlus from "element-plus";
-// import "element-plus/dist/index.css";
+import { createPinia } from "pinia";
 import PrimeVue from "primevue/config";
 import "primeicons/primeicons.css";
+import ToastService from "primevue/toastservice";
 import { createApp } from "vue";
 import VueAxios from "vue-axios";
+import App from "./App.vue";
 
 library.add(
   faArrowLeft,
@@ -84,8 +84,9 @@ const Noir = definePreset(Aura, {
 });
 
 const app = createApp(App);
-
+const pinia = createPinia();
 app.use(VueAxios, axios);
+app.use(apiClientPlugin);
 // app.use(ElementPlus);
 app.use(PrimeVue, {
   theme: {
@@ -97,11 +98,11 @@ app.use(PrimeVue, {
     },
   },
 });
-app.use(router);
-app.use(store);
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component);
-}
-app.component("font-awesome-icon", FontAwesomeIcon);
 
+app.use(ToastService);
+
+app.use(router);
+app.use(pinia);
+app.component("font-awesome-icon", FontAwesomeIcon);
+app.config.globalProperties.$userStore = useUserStore();
 app.mount("#app");

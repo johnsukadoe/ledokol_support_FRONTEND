@@ -27,6 +27,7 @@ declare module 'vue' {
     RouterPage: typeof import('./src/components/RouterPage.vue')['default']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('primevue/select')['default']
+    Toast: typeof import('primevue/toast')['default']
   }
   export interface ComponentCustomProperties {
     Ripple: typeof import('primevue/ripple')['default']

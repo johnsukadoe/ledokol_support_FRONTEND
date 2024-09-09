@@ -26,3 +26,4 @@ export const removeUser = async (user_id) => {
   });
   return data;
 };
+
