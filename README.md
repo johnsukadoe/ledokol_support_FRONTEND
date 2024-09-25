@@ -1,9 +1,11 @@
 # Ledokol
 
 ## Социальные сети и связь
-[![Telegram](https://img.shields.io/badge/Telegram-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/your_telegram)
-[![VK](https://img.shields.io/badge/VK-4A76A8?style=for-the-badge&logo=vk&logoColor=white)](https://vk.com/your_vk)
-[![Gmail](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your_email@gmail.com)
+[![Telegram](https://img.shields.io/badge/Telegram-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/ledokolovets)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/ledokolovets)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/miras-shynar-259705201/)
+[![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://tiktok.com/@ledokolovets)
+[![Gmail](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mirasshynar4234@gmail.com)
 
 ## О проекте
 **Ledokol** — это новая платформа для авторов контента, аналогичная таким сервисам как Boosty и Patreon, но с рядом уникальных возможностей, которых нет у других платформ. Мы стремимся предоставить авторам и их подписчикам инновационные инструменты взаимодействия и монетизации.
@@ -39,7 +41,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/your-repo/ledokol.git
+   git clone https://github.com/johnsukadoe/ledokol_support_FRONTEND.git
 
 2. Установите зависимости:
     ```bash
