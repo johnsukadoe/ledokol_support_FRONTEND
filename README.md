@@ -1,7 +1,42 @@
-# Vue 3 + Vite
+# Ledokol
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Социальные сети и связь
+[![Telegram](https://img.shields.io/badge/Telegram-0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/your_telegram)
+[![VK](https://img.shields.io/badge/VK-4A76A8?style=for-the-badge&logo=vk&logoColor=white)](https://vk.com/your_vk)
+[![Gmail](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your_email@gmail.com)
 
-## Recommended IDE Setup
+## О проекте
+**Ledokol** — это новая платформа для авторов контента, аналогичная таким сервисам как Boosty и Patreon, но с рядом уникальных возможностей, которых нет у других платформ. Мы стремимся предоставить авторам и их подписчикам инновационные инструменты взаимодействия и монетизации.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Основные преимущества Ledokol:
+1. **Интерактивные Таргетированные Цели** — авторы могут устанавливать конкретные цели с поддержкой подписчиков. Подписчики смогут видеть прогресс и даже влиять на цели.
+   
+2. **Геймификация Поддержки** — добавление игровых элементов (значки, баллы) за активное участие, что делает поддержку более увлекательной.
+
+3. **Интеграция с VR/AR** — создание контента для виртуальной и дополненной реальности, включая VR-туры и AR-опыты.
+
+4. **Индивидуальные Подписки на Контент** — пользователи могут подписываться на конкретные проекты, а не на весь аккаунт автора.
+
+5. **Микротранзакции и Чаевые** — поддержка небольших платежей за отдельные посты или достижения авторов.
+
+6. **Управление Профилем и Публичность** — гибкие настройки видимости контента и профиля для авторов.
+
+7. **Аналитика для Авторов** — инструменты для отслеживания вовлеченности, аудитории и доходов.
+
+8. **Поддержка Аудио и Подкастинга** — функции для записи, публикации и монетизации подкастов.
+
+9. **Интеграция механики сторисов** — авторы могут использовать сторисы для создания временных обновлений для своих подписчиков.
+
+10. **Подарок поста или видео** — возможность отправить подписанный контент другу в качестве подарка.
+
+### В планах разработки:
+- Возможность плавного перехода авторов с Boosty и Patreon.
+- Функции, которые помогут пользователям видеть, какие обновления и фичи их ждут в ближайшем будущем.
+
+## Для разработчиков
+
+### Как скачать и запустить проект
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/your-repo/ledokol.git
