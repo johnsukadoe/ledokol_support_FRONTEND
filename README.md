@@ -40,3 +40,13 @@
 1. Клонируйте репозиторий:
    ```bash
    git clone https://github.com/your-repo/ledokol.git
+
+2. Установите зависимости:
+    ```bash
+      npm install
+
+3. Запустите проект:
+    ```bash
+      npm start
+
+   
