@@ -1,8 +1,9 @@
-import router from "@/router/index.js";
+import { profile } from "@/api/apiAuth.ts";
+import privateRoute from "@/router/private/homepage-router.ts";
+import publicRoute from "@/router/public/public-page-router.ts";
 import apiClientPlugin from "@/services/apiClientPlugin.ts";
 import "@/api/api.ts";
 import "@/style.scss";
-import useUserStore from "@/store";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart as faUnliked } from "@fortawesome/free-regular-svg-icons";
@@ -24,6 +25,7 @@ import "primeicons/primeicons.css";
 import ToastService from "primevue/toastservice";
 import { createApp } from "vue";
 import VueAxios from "vue-axios";
+import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 
 library.add(
@@ -101,8 +103,17 @@ app.use(PrimeVue, {
 
 app.use(ToastService);
 
-app.use(router);
 app.use(pinia);
 app.component("font-awesome-icon", FontAwesomeIcon);
-app.config.globalProperties.$userStore = useUserStore();
+
+const isLogged = await profile();
+const routes = isLogged ? privateRoute : publicRoute;
+console.log(routes);
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+app.use(router);
 app.mount("#app");
