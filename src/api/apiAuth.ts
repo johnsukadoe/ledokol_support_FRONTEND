@@ -23,6 +23,23 @@ export const login = async (payload: ILoginUser) => {
     console.log(e);
   }
 };
+export const logout = async () => {
+  try {
+    const { data } = await apiClient.post(`${localServer}auth/logout`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const profile = async () => {
+  try {
+    const { data } = await apiClient.post(`${localServer}auth/profile`);
+    return data;
+  } catch (e) {
+    return false;
+  }
+};
 
 export const test = async () => {
   const { data } = await apiClient.post(`${localServer}auth/test`);

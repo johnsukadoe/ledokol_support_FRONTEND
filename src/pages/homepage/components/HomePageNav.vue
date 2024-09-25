@@ -1,83 +1,91 @@
 <script lang="ts">
-import { getUser } from "@/api/userAPI.ts";
+import { logout } from "@/api/apiAuth.ts";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HomePageNav",
+  setup() {
+    return {};
+  },
   data() {
     return {
-      search: "",
-      username: "",
-
-      isAdmin: false,
-
-      lang: "",
-
-      langs: [
+      links: [
         {
-          key: "ru",
-          value: "Русский",
+          title: "Главная",
+          routeName: "recommendations",
+          icon: "pi pi-home",
         },
         {
-          key: "en",
-          value: "English",
+          title: "Подписки",
+          routeName: "subscriptions",
+          icon: "pi pi-users",
         },
       ],
-      activeLink: "",
+      menuLinks: [
+        {
+          label: "Профиль",
+          routeName: "profile",
+          icon: "pi pi-user",
+        },
+        {
+          label: "Аналитика",
+          routeName: "analytics",
+          icon: "pi pi-chart-pie",
+        },
+        {
+          label: "Настройки",
+          routeName: "settings",
+          icon: "pi pi-cog",
+        },
+        {
+          label: "Выйти",
+          routeName: "logout",
+          icon: "pi pi-sign-out",
+        },
+        {
+          label: "Админ",
+          routeName: "admin",
+          icon: "pi pi-crown",
+        },
+      ],
     };
   },
-  async mounted() {
-    this.activeLink = this.$route.name;
-    let value = localStorage.getItem("lang");
-    if (value) {
-      this.lang = value;
-    }
-    if (!this.user_id()) {
-      this.$router.push({ name: "MainPage" });
-    }
-
-    await this.getUser();
-  },
   methods: {
-    async getUser() {
+    toggleMenu(event: object) {
+      console.log(event);
+      this.$refs.menu.toggle(event);
+    },
+    // async getUser() {
+    //   try {
+    //     console.log(this.user_id());
+    //     const data = await getUser(this.user_id());
+    //     this.username = data.username;
+    //     if (data.role === "admin") {
+    //       this.isAdmin = true;
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //     return;
+    //   }
+    // },
+    async logout() {
       try {
-        console.log(this.user_id());
-        const data = await getUser(this.user_id());
-        this.username = data.username;
-        if (data.role === "admin") {
-          this.isAdmin = true;
+        const data = await logout();
+        if (data) {
+          location.reload();
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        return;
+      } catch (e) {
+        console.log(e);
       }
     },
-    logout() {
-      localStorage.removeItem("user_id");
-      this.$router.push({ name: "MainPage" });
-    },
-    user_id() {
-      let value = localStorage.getItem("user_id");
-      return value;
-    },
-    postLocaleItem() {
-      localStorage.setItem("lang", this.lang);
-    },
-    emitLang() {
-      this.$emit("editLang", this.lang);
-    },
-    goTo(routeName) {
+    async goTo(routeName: string) {
+      if (routeName === "logout") {
+        await this.logout();
+        return;
+      }
       this.$router.push({
         name: routeName,
-        lang: this.lang,
-        params: { userId: this.user_id() },
       });
-      this.activeLink = routeName;
-    },
-  },
-  watch: {
-    lang() {
-      this.postLocaleItem();
     },
   },
 });
@@ -85,140 +93,92 @@ export default defineComponent({
 
 <template>
   <div>
-    <div class="header">
-      <ul>
-        <li
-          :class="{ active: activeLink === 'recommendations' }"
-          @click="goTo('recommendations')"
-        >
-          {{ lang === "en" ? "Recommendations" : "Рекомендация" }}
-        </li>
-        <li
-          :class="{ active: activeLink === 'myfeed' }"
-          @click="goTo('myfeed')"
-        >
-          {{ lang === "en" ? "My Feed" : "Моя лента" }}
-        </li>
-        <li
-          :class="{ active: activeLink === 'subscriptions' }"
-          @click="goTo('subscriptions')"
-        >
-          {{ lang === "en" ? "Subscriptions" : "Подписки" }}
-        </li>
-        <li
-          :class="{ active: activeLink === 'create' }"
-          @click="goTo('create')"
-        >
-          {{ lang === "en" ? "Create" : "Создать" }}
-        </li>
-      </ul>
+    <Menubar :model="links" class="mx-10 mt-10">
+      <template #start>
+        <router-link :to="{ name: 'recommendations' }">
+          <img src="@/assets/ledokol.png" style="width: 40px" alt="logo" />
+        </router-link>
+      </template>
+      <template #item="{ item, props, hasSubmenu, root }">
+        <div>
+          <router-link :to="{ name: item.routeName }" class="flex items-center">
+            <div class="px-3 py-2 flex items-center">
+              <span
+                :class="item.icon"
+                class="text-gray-500 mr-2"
+                style="font-size: 1.2rem"
+              />
+              <span>{{ item.title }}</span>
+            </div>
+          </router-link>
+        </div>
+      </template>
 
-      <div>
-        <el-select
-          v-model="lang"
-          class="m-2"
-          placeholder="Select"
-          size="small"
-          style="width: 50px"
-          @change="emitLang"
-        >
-          <el-option
-            v-for="item in langs"
-            :key="item.key"
-            :label="item.key"
-            :value="item.key"
+      <template #end>
+        <div class="flex items-center gap-2">
+          <IconField>
+            <InputIcon>
+              <i class="pi pi-search" />
+            </InputIcon>
+            <InputText placeholder="Поиск" size="small" />
+          </IconField>
+
+          <Button
+            label="Стать креатором"
+            severity="info"
+            icon="pi pi-sparkles"
+            size="small"
           />
-        </el-select>
-        <el-dropdown size="large" trigger="click">
-          <el-avatar> {{ this.username }} </el-avatar>
 
-          <template #dropdown>
-            <el-dropdown-menu class="flex flex-col">
-              <el-dropdown-item @click="goTo('profile')">
-                {{ lang === "en" ? "Profile" : "Профиль" }}
-              </el-dropdown-item>
-              <el-dropdown-item @click="goTo('settings')">
-                {{ lang === "en" ? "Settings" : "Настройки" }}
-              </el-dropdown-item>
-              <el-dropdown-item @click="logout">
-                {{ lang === "en" ? "Logout" : "Выйти" }}
-              </el-dropdown-item>
-              <el-dropdown-item v-if="isAdmin" @click="goTo('admin')">
-                {{ lang === "en" ? "Admin" : "Админ" }}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </div>
-    </div>
-    <!--    <div class="flex flex-row justify-center items-center align-middle" v-if="activeLink==='recommendations' || activeLink==='myfeed' || activeLink==='subscriptions' ">-->
-    <!--      <el-autocomplete-->
-    <!--          v-model="search"-->
-    <!--          placeholder="Please input"-->
-    <!--          @select="selectSearchResults"-->
-    <!--          class="w-3/4 mt-5"-->
-    <!--      />-->
-    <!--      <el-button class="mt-5 ml-3">-->
-    <!--        <font-awesome-icon icon="fa-solid fa-magnifying-glass" round/>-->
-    <!--      </el-button>-->
-    <!--    </div>-->
+          <div
+            class="hover:bg-gray-200 flex items-center justify-center mx-1"
+            style="
+              border-radius: 50%;
+              width: 35px;
+              height: 35px;
+              transition: 0.3s ease;
+            "
+          >
+            <OverlayBadge
+              severity="danger"
+              class="flex items-center mx-3 notifications cursor-pointer"
+              style=""
+            >
+              <i class="pi pi-bell" style="font-size: 1.3rem" />
+            </OverlayBadge>
+          </div>
+
+          <Avatar
+            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+            shape="circle"
+            @click="toggleMenu"
+          />
+          <TieredMenu
+            ref="menu"
+            id="overlay_tmenu"
+            :model="menuLinks"
+            popup
+            style="cursor: pointer"
+          >
+            <template #item="{ item, props, hasSubmenu }">
+              <div class="p-1 flex items-center" @click="goTo(item.routeName)">
+                <span :class="item.icon" class="mr-2 ml-1 text-gray-500"></span>
+                <span>
+                  {{ item.label }}
+                </span>
+              </div>
+            </template>
+          </TieredMenu>
+        </div>
+      </template>
+    </Menubar>
 
     <router-view></router-view>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.header {
-  background-color: white; /* Белый фон */
-  padding: 15px;
-  color: #333; /* Цвет текста (черный или другой, который вы хотите) */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd; /* Добавляем подчеркивание для отличия от основного контента */
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-li {
-  margin-right: 20px;
-  cursor: pointer;
-  color: #333; /* Цвет обычных ссылок */
-}
-
-li:hover {
-  color: #ffd700; /* Цвет при наведении на ссылку */
-}
-
-.active {
-  color: #ffe869; /* Цвет активной ссылки */
-  cursor: default;
-}
-
-.active:hover {
-  color: #ffe869; /* Цвет активной ссылки при наведении */
-}
-
-/* Стили для поиска и кнопки */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-bar {
-  width: 75%; /* Ширина поисковой строки */
-  margin-top: 15px;
-}
-
-.search-button {
-  margin-top: 15px;
-  margin-left: 10px;
+.p-inputicon {
+  margin-top: -10px;
 }
 </style>

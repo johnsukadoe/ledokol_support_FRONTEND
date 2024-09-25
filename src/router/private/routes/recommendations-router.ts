@@ -9,6 +9,5 @@ export default [
     name: "recommendations",
     component: recommendationsPage,
     props: true,
-    meta: { requiresAuth: true },
   },
 ];

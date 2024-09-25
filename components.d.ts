@@ -15,10 +15,13 @@ declare module 'vue' {
     Divider: typeof import('primevue/divider')['default']
     Floatlabel: typeof import('primevue/floatlabel')['default']
     FloatLabel: typeof import('primevue/floatlabel')['default']
+    IconField: typeof import('primevue/iconfield')['default']
     Image: typeof import('primevue/image')['default']
+    InputIcon: typeof import('primevue/inputicon')['default']
     InputMask: typeof import('primevue/inputmask')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Menubar: typeof import('primevue/menubar')['default']
+    OverlayBadge: typeof import('primevue/overlaybadge')['default']
     Panel: typeof import('primevue/panel')['default']
     Password: typeof import('primevue/password')['default']
     PostForm: typeof import('./src/components/PostForm.vue')['default']
@@ -27,7 +30,9 @@ declare module 'vue' {
     RouterPage: typeof import('./src/components/RouterPage.vue')['default']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('primevue/select')['default']
+    TieredMenu: typeof import('primevue/tieredmenu')['default']
     Toast: typeof import('primevue/toast')['default']
+    Toolbar: typeof import('primevue/toolbar')['default']
   }
   export interface ComponentCustomProperties {
     Ripple: typeof import('primevue/ripple')['default']

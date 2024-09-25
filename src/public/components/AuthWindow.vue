@@ -1,18 +1,15 @@
 <script lang="ts">
 import { login, register } from "@/api/apiAuth.ts";
-import useMainStore from "@/store";
 import useUserStore from "@/store/user.ts";
-import { defineComponent, nextTick } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "AuthWindow",
   setup() {
-    const store = useMainStore();
     const userStore = useUserStore();
 
     return {
       userStore,
-      store,
     };
   },
   props: {
@@ -49,11 +46,8 @@ export default defineComponent({
         });
 
         this.userStore.updateUser(user);
-        this.store.changeLogin(true);
-        await nextTick();
-        setTimeout(() => {
-          this.$router.push({ name: "recommendations" });
-        }, 100); // Add a small delay to test if the router push is being skipped due to timing
+        // this.$router.push({ name: "recommendations" });
+        location.reload();
       }
     },
   },
