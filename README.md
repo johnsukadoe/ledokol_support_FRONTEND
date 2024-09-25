@@ -41,7 +41,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/johnsukadoe/ledokol_support_FRONTEND.git
+      git clone https://github.com/johnsukadoe/ledokol_support_FRONTEND.git
 
 2. Установите зависимости:
     ```bash
