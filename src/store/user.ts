@@ -15,10 +15,11 @@ const useUserStore = defineStore("user", {
     user: {} as User,
   }),
   actions: {
-    updateUser(updatedUser: any) {
+    updateUser(updatedUser: User) {
       this.user = { ...updatedUser };
     },
   },
+  persist: true,
 });
 
 export default useUserStore;

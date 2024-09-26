@@ -8,17 +8,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Avatar: typeof import('primevue/avatar')['default']
-    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
     Chip: typeof import('primevue/chip')['default']
+    ConfirmDialog: typeof import('primevue/confirmdialog')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
-    Floatlabel: typeof import('primevue/floatlabel')['default']
-    FloatLabel: typeof import('primevue/floatlabel')['default']
+    Drawer: typeof import('primevue/drawer')['default']
     IconField: typeof import('primevue/iconfield')['default']
-    Image: typeof import('primevue/image')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
-    InputMask: typeof import('primevue/inputmask')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Menubar: typeof import('primevue/menubar')['default']
     OverlayBadge: typeof import('primevue/overlaybadge')['default']
@@ -32,9 +29,5 @@ declare module 'vue' {
     Select: typeof import('primevue/select')['default']
     TieredMenu: typeof import('primevue/tieredmenu')['default']
     Toast: typeof import('primevue/toast')['default']
-    Toolbar: typeof import('primevue/toolbar')['default']
-  }
-  export interface ComponentCustomProperties {
-    Ripple: typeof import('primevue/ripple')['default']
   }
 }

@@ -1,14 +1,26 @@
 <script lang="ts">
 import { logout } from "@/api/apiAuth.ts";
+import { createCreator } from "@/api/apiCreator.ts";
+import useUserStore from "@/store/user.ts";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HomePageNav",
   setup() {
-    return {};
+    const userStore = useUserStore();
+    return { userStore };
   },
   data() {
     return {
+      creatorBtn: false,
+
+      terms:
+        '<p class="terms text-sm mt-1">\n' +
+        "      Нажимая <strong>'Стать автором'</strong>, вы соглашаетесь с \n" +
+        '      <a href="#" target="_blank" class="text-sky-700">условиями использования</a> и \n' +
+        '      <a href="#" target="_blank" class="text-sky-700">политикой конфиденциальности</a>.\n' +
+        "    </p>",
+
       links: [
         {
           title: "Главная",
@@ -51,23 +63,34 @@ export default defineComponent({
     };
   },
   methods: {
+    async createCreator() {
+      const data = await createCreator({ userId: this.userStore.user.id });
+
+      if (data) {
+        this.$toast.add({
+          severity: "success",
+          summary: "Успешно",
+          detail: "Вы успешно стали креатором!",
+          life: 3000,
+        });
+      }
+    },
+    handleCreator() {
+      this.$confirm.require({
+        group: "creator",
+        message:
+          "Вы хотите создать профиль креатора? Это действие позволит вам публиковать эксклюзивный контент и получать поддержку от ваших подписчиков.",
+        header: "Создание профиля креатора",
+        accept: () => {
+          this.createCreator();
+        },
+        reject: () => {},
+      });
+    },
     toggleMenu(event: object) {
       console.log(event);
       this.$refs.menu.toggle(event);
     },
-    // async getUser() {
-    //   try {
-    //     console.log(this.user_id());
-    //     const data = await getUser(this.user_id());
-    //     this.username = data.username;
-    //     if (data.role === "admin") {
-    //       this.isAdmin = true;
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //     return;
-    //   }
-    // },
     async logout() {
       try {
         const data = await logout();
@@ -128,6 +151,7 @@ export default defineComponent({
             severity="info"
             icon="pi pi-sparkles"
             size="small"
+            @click="handleCreator"
           />
 
           <div
@@ -174,6 +198,41 @@ export default defineComponent({
     </Menubar>
 
     <router-view></router-view>
+    <Toast></Toast>
+
+    <ConfirmDialog group="creator">
+      <template #container="{ message, acceptCallback, rejectCallback }">
+        <div
+          class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded"
+        >
+          <div
+            class="rounded-full bg-black text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
+          >
+            <i class="pi pi-question text-5xl" style="color: #fff"></i>
+          </div>
+          <span class="font-bold text-2xl block mb-2 mt-6">{{
+            message.header
+          }}</span>
+          <p class="mb-0">{{ message.message }}</p>
+          <p class="mb-0" v-html="terms"></p>
+          <div class="flex items-center gap-2 mt-6">
+            <Button
+              label="Отмена"
+              outlined
+              @click="rejectCallback"
+              class="w-32"
+              size="small"
+            ></Button>
+            <Button
+              label="Стать креатором"
+              @click="acceptCallback"
+              class="w-full"
+              size="small"
+            ></Button>
+          </div>
+        </div>
+      </template>
+    </ConfirmDialog>
   </div>
 </template>
 

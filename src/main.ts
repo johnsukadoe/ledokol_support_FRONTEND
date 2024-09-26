@@ -2,9 +2,7 @@ import { profile } from "@/api/apiAuth.ts";
 import privateRoute from "@/router/private/homepage-router.ts";
 import publicRoute from "@/router/public/public-page-router.ts";
 import apiClientPlugin from "@/services/apiClientPlugin.ts";
-import "@/api/api.ts";
 import "@/style.scss";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart as faUnliked } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -20,8 +18,11 @@ import Aura from "@primevue/themes/aura";
 
 import axios from "axios";
 import { createPinia } from "pinia";
+
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import PrimeVue from "primevue/config";
 import "primeicons/primeicons.css";
+import ConfirmationService from "primevue/confirmationservice";
 import ToastService from "primevue/toastservice";
 import { createApp } from "vue";
 import VueAxios from "vue-axios";
@@ -102,8 +103,10 @@ app.use(PrimeVue, {
 });
 
 app.use(ToastService);
+app.use(ConfirmationService);
 
 app.use(pinia);
+pinia.use(piniaPluginPersistedstate);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 const isLogged = await profile();
@@ -114,6 +117,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-
 app.use(router);
 app.mount("#app");
