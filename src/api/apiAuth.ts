@@ -1,14 +1,9 @@
 import apiClient from "@/services/apiClient.ts";
 import type { ILoginUser, IRegisterUser } from "@/types/registerUser.ts";
 
-const localServer = "http://localhost:3000/api/";
-
 export const register = async (payload: IRegisterUser) => {
   try {
-    const { data } = await apiClient.post(
-      `${localServer}auth/register`,
-      payload,
-    );
+    const { data } = await apiClient.post(`auth/register`, payload);
     return data;
   } catch (e) {
     console.log(e);
@@ -17,7 +12,9 @@ export const register = async (payload: IRegisterUser) => {
 
 export const login = async (payload: ILoginUser) => {
   try {
-    const { data } = await apiClient.post(`${localServer}auth/login`, payload);
+    console.log("trying");
+    const { data } = await apiClient.post(`auth/login`, payload);
+    console.log(data);
     return data;
   } catch (e) {
     console.log(e);
@@ -25,7 +22,7 @@ export const login = async (payload: ILoginUser) => {
 };
 export const logout = async () => {
   try {
-    const { data } = await apiClient.post(`${localServer}auth/logout`);
+    const { data } = await apiClient.post(`auth/logout`);
     return data;
   } catch (e) {
     console.log(e);
@@ -34,7 +31,7 @@ export const logout = async () => {
 
 export const profile = async () => {
   try {
-    const { data } = await apiClient.post(`${localServer}auth/profile`);
+    const { data } = await apiClient.post(`auth/profile`);
     return data;
   } catch (e) {
     return false;
@@ -42,6 +39,6 @@ export const profile = async () => {
 };
 
 export const test = async () => {
-  const { data } = await apiClient.post(`${localServer}auth/test`);
+  const { data } = await apiClient.post(`auth/test`);
   return data;
 };

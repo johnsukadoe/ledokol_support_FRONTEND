@@ -1,10 +1,8 @@
 import apiClient from "@/services/apiClient.ts";
 
-const localServer = "http://localhost:3000/api/";
-
 export const createPost = async (formData) => {
   try {
-    const data = await apiClient.post(`${localServer}post/`, formData, {
+    const data = await apiClient.post(`post/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
