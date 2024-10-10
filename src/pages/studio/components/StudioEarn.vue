@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "HomePage",
+  name: "StudioEarn",
 });
 </script>
 
 <template>
-  <div>homepage</div>
+  <div>earn</div>
 </template>
 
 <style scoped lang="scss"></style>

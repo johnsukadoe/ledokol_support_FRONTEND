@@ -86,7 +86,7 @@ export default defineComponent({
             type="email"
             size="small"
             class="w-full"
-            placeholder="beka667@gmail.com"
+            placeholder="user@gmail.com"
             v-model="email"
           />
         </div>

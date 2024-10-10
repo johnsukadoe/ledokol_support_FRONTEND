@@ -1,8 +1,10 @@
 import { profile } from "@/api/apiAuth.ts";
 import privateRoute from "@/router/private/homepage-router.ts";
+import studioRouter from "@/router/private/routes/studio-router.ts";
 import publicRoute from "@/router/public/public-page-router.ts";
 import apiClientPlugin from "@/services/apiClientPlugin.ts";
 import "@/style.scss";
+import useUserStore from "@/store/user.ts";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHeart as faUnliked } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -111,11 +113,29 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 
 const isLogged = await profile();
 const routes = isLogged ? privateRoute : publicRoute;
-console.log(routes);
-
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+if (isLogged) {
+  const userStore = useUserStore();
+  if (userStore.user.role !== "USER") {
+    const existingRoute = router
+      .getRoutes()
+      .find((route) => route.name === studioRouter[0].name);
+
+    studioRouter.forEach((route) => {
+      const existingRoute = router
+        .getRoutes()
+        .find((r) => r.name === route.name);
+      if (!existingRoute) {
+        router.addRoute(route);
+        console.log("Studio route added:", route);
+      }
+    });
+  }
+}
+
 app.use(router);
 app.mount("#app");

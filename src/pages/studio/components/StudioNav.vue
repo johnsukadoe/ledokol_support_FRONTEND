@@ -1,14 +1,24 @@
 <script lang="ts">
 import { logout } from "@/api/apiAuth.ts";
-import { createCreator } from "@/api/apiCreator.ts";
+import StudioCreatePost from "@/pages/studio/components/StudioCreatePost.vue";
+import studioRouter from "@/router/private/routes/studio-router.ts";
 import useUserStore from "@/store/user.ts";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HomePageNav",
+  components: { StudioCreatePost },
   setup() {
     const userStore = useUserStore();
     return { userStore };
+  },
+  created() {
+    const userStore = useUserStore();
+    if (userStore.user.role !== "USER") {
+      studioRouter.forEach((route) => {
+        this.$router.addRoute(route);
+      });
+    }
   },
   data() {
     return {
@@ -28,9 +38,19 @@ export default defineComponent({
           icon: "pi pi-home",
         },
         {
-          title: "Подписки",
-          routeName: "subscriptions",
-          icon: "pi pi-users",
+          title: "Контент",
+          routeName: "contents",
+          icon: "pi pi-video",
+        },
+        {
+          title: "Аналитика",
+          routeName: "analytics",
+          icon: "pi pi-chart-pie",
+        },
+        {
+          title: "Зарабатывать",
+          routeName: "earn",
+          icon: "pi pi-dollar",
         },
       ],
       menuLinks: [
@@ -58,29 +78,8 @@ export default defineComponent({
     };
   },
   methods: {
-    async createCreator() {
-      const data = await createCreator({ userId: this.userStore.user.id });
-
-      if (data) {
-        this.$toast.add({
-          severity: "success",
-          summary: "Успешно",
-          detail: "Вы успешно стали креатором!",
-          life: 3000,
-        });
-      }
-    },
-    handleCreator() {
-      this.$confirm.require({
-        group: "creator",
-        message:
-          "Вы хотите создать профиль креатора? Это действие позволит вам публиковать эксклюзивный контент и получать поддержку от ваших подписчиков.",
-        header: "Создание профиля креатора",
-        accept: () => {
-          this.createCreator();
-        },
-        reject: () => {},
-      });
+    handleCreatePost() {
+      this.$refs.drawer.open();
     },
     toggleMenu(event: object) {
       console.log(event);
@@ -101,14 +100,9 @@ export default defineComponent({
         await this.logout();
         return;
       }
-
-      const routeOptions: any = { name: routeName };
-
-      if (routeName === "profile") {
-        routeOptions.params = { userId: this.userStore.user.id };
-      }
-
-      this.$router.push(routeOptions);
+      this.$router.push({
+        name: routeName,
+      });
     },
   },
 });
@@ -119,11 +113,7 @@ export default defineComponent({
     <Menubar :model="links" class="mx-10 mt-10">
       <template #start>
         <router-link :to="{ name: 'recommendations' }">
-          <img
-            src="../../../assets/ledokol.png"
-            style="width: 40px"
-            alt="logo"
-          />
+          <img src="@/assets/ledokol.png" style="width: 40px" alt="logo" />
         </router-link>
       </template>
       <template #item="{ item, props, hasSubmenu, root }">
@@ -133,7 +123,10 @@ export default defineComponent({
             class="flex items-center"
             :class="{ active: item.routeName === $route.name }"
           >
-            <div class="px-3 py-2 flex items-center">
+            <div
+              class="px-3 py-2 flex items-center"
+              @click="goTo(item.routeName)"
+            >
               <span
                 :class="item.icon"
                 class="text-gray-500 mr-2"
@@ -151,28 +144,16 @@ export default defineComponent({
             <InputIcon>
               <i class="pi pi-search" />
             </InputIcon>
-            <InputText placeholder="Поиск" size="small" />
+            <InputText placeholder="Поиск по своему каналу" size="small" />
           </IconField>
 
           <Button
-            v-if="userStore.user.role === 'USER'"
-            label="Стать креатором"
-            severity="info"
-            icon="pi pi-sparkles"
-            size="small"
-            @click="handleCreator"
-          />
-          <Button
-            v-if="
-              ['CREATOR', 'ADMIN'].includes(userStore.user.role) &&
-              $route.name !== 'studioWrapper'
-            "
-            label="Ledokol студия"
+            label="Создать"
             severity="primary"
+            icon="pi pi-plus"
             size="small"
-            @click="goTo('studioWrapper')"
+            @click="handleCreatePost"
           />
-
           <div
             class="hover:bg-gray-200 flex items-center justify-center mx-1"
             style="
@@ -191,17 +172,11 @@ export default defineComponent({
             </OverlayBadge>
           </div>
 
-          <div @click="toggleMenu" class="cursor-pointer">
-            <Avatar
-              v-if="userStore.user.avatar_url"
-              :image="userStore.user.avatar_url"
-            />
-            <Avatar
-              v-else
-              :label="userStore.user.username[0].toLocaleUpperCase()"
-            />
-          </div>
-
+          <Avatar
+            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+            shape="circle"
+            @click="toggleMenu"
+          />
           <TieredMenu
             ref="menu"
             id="overlay_tmenu"
@@ -226,6 +201,7 @@ export default defineComponent({
       <router-view></router-view>
     </div>
     <Toast></Toast>
+    <StudioCreatePost ref="drawer"></StudioCreatePost>
 
     <ConfirmDialog group="creator">
       <template #container="{ message, acceptCallback, rejectCallback }">
