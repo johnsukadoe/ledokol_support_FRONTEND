@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios'
 // https://backend-nkyn.onrender.com/api/
-
+//http://localhost:3000/api/
 const apiClient = axios.create({
   baseURL: "http://localhost:3000/api/",
-  timeout: 5000,
+  timeout: 50000,
   headers: {
     "Content-Type": "application/json",
   },

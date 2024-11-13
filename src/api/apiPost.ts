@@ -14,3 +14,12 @@ export const createPost = async (formData) => {
     console.log(e);
   }
 };
+
+export const getAllPosts = async () => {
+  try {
+    const { data } = await apiClient.get("post/");
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};

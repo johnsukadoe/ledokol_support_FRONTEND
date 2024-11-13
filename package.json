@@ -20,6 +20,7 @@
     "node-appwrite": "^13.0.0",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^4.0.2",
+    "postcss-nesting": "^13.0.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.1",
     "vue": "^3.3.11",
